@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест 1: Windows Forms - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture10.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture10.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="index.html" class="nav-btn active">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="section-header">
+    <h2 class="section-title green">📝 Тест 10: Лекція 10</h2>
+    <p class="section-subtitle">20 питань на перевірку знань</p>
+  </div>
+
+  <div class="test-container" id="testContainer"></div>
+
+  <div class="lecture-nav" style="max-width:800px;margin:20px auto;">
+    <a href="index.html" class="nav-arrow prev">← До списку тестів</a>
+    <a href="../winforms/lecture10.html" class="nav-arrow">Лекція →</a>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/tests.js"></script>
+  <script>
+    const questions = [
+      {question:"Що таке Windows Forms?",answers:["Бібліотека GUI для .NET","Операційна система","Компілятор C++","Веб-фреймворк"],correct:0},
+      {question:"На якій платформі базується Windows Forms?",answers:[".NET Framework/.NET","Java Virtual Machine","Python Runtime","Node.js"],correct:0},
+      {question:"Яку мову використовують для WinForms у Visual Studio?",answers:["C++/CLI","Чистий C++","Python","Java"],correct:0},
+      {question:"Що означає CLI у C++/CLI?",answers:["Common Language Infrastructure","Command Line Interface","Compiler Language Integration","Client Library Interface"],correct:0},
+      {question:"Який клас є базовим для всіх форм?",answers:["System::Windows::Forms::Form","Application","Control","Window"],correct:0},
+      {question:"Яка подія викликається при завантаженні форми?",answers:["Load","Click","Resize","Paint"],correct:0},
+      {question:"Який метод запускає форму?",answers:["Application::Run()","Form::Start()","Form::Show()","Form::Open()"],correct:0},
+      {question:"Яка властивість встановлює заголовок вікна?",answers:["Text","Title","Caption","Header"],correct:0},
+      {question:"Що робить Application::EnableVisualStyles()?",answers:["Вмикає візуальні стилі Windows","Вимикає графіку","Запускає анімацію","Налаштовує тему"],correct:0},
+      {question:"Як зробити форму дочірньою (MDI)?",answers:["Встановити MdiParent","Викликати SetParent()","Використати Dock","Встановити IsChild"],correct:0},
+      {question:"Яка подія викликається перед закриттям форми?",answers:["FormClosing","Closing","Exit","Shutdown"],correct:0},
+      {question:"Як центрувати форму на екрані?",answers:["StartPosition = CenterScreen","Location = Center","Align = Center","Position = Middle"],correct:0},
+      {question:"Що таке Control у WinForms?",answers:["Базовий клас для елементів управління","Тільки кнопка","Тільки текстове поле","Тип даних"],correct:0},
+      {question:"Як приховати форму?",answers:["Hide()","Close()","Minimize()","Disable()"],correct:0},
+      {question:"Яка властивість керує стилем рамки форми?",answers:["FormBorderStyle","Border","FrameStyle","WindowStyle"],correct:0},
+      {question:"Що означає modality у ShowDialog()?",answers:["Блокує інші вікна додатку","Показує у фоні","Закриває автоматично","Прозоре вікно"],correct:0},
+      {question:"Який тип має властивість Size?",answers:["Size (Width, Height)","Point (X, Y)","Rectangle","int"],correct:0},
+      {question:"Як зробити форму поверх інших вікон?",answers:["TopMost = true","AlwaysOnTop = true","BringToFront()","ZOrder = 0"],correct:0},
+      {question:"Що таке Designer у Visual Studio?",answers:["Візуальний редактор форм","Компілятор","Налагоджувач","Система контролю версій"],correct:0},
+      {question:"Як встановити прозорість форми?",answers:["Opacity","Transparency","Alpha","SeeThrough"],correct:0}
+    ];
+    TestEngine.init(questions);
+  </script>
+</body>
+</html>
