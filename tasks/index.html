@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практичні завдання - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="index.html" class="nav-btn active">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="section-header">
+    <h2 class="section-title green">🎯 Практичні завдання</h2>
+    <p class="section-subtitle">Завдання різної складності для закріплення матеріалу</p>
+  </div>
+
+  <div class="task-container">
+    <div class="cards-grid" id="taskCards"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+  <script>
+    const tasks = [
+      {lecture:1,title:"Вступ до C++",easy:"Напишіть програму, що виводить ваше ім'я та вік.",medium:"Дослідіть 5 різних компіляторів C++ та порівняйте їх.",hard:"Створіть презентацію про еволюцію C++ з C++98 до C++20."},
+      {lecture:2,title:"Середовище розробки",easy:"Встановіть Visual Studio Code та налаштуйте компілятор.",medium:"Налаштуйте tasks.json та launch.json для зручної збірки.",hard:"Встановіть та налаштуйте CMake для вашого проєкту."},
+      {lecture:3,title:"Структура програми",easy:"Напишіть програму з коментарями, що пояснюють кожен рядок.",medium:"Створіть програму з декількома файлами (main.cpp, utils.cpp, utils.h).",hard:"Створіть Makefile для багатофайлового проєкту."},
+      {lecture:4,title:"Типи даних",easy:"Оголосіть змінні всіх базових типів та виведіть їх розміри.",medium:"Напишіть програму для конвертації температури (C/F/K).",hard:"Створіть власний тип для комплексних чисел без використання struct."},
+      {lecture:5,title:"Введення/виведення",easy:"Напишіть програму-калькулятор, що запитує два числа та операцію.",medium:"Створіть форматовану таблицю множення.",hard:"Реалізуйте введення даних з валідацією (перевірка типів)."},
+      {lecture:6,title:"Арифметичні оператори",easy:"Обчисліть площу трикутника за формулою Герона.",medium:"Напишіть програму для розв'язання квадратного рівняння.",hard:"Реалізуйте обчислення факторіалу з перевіркою переповнення."},
+      {lecture:7,title:"Оператори порівняння",easy:"Визначте, чи є рік високосним.",medium:"Напишіть програму для сортування трьох чисел.",hard:"Реалізуйте перевірку на просте число оптимізованим способом."},
+      {lecture:8,title:"Умовний оператор if-else",easy:"Визначте категорію віку (дитина, підліток, дорослий, пенсіонер).",medium:"Створіть просте текстове меню з 5 опціями.",hard:"Реалізуйте калькулятор ІМТ з розширеними рекомендаціями."},
+      {lecture:9,title:"switch",easy:"Конвертер днів тижня з номера в назву (українською та англійською).",medium:"Калькулятор з вибором операції через switch.",hard:"Меню налаштувань з вкладеними підменю."},
+      {lecture:10,title:"Тернарний оператор",easy:"Визначте більше з двох чисел (тернарним оператором).",medium:"Переведіть оцінку 0-100 у систему A/B/C/D/F.",hard:"Реалізуйте вкладений тернарний оператор для визначення знаку зодіаку."},
+    ];
+
+    const colors = ['#00f0ff', '#ff00ff', '#9d00ff', '#00ff88'];
+    const container = document.getElementById('taskCards');
+    let html = '';
+
+    tasks.forEach((t, idx) => {
+      const color = colors[idx % 4];
+      html += '<div class="card">';
+      html += '<div class="card-icon" style="border-color:' + color + '">' + t.lecture + '</div>';
+      html += '<h3>Лекція ' + t.lecture + ': ' + t.title + '</h3>';
+      html += '<div class="task-difficulty difficulty-easy">Легке</div>';
+      html += '<p>' + t.easy + '</p>';
+      html += '<div class="task-difficulty difficulty-medium">Середнє</div>';
+      html += '<p>' + t.medium + '</p>';
+      html += '<div class="task-difficulty difficulty-hard">Складне</div>';
+      html += '<p>' + t.hard + '</p>';
+      html += '<a href="../lectures/lecture' + t.lecture + '.html" class="nav-arrow" style="margin-top:10px;">Перейти до лекції →</a>';
+      html += '</div>';
+    });
+
+    container.innerHTML = html;
+  </script>
+</body>
+</html>

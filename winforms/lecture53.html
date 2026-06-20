@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 53: Чат-додаток: мережева програма - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 53: Чат-додаток: мережева програма</h1>
+      <p class="lecture-topic">TCP/IP, сокети, сервер та клієнт, повідомлення</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 53 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf53.png" alt="Чат" class="lecture-image">
+
+<h2>53.1 Проєкт: Чат-додаток</h2>
+<pre><code>// ===== Сервер =====
+public ref class ChatServerForm : public Form {
+private:
+    TcpListener^ listener;
+    List&lt;TcpClient^&gt;^ clients;
+    TextBox^ txtLog;
+    Thread^ listenThread;
+    bool running = false;
+
+public:
+    ChatServerForm() {
+        this->Text = "Chat Server";
+        this->Size = Size(500, 400);
+
+        txtLog = gcnew TextBox();
+        txtLog->Multiline = true;
+        txtLog->Dock = DockStyle::Fill;
+        txtLog->ReadOnly = true;
+        txtLog->ScrollBars = ScrollBars::Vertical;
+        this->Controls->Add(txtLog);
+
+        clients = gcnew List&lt;TcpClient^&gt;();
+
+        Button^ btnStart = gcnew Button();
+        btnStart->Text = "Запустити сервер";
+        btnStart->Dock = DockStyle::Bottom;
+        btnStart->Click += gcnew EventHandler(
+            this, &ChatServerForm::OnStart);
+        this->Controls->Add(btnStart);
+    }
+
+    void OnStart(Object^ s, EventArgs^ e) {
+        running = true;
+        listener = gcnew TcpListener(IPAddress::Any, 5000);
+        listener->Start();
+        Log("Сервер запущено на порту 5000");
+
+        listenThread = gcnew Thread(
+            gcnew ThreadStart(this, &ChatServerForm::Listen));
+        listenThread->IsBackground = true;
+        listenThread->Start();
+    }
+
+    void Listen() {
+        while (running) {
+            try {
+                TcpClient^ client = listener->AcceptTcpClient();
+                clients->Add(client);
+                Log("Клієнт підключився");
+
+                Thread^ clientThread = gcnew Thread(
+                    gcnew ParameterizedThreadStart(
+                        this, &ChatServerForm::HandleClient));
+                clientThread->IsBackground = true;
+                clientThread->Start(client);
+            } catch(...) {}
+        }
+    }
+
+    void HandleClient(Object^ obj) {
+        TcpClient^ client = (TcpClient^)obj;
+        NetworkStream^ stream = client->GetStream();
+        array&lt;Byte&gt;^ buffer = gcnew array&lt;Byte&gt;(1024);
+
+        while (running) {
+            try {
+                int bytes = stream->Read(buffer, 0, buffer->Length);
+                if (bytes > 0) {
+                    String^ msg = Encoding::UTF8->GetString(buffer, 0, bytes);
+                    Log("Отримано: " + msg);
+                    Broadcast(msg, client);
+                }
+            } catch(...) { break; }
+        }
+
+        clients->Remove(client);
+        client->Close();
+    }
+
+    void Broadcast(String^ message, TcpClient^ sender) {
+        array&lt;Byte&gt;^ data = Encoding::UTF8->GetBytes(message);
+        for each(TcpClient^ client in clients) {
+            if (client != sender) {
+                try {
+                    client->GetStream()->Write(data, 0, data->Length);
+                } catch(...) {}
+            }
+        }
+    }
+
+    void Log(String^ message) {
+        if (txtLog->InvokeRequired) {
+            txtLog->Invoke(gcnew Action&lt;String^&gt;(
+                this, &ChatServerForm::Log), message);
+            return;
+        }
+        txtLog->AppendText(DateTime::Now.ToString("HH:mm:ss") 
+            + " - " + message + "\r\n");
+    }
+};
+
+// ===== Клієнт =====
+public ref class ChatClientForm : public Form {
+private:
+    TcpClient^ client;
+    NetworkStream^ stream;
+    TextBox^ txtChat, ^txtInput;
+    Thread^ readThread;
+
+public:
+    ChatClientForm() {
+        this->Text = "Chat Client";
+        this->Size = Size(500, 500);
+
+        txtChat = gcnew TextBox();
+        txtChat->Multiline = true;
+        txtChat->ReadOnly = true;
+        txtChat->ScrollBars = ScrollBars::Vertical;
+        txtChat->Dock = DockStyle::Fill;
+        this->Controls->Add(txtChat);
+
+        Panel^ panel = gcnew Panel();
+        panel->Dock = DockStyle::Bottom;
+        panel->Height = 40;
+
+        txtInput = gcnew TextBox();
+        txtInput->Location = Point(5, 8);
+        txtInput->Size = Size(380, 25);
+        txtInput->KeyDown += gcnew KeyEventHandler(
+            this, &ChatClientForm::OnKeyDown);
+
+        Button^ btnSend = gcnew Button();
+        btnSend->Text = "Надіслати";
+        btnSend->Location = Point(395, 7);
+        btnSend->Click += gcnew EventHandler(
+            this, &ChatClientForm::OnSend);
+
+        panel->Controls->Add(txtInput);
+        panel->Controls->Add(btnSend);
+        this->Controls->Add(panel);
+
+        Connect("127.0.0.1", 5000);
+    }
+
+    void Connect(String^ ip, int port) {
+        client = gcnew TcpClient();
+        client->Connect(ip, port);
+        stream = client->GetStream();
+        AddMessage("Підключено до сервера!");
+
+        readThread = gcnew Thread(
+            gcnew ThreadStart(this, &ChatClientForm::ReadMessages));
+        readThread->IsBackground = true;
+        readThread->Start();
+    }
+
+    void ReadMessages() {
+        array&lt;Byte&gt;^ buffer = gcnew array&lt;Byte&gt;(1024);
+        while (true) {
+            try {
+                int bytes = stream->Read(buffer, 0, buffer->Length);
+                if (bytes > 0) {
+                    String^ msg = Encoding::UTF8->GetString(buffer, 0, bytes);
+                    AddMessage(msg);
+                }
+            } catch(...) { break; }
+        }
+    }
+
+    void OnSend(Object^ s, EventArgs^ e) {
+        String^ msg = txtInput->Text;
+        if (msg->Length > 0) {
+            array&lt;Byte&gt;^ data = Encoding::UTF8->GetBytes(msg);
+            stream->Write(data, 0, data->Length);
+            txtInput->Clear();
+        }
+    }
+
+    void OnKeyDown(Object^ s, KeyEventArgs^ e) {
+        if (e->KeyCode == Keys::Enter) OnSend(s, e);
+    }
+
+    void AddMessage(String^ msg) {
+        if (txtChat->InvokeRequired) {
+            txtChat->Invoke(gcnew Action&lt;String^&gt;(
+                this, &ChatClientForm::AddMessage), msg);
+            return;
+        }
+        txtChat->AppendText(msg + "\r\n");
+    }
+};</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture52.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 53 з 55</div>
+      <a href="lecture54.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

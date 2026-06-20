@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 2: Створення першої форми - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 2: Створення першої форми</h1>
+      <p class="lecture-topic">Form клас, властивості, події, дизайнер Visual Studio</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 2 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf2.png" alt="Перша форма" class="lecture-image">
+
+<h2>2.1 Клас Form</h2>
+<p>Form — це контейнер верхнього рівня для елементів управління. Кожна форма представляє вікно додатка.</p>
+
+<pre><code>// Створення форми програмно
+Form^ mainForm = gcnew Form();
+
+// Основні властивості
+mainForm->Text = "Головна форма";           // Заголовок
+mainForm->Width = 1024;                      // Ширина
+mainForm->Height = 768;                      // Висота
+mainForm->StartPosition = FormStartPosition::CenterScreen;
+mainForm->FormBorderStyle = FormBorderStyle::Sizable;
+mainForm->MaximizeBox = true;
+mainForm->MinimizeBox = true;
+mainForm->BackColor = Color::FromArgb(30, 30, 60);
+mainForm->ForeColor = Color::White;
+
+// Показ форми
+mainForm->Show();
+
+// Або модальний показ
+dialog->ShowDialog();</code></pre>
+
+<h2>2.2 Властивості форми</h2>
+<table>
+  <tr><th>Властивість</th><th>Опис</th><th>Тип</th></tr>
+  <tr><td>Text</td><td>Заголовок вікна</td><td>String^</td></tr>
+  <tr><td>Size</td><td>Розмір (Width, Height)</td><td>Size</td></tr>
+  <tr><td>Location</td><td>Позиція (X, Y)</td><td>Point</td></tr>
+  <tr><td>StartPosition</td><td>Початкова позиція</td><td>FormStartPosition</td></tr>
+  <tr><td>FormBorderStyle</td><td>Стиль рамки</td><td>FormBorderStyle</td></tr>
+  <tr><td>BackColor</td><td>Колір фону</td><td>Color</td></tr>
+  <tr><td>Opacity</td><td>Прозорість (0-1)</td><td>double</td></tr>
+  <tr><td>TopMost</td><td>Поверх інших вікон</td><td>bool</td></tr>
+</table>
+
+<h2>2.3 Події форми</h2>
+<pre><code>// Обробка подій
+mainForm->Load += gcnew EventHandler(this, &MainForm::OnFormLoad);
+mainForm->FormClosing += gcnew FormClosingEventHandler(this, &MainForm::OnFormClosing);
+mainForm->Resize += gcnew EventHandler(this, &MainForm::OnFormResize);
+
+// Лямбда-обробник (C++11)
+mainForm->Click += gcnew EventHandler(
+    [](Object^ sender, EventArgs^ e) {
+        MessageBox::Show("Клік!");
+    }
+);</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture1.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 2 з 55</div>
+      <a href="lecture3.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

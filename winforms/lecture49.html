@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 49: Гра Хрестики-нулики: проєкт - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 49: Гра Хрестики-нулики: проєкт</h1>
+      <p class="lecture-topic">Ігрова логіка, перевірка перемоги, UI</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 49 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf49.png" alt="Хрестики-нулики" class="lecture-image">
+
+<h2>49.1 Проєкт: Хрестики-нулики</h2>
+<pre><code>public ref class TicTacToeForm : public Form {
+private:
+    array&lt;Button^, 2&gt;^ buttons;
+    array&lt;array&lt;int&gt;^&gt;^ board;
+    int currentPlayer = 1; // 1 = X, 2 = O
+    int movesCount = 0;
+    Label^ lblStatus;
+    bool gameOver = false;
+
+public:
+    TicTacToeForm() {
+        this->Text = "Хрестики-нулики";
+        this->Size = Size(400, 500);
+        this->BackColor = Color::FromArgb(20, 20, 40);
+
+        buttons = gcnew array&lt;Button^, 2&gt;(3, 3);
+        board = gcnew array&lt;array&lt;int&gt;^&gt;(3);
+        for (int i = 0; i < 3; i++) board[i] = gcnew array&lt;int&gt;(3);
+
+        // Ігрове поле
+        for (int row = 0; row < 3; row++) {
+            for (int col = 0; col < 3; col++) {
+                Button^ btn = gcnew Button();
+                btn->Size = Size(100, 100);
+                btn->Location = Point(20 + col * 105, 20 + row * 105);
+                btn->Font = gcnew Font("Arial", 36, FontStyle::Bold);
+                btn->Tag = gcnew array&lt;int&gt;{row, col};
+                btn->FlatStyle = FlatStyle::Flat;
+                btn->FlatAppearance->BorderSize = 2;
+                btn->FlatAppearance->BorderColor = Color::Cyan;
+                btn->BackColor = Color::FromArgb(40, 40, 60);
+                btn->ForeColor = Color::White;
+                btn->Click += gcnew EventHandler(
+                    this, &TicTacToeForm::OnCellClick);
+                buttons[row, col] = btn;
+                this->Controls->Add(btn);
+            }
+        }
+
+        // Статус
+        lblStatus = gcnew Label();
+        lblStatus->Text = "Хід гравця X";
+        lblStatus->Location = Point(20, 340);
+        lblStatus->Size = Size(300, 30);
+        lblStatus->ForeColor = Color::Cyan;
+        lblStatus->Font = gcnew Font("Segoe UI", 14);
+        this->Controls->Add(lblStatus);
+
+        // Кнопка нової гри
+        Button^ btnNew = gcnew Button();
+        btnNew->Text = "Нова гра";
+        btnNew->Location = Point(20, 380);
+        btnNew->Size = Size(100, 40);
+        btnNew->Click += gcnew EventHandler(
+            this, &TicTacToeForm::OnNewGame);
+        this->Controls->Add(btnNew);
+    }
+
+    void OnCellClick(Object^ s, EventArgs^ e) {
+        if (gameOver) return;
+
+        Button^ btn = (Button^)s;
+        array&lt;int&gt;^ pos = (array&lt;int&gt;^)btn->Tag;
+        int row = pos[0], col = pos[1];
+
+        if (board[row][col] != 0) return;
+
+        board[row][col] = currentPlayer;
+        btn->Text = (currentPlayer == 1) ? "X" : "O";
+        btn->ForeColor = (currentPlayer == 1) ? Color::Cyan : Color::Magenta;
+        movesCount++;
+
+        if (CheckWinner(row, col)) {
+            lblStatus->Text = String::Format("Гравець {0} переміг!",
+                (currentPlayer == 1) ? "X" : "O");
+            gameOver = true;
+            return;
+        }
+
+        if (movesCount == 9) {
+            lblStatus->Text = "Нічия!";
+            gameOver = true;
+            return;
+        }
+
+        currentPlayer = (currentPlayer == 1) ? 2 : 1;
+        lblStatus->Text = String::Format("Хід гравця {0}",
+            (currentPlayer == 1) ? "X" : "O");
+    }
+
+    bool CheckWinner(int row, int col) {
+        int p = board[row][col];
+        // Рядок
+        if (board[row][0] == p && board[row][1] == p && board[row][2] == p) return true;
+        // Стовпець
+        if (board[0][col] == p && board[1][col] == p && board[2][col] == p) return true;
+        // Діагоналі
+        if (board[0][0] == p && board[1][1] == p && board[2][2] == p) return true;
+        if (board[0][2] == p && board[1][1] == p && board[2][0] == p) return true;
+        return false;
+    }
+
+    void OnNewGame(Object^ s, EventArgs^ e) {
+        for (int r = 0; r < 3; r++)
+            for (int c = 0; c < 3; c++) {
+                board[r][c] = 0;
+                buttons[r, c]->Text = "";
+            }
+        currentPlayer = 1;
+        movesCount = 0;
+        gameOver = false;
+        lblStatus->Text = "Хід гравця X";
+    }
+};</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture48.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 49 з 55</div>
+      <a href="lecture50.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 14: DataGridView для даних - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 14: DataGridView для даних</h1>
+      <p class="lecture-topic">Таблиця даних, колонки, рядки, прив'язка даних</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 14 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf14.png" alt="DataGridView" class="lecture-image">
+
+<h2>14.1 DataGridView</h2>
+<pre><code>// Таблиця даних
+DataGridView^ dgv = gcnew DataGridView();
+dgv->Location = Point(20, 20);
+dgv->Size = Size(600, 300);
+dgv->AllowUserToAddRows = true;
+dgv->AllowUserToDeleteRows = true;
+dgv->SelectionMode = DataGridViewSelectionMode::FullRowSelect;
+dgv->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
+dgv->BackgroundColor = Color::FromArgb(30, 30, 50);
+dgv->DefaultCellStyle->BackColor = Color::FromArgb(40, 40, 60);
+dgv->DefaultCellStyle->ForeColor = Color::White;
+dgv->ColumnHeadersDefaultCellStyle->BackColor = Color::FromArgb(0, 100, 200);
+
+// Додавання колонок
+dgv->Columns->Add("ID", "№");
+dgv->Columns->Add("Name", "Ім'я");
+dgv->Columns->Add("Age", "Вік");
+dgv->Columns->Add("City", "Місто");
+
+// Додавання рядків
+dgv->Rows->Add(gcnew array&lt;Object^&gt; { 1, "Іван", 25, "Київ" });
+dgv->Rows->Add(gcnew array&lt;Object^&gt; { 2, "Марія", 30, "Львів" });
+dgv->Rows->Add(gcnew array&lt;Object^&gt; { 3, "Петро", 22, "Одеса" });</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture13.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 14 з 55</div>
+      <a href="lecture15.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

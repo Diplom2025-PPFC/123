@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 12: Дерево TreeView - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 12: Дерево TreeView</h1>
+      <p class="lecture-topic">Ієрархічні дані, вузли, розгортання, події</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 12 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf12.png" alt="TreeView" class="lecture-image">
+
+<h2>12.1 TreeView</h2>
+<pre><code>// Дерево
+TreeView^ tree = gcnew TreeView();
+tree->Location = Point(20, 20);
+tree->Size = Size(250, 300);
+tree->BackColor = Color::FromArgb(30, 30, 50);
+tree->ForeColor = Color::White;
+
+// Створення вузлів
+TreeNode^ root = gcnew TreeNode("Комп'ютер");
+TreeNode^ drives = gcnew TreeNode("Диски");
+drives->Nodes->Add(gcnew TreeNode("C:\"));
+drives->Nodes->Add(gcnew TreeNode("D:\"));
+root->Nodes->Add(drives);
+
+TreeNode^ docs = gcnew TreeNode("Документи");
+docs->Nodes->Add(gcnew TreeNode("Робота"));
+docs->Nodes->Add(gcnew TreeNode("Особисте"));
+root->Nodes->Add(docs);
+
+tree->Nodes->Add(root);
+tree->ExpandAll();
+
+// Подія AfterSelect
+tree->AfterSelect += gcnew TreeViewEventHandler(
+    this, &MyForm::OnTreeSelect);</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture11.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 12 з 55</div>
+      <a href="lecture13.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

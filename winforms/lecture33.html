@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 33: Форми: власні діалоги - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 33: Форми: власні діалоги</h1>
+      <p class="lecture-topic">ShowDialog, DialogResult, передача даних</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 33 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf33.png" alt="Діалоги" class="lecture-image">
+
+<h2>33.1 Власний діалог</h2>
+<pre><code>// Діалогова форма
+public ref class InputDialog : public Form {
+public:
+    TextBox^ txtInput;
+    Button^ btnOK;
+    Button^ btnCancel;
+
+    property String^ InputText {
+        String^ get() { return txtInput->Text; }
+    }
+
+    InputDialog() {
+        this->Text = "Введіть дані";
+        this->Size = Size(400, 150);
+        this->FormBorderStyle = FormBorderStyle::FixedDialog;
+        this->MaximizeBox = false;
+        this->MinimizeBox = false;
+        this->StartPosition = FormStartPosition::CenterParent;
+
+        txtInput = gcnew TextBox();
+        txtInput->Location = Point(20, 20);
+        txtInput->Size = Size(340, 25);
+
+        btnOK = gcnew Button();
+        btnOK->Text = "OK";
+        btnOK->Location = Point(200, 60);
+        btnOK->DialogResult = DialogResult::OK;
+
+        btnCancel = gcnew Button();
+        btnCancel->Text = "Скасувати";
+        btnCancel->Location = Point(280, 60);
+        btnCancel->DialogResult = DialogResult::Cancel;
+
+        this->Controls->Add(txtInput);
+        this->Controls->Add(btnOK);
+        this->Controls->Add(btnCancel);
+        this->AcceptButton = btnOK;
+        this->CancelButton = btnCancel;
+    }
+};
+
+// Використання
+InputDialog^ dlg = gcnew InputDialog();
+if (dlg->ShowDialog(this) == DialogResult::OK) {
+    MessageBox::Show("Введено: " + dlg->InputText);
+}</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture32.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 33 з 55</div>
+      <a href="lecture34.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

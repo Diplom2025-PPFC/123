@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 54: База даних студентів: проєкт - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 54: База даних студентів: проєкт</h1>
+      <p class="lecture-topic">CRUD операції, пошук, фільтрація</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 54 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf54.png" alt="База даних студентів" class="lecture-image">
+
+<h2>54.1 Проєкт: База даних студентів</h2>
+<pre><code>public ref class StudentDBForm : public Form {
+private:
+    DataGridView^ dgv;
+    TextBox^ txtName, ^txtAge, ^txtGroup, ^txtSearch;
+    Button^ btnAdd, ^btnEdit, ^btnDelete, ^btnSearch;
+    SqlConnection^ conn;
+    int selectedId = -1;
+
+public:
+    StudentDBForm() {
+        this->Text = "База даних студентів";
+        this->Size = Size(900, 600);
+
+        // З'єднання
+        String^ connStr = "Server=(localdb)\MSSQLLocalDB;"
+            "Database=StudentDB;Integrated Security=true;";
+        conn = gcnew SqlConnection(connStr);
+
+        // Таблиця
+        dgv = gcnew DataGridView();
+        dgv->Location = Point(10, 10);
+        dgv->Size = Size(860, 300);
+        dgv->AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode::Fill;
+        dgv->SelectionMode = DataGridViewSelectionMode::FullRowSelect;
+        dgv->SelectionChanged += gcnew EventHandler(
+            this, &StudentDBForm::OnRowSelect);
+        this->Controls->Add(dgv);
+
+        // Поля вводу
+        Panel^ inputPanel = gcnew Panel();
+        inputPanel->Location = Point(10, 320);
+        inputPanel->Size = Size(500, 200);
+
+        AddLabel(inputPanel, "Ім'я:", 10, 10);
+        txtName = AddTextBox(inputPanel, 120, 10);
+
+        AddLabel(inputPanel, "Вік:", 10, 40);
+        txtAge = AddTextBox(inputPanel, 120, 40);
+
+        AddLabel(inputPanel, "Група:", 10, 70);
+        txtGroup = AddTextBox(inputPanel, 120, 70);
+
+        btnAdd = AddButton(inputPanel, "Додати", 10, 110,
+            gcnew EventHandler(this, &StudentDBForm::OnAdd));
+        btnEdit = AddButton(inputPanel, "Редагувати", 120, 110,
+            gcnew EventHandler(this, &StudentDBForm::OnEdit));
+        btnDelete = AddButton(inputPanel, "Видалити", 230, 110,
+            gcnew EventHandler(this, &StudentDBForm::OnDelete));
+
+        this->Controls->Add(inputPanel);
+
+        // Пошук
+        Panel^ searchPanel = gcnew Panel();
+        searchPanel->Location = Point(520, 320);
+        searchPanel->Size = Size(350, 100);
+
+        txtSearch = gcnew TextBox();
+        txtSearch->Location = Point(10, 10);
+        txtSearch->Size = Size(200, 25);
+        searchPanel->Controls->Add(txtSearch);
+
+        btnSearch = gcnew Button();
+        btnSearch->Text = "Пошук";
+        btnSearch->Location = Point(220, 10);
+        btnSearch->Click += gcnew EventHandler(
+            this, &StudentDBForm::OnSearch);
+        searchPanel->Controls->Add(btnSearch);
+
+        this->Controls->Add(searchPanel);
+
+        LoadData();
+    }
+
+    void LoadData() {
+        SqlDataAdapter^ adapter = gcnew SqlDataAdapter(
+            "SELECT * FROM Students", conn);
+        DataTable^ table = gcnew DataTable();
+        adapter->Fill(table);
+        dgv->DataSource = table;
+    }
+
+    void OnAdd(Object^ s, EventArgs^ e) {
+        SqlCommand^ cmd = gcnew SqlCommand(
+            "INSERT INTO Students (Name, Age, GroupName) VALUES (@name, @age, @group)",
+            conn);
+        cmd->Parameters->AddWithValue("@name", txtName->Text);
+        cmd->Parameters->AddWithValue("@age", Convert::ToInt32(txtAge->Text));
+        cmd->Parameters->AddWithValue("@group", txtGroup->Text);
+
+        conn->Open();
+        cmd->ExecuteNonQuery();
+        conn->Close();
+        LoadData();
+        ClearFields();
+    }
+
+    void OnEdit(Object^ s, EventArgs^ e) {
+        if (selectedId < 0) return;
+        SqlCommand^ cmd = gcnew SqlCommand(
+            "UPDATE Students SET Name=@name, Age=@age, GroupName=@group WHERE Id=@id",
+            conn);
+        cmd->Parameters->AddWithValue("@id", selectedId);
+        cmd->Parameters->AddWithValue("@name", txtName->Text);
+        cmd->Parameters->AddWithValue("@age", Convert::ToInt32(txtAge->Text));
+        cmd->Parameters->AddWithValue("@group", txtGroup->Text);
+
+        conn->Open();
+        cmd->ExecuteNonQuery();
+        conn->Close();
+        LoadData();
+    }
+
+    void OnDelete(Object^ s, EventArgs^ e) {
+        if (selectedId < 0) return;
+        if (MessageBox::Show("Видалити запис?", "Підтвердження",
+            MessageBoxButtons::YesNo) == DialogResult::Yes) {
+            SqlCommand^ cmd = gcnew SqlCommand(
+                "DELETE FROM Students WHERE Id=@id", conn);
+            cmd->Parameters->AddWithValue("@id", selectedId);
+            conn->Open();
+            cmd->ExecuteNonQuery();
+            conn->Close();
+            LoadData();
+            ClearFields();
+        }
+    }
+
+    void OnSearch(Object^ s, EventArgs^ e) {
+        SqlDataAdapter^ adapter = gcnew SqlDataAdapter(
+            "SELECT * FROM Students WHERE Name LIKE @search", conn);
+        adapter->SelectCommand->Parameters->AddWithValue(
+            "@search", "%" + txtSearch->Text + "%");
+        DataTable^ table = gcnew DataTable();
+        adapter->Fill(table);
+        dgv->DataSource = table;
+    }
+
+    void OnRowSelect(Object^ s, EventArgs^ e) {
+        if (dgv->SelectedRows->Count > 0) {
+            selectedId = Convert::ToInt32(dgv->SelectedRows[0]->Cells["Id"]->Value);
+            txtName->Text = dgv->SelectedRows[0]->Cells["Name"]->Value->ToString();
+            txtAge->Text = dgv->SelectedRows[0]->Cells["Age"]->Value->ToString();
+            txtGroup->Text = dgv->SelectedRows[0]->Cells["GroupName"]->Value->ToString();
+        }
+    }
+
+    void ClearFields() {
+        txtName->Clear();
+        txtAge->Clear();
+        txtGroup->Clear();
+        selectedId = -1;
+    }
+
+    Label^ AddLabel(Panel^ p, String^ text, int x, int y) {
+        Label^ lbl = gcnew Label();
+        lbl->Text = text;
+        lbl->Location = Point(x, y);
+        lbl->AutoSize = true;
+        p->Controls->Add(lbl);
+        return lbl;
+    }
+
+    TextBox^ AddTextBox(Panel^ p, int x, int y) {
+        TextBox^ txt = gcnew TextBox();
+        txt->Location = Point(x, y);
+        txt->Size = Size(200, 25);
+        p->Controls->Add(txt);
+        return txt;
+    }
+
+    Button^ AddButton(Panel^ p, String^ text, int x, int y, EventHandler^ handler) {
+        Button^ btn = gcnew Button();
+        btn->Text = text;
+        btn->Location = Point(x, y);
+        btn->Click += handler;
+        p->Controls->Add(btn);
+        return btn;
+    }
+};</code></pre>
+
+<h2>54.2 Структура бази даних</h2>
+<pre><code>-- SQL для створення таблиці
+CREATE DATABASE StudentDB;
+GO
+USE StudentDB;
+GO
+CREATE TABLE Students (
+    Id INT PRIMARY KEY IDENTITY(1,1),
+    Name NVARCHAR(100) NOT NULL,
+    Age INT,
+    GroupName NVARCHAR(50),
+    Email NVARCHAR(100),
+    Phone NVARCHAR(20),
+    EnrollmentDate DATE DEFAULT GETDATE()
+);</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture53.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 54 з 55</div>
+      <a href="lecture55.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

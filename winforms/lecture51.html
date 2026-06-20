@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 51: Графічний редактор: проєкт - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 51: Графічний редактор: проєкт</h1>
+      <p class="lecture-topic">Малювання, пензлі, ластик, збереження</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 51 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf51.png" alt="Графічний редактор" class="lecture-image">
+
+<h2>51.1 Проєкт: Графічний редактор</h2>
+<pre><code>public ref class PaintForm : public Form {
+private:
+    Panel^ canvas;
+    Bitmap^ bitmap;
+    Graphics^ canvasGraphics;
+    bool isDrawing = false;
+    Point lastPoint;
+    Color currentColor = Color::White;
+    int brushSize = 3;
+    String^ currentTool = "Pencil"; // Pencil, Brush, Eraser, Line, Rect, Ellipse
+    Point shapeStart;
+
+public:
+    PaintForm() {
+        this->Text = "Графічний редактор";
+        this->Size = Size(900, 650);
+
+        // Панель інструментів
+        FlowLayoutPanel^ toolbar = gcnew FlowLayoutPanel();
+        toolbar->Dock = DockStyle::Top;
+        toolbar->Height = 50;
+        toolbar->BackColor = Color::FromArgb(40, 40, 60);
+
+        // Кнопки інструментів
+        array&lt;String^&gt;^ tools = {"Pencil", "Brush", "Eraser", "Line", "Rect", "Ellipse"};
+        for each(String^ tool in tools) {
+            Button^ btn = gcnew Button();
+            btn->Text = tool;
+            btn->Width = 70;
+            btn->Click += gcnew EventHandler(
+                this, &PaintForm::OnToolSelect);
+            toolbar->Controls->Add(btn);
+        }
+
+        // Кнопки кольорів
+        array&lt;Color&gt; colors = {Color::Black, Color::Red, Color::Green,
+            Color::Blue, Color::Yellow, Color::White, Color::Cyan, Color::Magenta};
+        for each(Color c in colors) {
+            Button^ btn = gcnew Button();
+            btn->Width = 30; btn->Height = 30;
+            btn->BackColor = c;
+            btn->Click += gcnew EventHandler(
+                this, &PaintForm::OnColorSelect);
+            toolbar->Controls->Add(btn);
+        }
+
+        // Розмір пензля
+        NumericUpDown^ nudSize = gcnew NumericUpDown();
+        nudSize->Minimum = 1; nudSize->Maximum = 50; nudSize->Value = 3;
+        nudSize->ValueChanged += gcnew EventHandler(
+            this, &PaintForm::OnSizeChanged);
+        toolbar->Controls->Add(gcnew Label(){Text = "Розмір:"});
+        toolbar->Controls->Add(nudSize);
+
+        this->Controls->Add(toolbar);
+
+        // Полотно
+        canvas = gcnew Panel();
+        canvas->Dock = DockStyle::Fill;
+        canvas->BackColor = Color::White;
+
+        bitmap = gcnew Bitmap(800, 500);
+        canvasGraphics = Graphics::FromImage(bitmap);
+        canvasGraphics->Clear(Color::White);
+
+        canvas->Paint += gcnew PaintEventHandler(
+            this, &PaintForm::OnCanvasPaint);
+        canvas->MouseDown += gcnew MouseEventHandler(
+            this, &PaintForm::OnMouseDown);
+        canvas->MouseMove += gcnew MouseEventHandler(
+            this, &PaintForm::OnMouseMove);
+        canvas->MouseUp += gcnew MouseEventHandler(
+            this, &PaintForm::OnMouseUp);
+
+        this->Controls->Add(canvas);
+    }
+
+    void OnCanvasPaint(Object^ s, PaintEventArgs^ e) {
+        e->Graphics->DrawImage(bitmap, 0, 0);
+    }
+
+    void OnMouseDown(Object^ s, MouseEventArgs^ e) {
+        isDrawing = true;
+        lastPoint = Point(e->X, e->Y);
+        shapeStart = Point(e->X, e->Y);
+    }
+
+    void OnMouseMove(Object^ s, MouseEventArgs^ e) {
+        if (!isDrawing) return;
+
+        Pen^ pen = gcnew Pen(currentColor, brushSize);
+        pen->StartCap = Drawing2D::LineCap::Round;
+        pen->EndCap = Drawing2D::LineCap::Round;
+
+        if (currentTool == "Pencil" || currentTool == "Brush") {
+            canvasGraphics->DrawLine(pen, lastPoint, Point(e->X, e->Y));
+            lastPoint = Point(e->X, e->Y);
+            canvas->Invalidate();
+        }
+        else if (currentTool == "Eraser") {
+            Pen^ erasePen = gcnew Pen(Color::White, brushSize * 2);
+            erasePen->StartCap = Drawing2D::LineCap::Round;
+            erasePen->EndCap = Drawing2D::LineCap::Round;
+            canvasGraphics->DrawLine(erasePen, lastPoint, Point(e->X, e->Y));
+            lastPoint = Point(e->X, e->Y);
+            canvas->Invalidate();
+        }
+
+        delete pen;
+    }
+
+    void OnMouseUp(Object^ s, MouseEventArgs^ e) {
+        if (!isDrawing) return;
+        isDrawing = false;
+
+        Pen^ pen = gcnew Pen(currentColor, brushSize);
+        Point end = Point(e->X, e->Y);
+
+        if (currentTool == "Line") {
+            canvasGraphics->DrawLine(pen, shapeStart, end);
+        }
+        else if (currentTool == "Rect") {
+            int x = Math::Min(shapeStart.X, end.X);
+            int y = Math::Min(shapeStart.Y, end.Y);
+            int w = Math::Abs(end.X - shapeStart.X);
+            int h = Math::Abs(end.Y - shapeStart.Y);
+            canvasGraphics->DrawRectangle(pen, x, y, w, h);
+        }
+        else if (currentTool == "Ellipse") {
+            int x = Math::Min(shapeStart.X, end.X);
+            int y = Math::Min(shapeStart.Y, end.Y);
+            int w = Math::Abs(end.X - shapeStart.X);
+            int h = Math::Abs(end.Y - shapeStart.Y);
+            canvasGraphics->DrawEllipse(pen, x, y, w, h);
+        }
+
+        canvas->Invalidate();
+        delete pen;
+    }
+
+    void OnToolSelect(Object^ s, EventArgs^ e) {
+        currentTool = ((Button^)s)->Text;
+    }
+    void OnColorSelect(Object^ s, EventArgs^ e) {
+        currentColor = ((Button^)s)->BackColor;
+    }
+    void OnSizeChanged(Object^ s, EventArgs^ e) {
+        brushSize = (int)((NumericUpDown^)s)->Value;
+    }
+};</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture50.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 51 з 55</div>
+      <a href="lecture52.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

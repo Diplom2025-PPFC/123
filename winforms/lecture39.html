@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 39: Друк: PrintDocument - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 39: Друк: PrintDocument</h1>
+      <p class="lecture-topic">PrintDialog, PrintPreview, друк тексту/графіки</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 39 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf39.png" alt="Друк" class="lecture-image">
+
+<h2>39.1 PrintDocument</h2>
+<pre><code>// Об'єкт друку
+PrintDocument^ pd = gcnew PrintDocument();
+pd->PrintPage += gcnew PrintPageEventHandler(
+    this, &MyForm::OnPrintPage);
+
+// Діалог друку
+PrintDialog^ dlg = gcnew PrintDialog();
+dlg->Document = pd;
+if (dlg->ShowDialog() == DialogResult::OK) {
+    pd->Print();
+}
+
+// Попередній перегляд
+PrintPreviewDialog^ preview = gcnew PrintPreviewDialog();
+preview->Document = pd;
+preview->ShowDialog();
+
+// Обробник друку
+void OnPrintPage(Object^ sender, PrintPageEventArgs^ e) {
+    Graphics^ g = e->Graphics;
+    Font^ font = gcnew Font("Arial", 12);
+
+    // Друк тексту
+    g->DrawString(textBox->Text, font, Brushes::Black,
+        e->MarginBounds);
+
+    // Друк графіки
+    g->DrawRectangle(Pens::Black, 100, 100, 200, 150);
+
+    e->HasMorePages = false;
+}</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture38.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 39 з 55</div>
+      <a href="lecture40.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

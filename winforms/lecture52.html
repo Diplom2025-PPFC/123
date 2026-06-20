@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 52: Браузер: практичний проєкт - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 52: Браузер: практичний проєкт</h1>
+      <p class="lecture-topic">Власний браузер з адресним рядком, навігацією</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 52 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf52.png" alt="Браузер" class="lecture-image">
+
+<h2>52.1 Проєкт: Браузер</h2>
+<pre><code>public ref class BrowserForm : public Form {
+private:
+    AxWMPLib::AxWindowsMediaPlayer^ wmp; // або WebView2
+    TextBox^ txtUrl;
+    Button^ btnGo, ^btnBack, ^btnForward, ^btnRefresh, ^btnHome;
+    ProgressBar^ progress;
+    TabControl^ tabs;
+
+public:
+    BrowserForm() {
+        this->Text = "Neon Browser";
+        this->Size = Size(1200, 800);
+
+        // Панель навігації
+        Panel^ navPanel = gcnew Panel();
+        navPanel->Dock = DockStyle::Top;
+        navPanel->Height = 40;
+        navPanel->BackColor = Color::FromArgb(30, 30, 50);
+
+        btnBack = CreateNavButton("◀", 5);
+        btnForward = CreateNavButton("▶", 35);
+        btnRefresh = CreateNavButton("↻", 65);
+        btnHome = CreateNavButton("🏠", 95);
+
+        txtUrl = gcnew TextBox();
+        txtUrl->Location = Point(130, 8);
+        txtUrl->Size = Size(800, 25);
+        txtUrl->Text = "https://www.google.com";
+
+        btnGo = gcnew Button();
+        btnGo->Text = "Go";
+        btnGo->Location = Point(940, 8);
+        btnGo->Click += gcnew EventHandler(this, &BrowserForm::OnNavigate);
+
+        navPanel->Controls->Add(btnBack);
+        navPanel->Controls->Add(btnForward);
+        navPanel->Controls->Add(btnRefresh);
+        navPanel->Controls->Add(btnHome);
+        navPanel->Controls->Add(txtUrl);
+        navPanel->Controls->Add(btnGo);
+
+        this->Controls->Add(navPanel);
+
+        // Вкладки
+        tabs = gcnew TabControl();
+        tabs->Dock = DockStyle::Fill;
+        AddNewTab("https://www.google.com");
+        this->Controls->Add(tabs);
+
+        // Обробники
+        txtUrl->KeyDown += gcnew KeyEventHandler(
+            this, &BrowserForm::OnUrlKeyDown);
+    }
+
+    Button^ CreateNavButton(String^ text, int x) {
+        Button^ btn = gcnew Button();
+        btn->Text = text;
+        btn->Location = Point(x, 8);
+        btn->Size = Size(25, 25);
+        btn->FlatStyle = FlatStyle::Flat;
+        return btn;
+    }
+
+    void AddNewTab(String^ url) {
+        TabPage^ page = gcnew TabPage("Нова вкладка");
+
+        WebBrowser^ wb = gcnew WebBrowser();
+        wb->Dock = DockStyle::Fill;
+        wb->ScriptErrorsSuppressed = true;
+        wb->DocumentCompleted += gcnew WebBrowserDocumentCompletedEventHandler(
+            this, &BrowserForm::OnDocumentCompleted);
+        wb->Navigating += gcnew WebBrowserNavigatingEventHandler(
+            this, &BrowserForm::OnNavigating);
+
+        wb->Navigate(url);
+        page->Controls->Add(wb);
+        tabs->TabPages->Add(page);
+    }
+
+    void OnNavigate(Object^ s, EventArgs^ e) {
+        WebBrowser^ wb = GetCurrentBrowser();
+        if (wb != nullptr) wb->Navigate(txtUrl->Text);
+    }
+
+    void OnUrlKeyDown(Object^ s, KeyEventArgs^ e) {
+        if (e->KeyCode == Keys::Enter) OnNavigate(s, e);
+    }
+
+    WebBrowser^ GetCurrentBrowser() {
+        if (tabs->SelectedTab == nullptr) return nullptr;
+        for each(Control^ c in tabs->SelectedTab->Controls) {
+            if (dynamic_cast&lt;WebBrowser^&gt;(c) != nullptr)
+                return (WebBrowser^)c;
+        }
+        return nullptr;
+    }
+
+    void OnDocumentCompleted(Object^ s, WebBrowserDocumentCompletedEventArgs^ e) {
+        WebBrowser^ wb = (WebBrowser^)s;
+        tabs->SelectedTab->Text = wb->DocumentTitle;
+        if (wb == GetCurrentBrowser()) {
+            txtUrl->Text = wb->Url->ToString();
+        }
+    }
+};</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture51.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 52 з 55</div>
+      <a href="lecture53.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

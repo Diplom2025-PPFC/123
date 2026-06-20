@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 50: Гра Змійка: практичний проєкт - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 50: Гра Змійка: практичний проєкт</h1>
+      <p class="lecture-topic">Ігровий цикл, керування змійкою, колізії, рахунок</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 50 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf50.png" alt="Змійка" class="lecture-image">
+
+<h2>50.1 Проєкт: Змійка</h2>
+<pre><code>public ref class SnakeForm : public Form {
+private:
+    Panel^ gamePanel;
+    Timer^ gameTimer;
+    List&lt;Point&gt;^ snake;
+    Point food;
+    Point direction;
+    int cellSize = 20;
+    int score = 0;
+    bool gameRunning = false;
+    Random^ rand;
+    Label^ lblScore;
+
+public:
+    SnakeForm() {
+        this->Text = "Змійка";
+        this->Size = Size(640, 520);
+        this->FormBorderStyle = FormBorderStyle::FixedSingle;
+        this->BackColor = Color::FromArgb(10, 10, 20);
+
+        // Панель гри
+        gamePanel = gcnew Panel();
+        gamePanel->Location = Point(10, 50);
+        gamePanel->Size = Size(600, 400);
+        gamePanel->BackColor = Color::FromArgb(20, 30, 20);
+        gamePanel->BorderStyle = BorderStyle::FixedSingle;
+        gamePanel->Paint += gcnew PaintEventHandler(
+            this, &SnakeForm::OnGamePaint);
+        this->Controls->Add(gamePanel);
+
+        // Рахунок
+        lblScore = gcnew Label();
+        lblScore->Text = "Рахунок: 0";
+        lblScore->Location = Point(10, 10);
+        lblScore->ForeColor = Color::Lime;
+        lblScore->Font = gcnew Font("Consolas", 16);
+        this->Controls->Add(lblScore);
+
+        // Таймер
+        gameTimer = gcnew Timer();
+        gameTimer->Interval = 100;
+        gameTimer->Tick += gcnew EventHandler(
+            this, &SnakeForm::OnGameTick);
+
+        // Керування
+        this->KeyDown += gcnew KeyEventHandler(
+            this, &SnakeForm::OnKeyDown);
+
+        rand = gcnew Random();
+        InitGame();
+    }
+
+    void InitGame() {
+        snake = gcnew List&lt;Point&gt;();
+        snake->Add(Point(15, 10));
+        snake->Add(Point(14, 10));
+        snake->Add(Point(13, 10));
+        direction = Point(1, 0);
+        score = 0;
+        SpawnFood();
+        gameRunning = true;
+        gameTimer->Start();
+    }
+
+    void SpawnFood() {
+        food = Point(rand->Next(30), rand->Next(20));
+    }
+
+    void OnGameTick(Object^ s, EventArgs^ e) {
+        // Нова голова
+        Point head = snake[0];
+        Point newHead = Point(head.X + direction.X, head.Y + direction.Y);
+
+        // Перевірка зіткнення зі стіною
+        if (newHead.X < 0 || newHead.X >= 30 || newHead.Y < 0 || newHead.Y >= 20) {
+            GameOver();
+            return;
+        }
+
+        // Перевірка зіткнення з собою
+        for (int i = 0; i < snake->Count; i++) {
+            if (snake[i] == newHead) {
+                GameOver();
+                return;
+            }
+        }
+
+        snake->Insert(0, newHead);
+
+        // Перевірка їжі
+        if (newHead == food) {
+            score += 10;
+            lblScore->Text = "Рахунок: " + score;
+            SpawnFood();
+        } else {
+            snake->RemoveAt(snake->Count - 1);
+        }
+
+        gamePanel->Invalidate();
+    }
+
+    void OnGamePaint(Object^ s, PaintEventArgs^ e) {
+        Graphics^ g = e->Graphics;
+
+        // Малювання змійки
+        for (int i = 0; i < snake->Count; i++) {
+            Color c = (i == 0) ? Color::Lime : Color::Green;
+            g->FillRectangle(gcnew SolidBrush(c),
+                snake[i].X * cellSize, snake[i].Y * cellSize,
+                cellSize - 1, cellSize - 1);
+        }
+
+        // Малювання їжі
+        g->FillRectangle(Brushes::Red,
+            food.X * cellSize, food.Y * cellSize,
+            cellSize - 1, cellSize - 1);
+    }
+
+    void OnKeyDown(Object^ s, KeyEventArgs^ e) {
+        switch (e->KeyCode) {
+            case Keys::Up: if (direction.Y == 0) direction = Point(0, -1); break;
+            case Keys::Down: if (direction.Y == 0) direction = Point(0, 1); break;
+            case Keys::Left: if (direction.X == 0) direction = Point(-1, 0); break;
+            case Keys::Right: if (direction.X == 0) direction = Point(1, 0); break;
+        }
+    }
+
+    void GameOver() {
+        gameTimer->Stop();
+        gameRunning = false;
+        MessageBox::Show("Гру закінчено! Рахунок: " + score);
+        InitGame();
+    }
+};</code></pre>
+
+<h2>50.2 Вдосконалення</h2>
+<ul>
+  <li>Рівні складності (швидкість)</li>
+  <li>Таблиця рекордів</li>
+  <li>Звукові ефекти</li>
+  <li>Пауза (P)</li>
+  <li>Збільшення швидкості з ростом рахунку</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture49.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 50 з 55</div>
+      <a href="lecture51.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

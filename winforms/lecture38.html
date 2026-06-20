@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 38: Звітність: ReportViewer - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 38: Звітність: ReportViewer</h1>
+      <p class="lecture-topic">RDLC звіти, джерела даних, експорт</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 38 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf38.png" alt="ReportViewer" class="lecture-image">
+
+<h2>38.1 ReportViewer</h2>
+<pre><code>// Додавання ReportViewer
+// (Потрібно встановити NuGet: Microsoft.Reporting.WinForms)
+
+ReportViewer^ rv = gcnew ReportViewer();
+rv->Dock = DockStyle::Fill;
+rv->ProcessingMode = ProcessingMode::Local;
+
+// Завантаження звіту
+rv->LocalReport->ReportPath = "Reports\StudentReport.rdlc";
+
+// Джерело даних
+ReportDataSource^ rds = gcnew ReportDataSource();
+rds->Name = "StudentDataSet";
+rds->Value = ds->Tables["Students"];
+rv->LocalReport->DataSources->Add(rds);
+
+// Параметри
+ReportParameter^ param = gcnew ReportParameter("ReportTitle",
+    "Список студентів");
+rv->LocalReport->SetParameters(gcnew array&lt;ReportParameter^&gt; { param });
+
+// Оновлення
+rv->RefreshReport();
+
+// Експорт
+Warning^ warnings;
+array&lt;String^&gt; streamids;
+String^ mimeType;
+String^ encoding;
+String^ extension;
+
+byte[] bytes = rv->LocalReport->Render("PDF", nullptr,
+    mimeType, encoding, extension, streamids, warnings);
+File::WriteAllBytes("report.pdf", bytes);</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture37.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 38 з 55</div>
+      <a href="lecture39.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

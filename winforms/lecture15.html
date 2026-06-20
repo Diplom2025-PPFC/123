@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 15: Меню MenuStrip - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 15: Меню MenuStrip</h1>
+      <p class="lecture-topic">Створення меню, пункти меню, обробники</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 15 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf15.png" alt="MenuStrip" class="lecture-image">
+
+<h2>15.1 MenuStrip</h2>
+<pre><code>// Головне меню
+MenuStrip^ menu = gcnew MenuStrip();
+
+// Файл
+ToolStripMenuItem^ mFile = gcnew ToolStripMenuItem("Файл");
+ToolStripMenuItem^ miNew = gcnew ToolStripMenuItem("Новий", nullptr,
+    gcnew EventHandler(this, &MyForm::OnNew));
+ToolStripMenuItem^ miOpen = gcnew ToolStripMenuItem("Відкрити...", nullptr,
+    gcnew EventHandler(this, &MyForm::OnOpen));
+ToolStripMenuItem^ miSave = gcnew ToolStripMenuItem("Зберегти", nullptr,
+    gcnew EventHandler(this, &MyForm::OnSave));
+ToolStripSeparator^ sep1 = gcnew ToolStripSeparator();
+ToolStripMenuItem^ miExit = gcnew ToolStripMenuItem("Вихід", nullptr,
+    gcnew EventHandler(this, &MyForm::OnExit));
+
+miNew->ShortcutKeys = Keys::Control | Keys::N;
+miOpen->ShortcutKeys = Keys::Control | Keys::O;
+miSave->ShortcutKeys = Keys::Control | Keys::S;
+
+mFile->DropDownItems->Add(miNew);
+mFile->DropDownItems->Add(miOpen);
+mFile->DropDownItems->Add(miSave);
+mFile->DropDownItems->Add(sep1);
+mFile->DropDownItems->Add(miExit);
+
+// Редагування
+ToolStripMenuItem^ mEdit = gcnew ToolStripMenuItem("Редагування");
+mEdit->DropDownItems->Add(gcnew ToolStripMenuItem("Копіювать",
+    nullptr, gcnew EventHandler(this, &MyForm::OnCopy)));
+mEdit->DropDownItems->Add(gcnew ToolStripMenuItem("Вставити",
+    nullptr, gcnew EventHandler(this, &MyForm::OnPaste)));
+
+menu->Items->Add(mFile);
+menu->Items->Add(mEdit);
+this->MainMenuStrip = menu;
+this->Controls->Add(menu);</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture14.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 15 з 55</div>
+      <a href="lecture16.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

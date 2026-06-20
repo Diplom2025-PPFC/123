@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 27: Pen та Brush: лінії та заливка - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 27: Pen та Brush: лінії та заливка</h1>
+      <p class="lecture-topic">Стилі ліній, градієнти, текстури</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 27 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf27.png" alt="Pen та Brush" class="lecture-image">
+
+<h2>27.1 Pen</h2>
+<pre><code>// Різні стилі Pen
+Pen^ solidPen = gcnew Pen(Color::Cyan, 3);
+
+// Пунктирна лінія
+Pen^ dashPen = gcnew Pen(Color::Magenta, 2);
+dashPen->DashStyle = Drawing2D::DashStyle::DashDot;
+
+// Лінія зі стрілкою
+Pen^ arrowPen = gcnew Pen(Color::Yellow, 2);
+arrowPen->EndCap = Drawing2D::LineCap::ArrowAnchor;
+
+// Малювання
+Graphics^ g = this->CreateGraphics();
+g->DrawLine(solidPen, 10, 10, 200, 10);
+g->DrawLine(dashPen, 10, 30, 200, 30);
+g->DrawLine(arrowPen, 10, 50, 200, 50);</code></pre>
+
+<h2>27.2 Brush</h2>
+<pre><code>// Сплошна заливка
+SolidBrush^ solid = gcnew SolidBrush(Color::Blue);
+
+// Градієнт
+LinearGradientBrush^ gradient = gcnew LinearGradientBrush(
+    Rectangle(0, 0, 200, 100),
+    Color::Blue, Color::Purple,
+    LinearGradientMode::Horizontal);
+
+// Штриховка
+HatchBrush^ hatch = gcnew HatchBrush(
+    HatchStyle::DiagonalCross,
+    Color::White, Color::DarkBlue);
+
+g->FillRectangle(gradient, 10, 100, 200, 80);
+g->FillEllipse(hatch, 250, 100, 150, 80);</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture26.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 27 з 55</div>
+      <a href="lecture28.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

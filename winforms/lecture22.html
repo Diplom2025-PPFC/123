@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 22: Таймер Timer - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 22: Таймер Timer</h1>
+      <p class="lecture-topic">Інтервали, таймінг, анімації, оновлення</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 22 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf22.png" alt="Timer" class="lecture-image">
+
+<h2>22.1 Timer</h2>
+<pre><code>// Таймер
+Timer^ timer = gcnew Timer();
+timer->Interval = 1000; // 1 секунда
+timer->Tick += gcnew EventHandler(this, &MyForm::OnTimerTick);
+timer->Start();
+
+// Обробник таймера
+int seconds = 0;
+void OnTimerTick(Object^ sender, EventArgs^ e) {
+    seconds++;
+    lblTime->Text = String::Format("Час: {0:D2}:{1:D2}",
+        seconds / 60, seconds % 60);
+
+    // Анімація
+    if (progressBar->Value < progressBar->Maximum) {
+        progressBar->Value++;
+    } else {
+        timer->Stop();
+        MessageBox::Show("Завершено!");
+    }
+}
+
+// Зупинка та запуск
+timer->Stop();
+timer->Start();</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture21.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 22 з 55</div>
+      <a href="lecture23.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

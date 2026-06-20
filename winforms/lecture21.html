@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 21: Діалог MessageBox - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 21: Діалог MessageBox</h1>
+      <p class="lecture-topic">Повідомлення, питання, попередження, типи кнопок</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 21 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf21.png" alt="MessageBox" class="lecture-image">
+
+<h2>21.1 MessageBox</h2>
+<pre><code>// Просте повідомлення
+MessageBox::Show("Операція завершена!");
+
+// Повідомлення з заголовком
+MessageBox::Show("Файл збережено.", "Інформація");
+
+// Повідомлення з піктограмою
+MessageBox::Show("Ви впевнені?", "Підтвердження",
+    MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+
+// Обробка відповіді
+DialogResult result = MessageBox::Show(
+    "Зберегти зміни?", "Підтвердження",
+    MessageBoxButtons::YesNoCancel,
+    MessageBoxIcon::Question);
+
+switch (result) {
+    case DialogResult::Yes:
+        SaveFile();
+        break;
+    case DialogResult::No:
+        // Не зберігати
+        break;
+    case DialogResult::Cancel:
+        // Скасувати
+        return;
+}</code></pre>
+
+<h2>21.2 Типи MessageBox</h2>
+<table>
+  <tr><th>Buttons</th><th>Опис</th></tr>
+  <tr><td>OK</td><td>Тільки OK</td></tr>
+  <tr><td>OKCancel</td><td>OK та Скасувати</td></tr>
+  <tr><td>YesNo</td><td>Так та Ні</td></tr>
+  <tr><td>YesNoCancel</td><td>Так, Ні, Скасувати</td></tr>
+  <tr><td>RetryCancel</td><td>Повторити та Скасувати</td></tr>
+  <tr><td>AbortRetryIgnore</td><td>Скасувати, Повторити, Ігнорувати</td></tr>
+</table>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture20.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 21 з 55</div>
+      <a href="lecture22.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

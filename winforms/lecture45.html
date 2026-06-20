@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 45: Калькулятор: практичний проєкт - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 45: Калькулятор: практичний проєкт</h1>
+      <p class="lecture-topic">Створення повноцінного калькулятора</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 45 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf45.png" alt="Калькулятор" class="lecture-image">
+
+<h2>45.1 Проєкт: Калькулятор</h2>
+<pre><code>public ref class CalculatorForm : public Form {
+private:
+    TextBox^ display;
+    double currentValue = 0;
+    double memory = 0;
+    String^ currentOperation = "";
+    bool newEntry = true;
+
+public:
+    CalculatorForm() {
+        this->Text = "Калькулятор";
+        this->Size = Size(350, 450);
+        this->FormBorderStyle = FormBorderStyle::FixedSingle;
+        this->MaximizeBox = false;
+        this->BackColor = Color::FromArgb(30, 30, 50);
+
+        // Дисплей
+        display = gcnew TextBox();
+        display->Location = Point(10, 10);
+        display->Size = Size(310, 50);
+        display->ReadOnly = true;
+        display->TextAlign = HorizontalAlignment::Right;
+        display->Font = gcnew Font("Consolas", 20);
+        display->Text = "0";
+        this->Controls->Add(display);
+
+        // Кнопки цифр
+        array&lt;String^&gt;^ buttons = {
+            "7", "8", "9", "/",
+            "4", "5", "6", "*",
+            "1", "2", "3", "-",
+            "0", ".", "=", "+"
+        };
+
+        for (int i = 0; i < 16; i++) {
+            Button^ btn = gcnew Button();
+            btn->Text = buttons[i];
+            btn->Size = Size(70, 60);
+            btn->Location = Point(10 + (i % 4) * 78, 70 + (i / 4) * 68);
+            btn->Font = gcnew Font("Segoe UI", 14, FontStyle::Bold);
+            btn->Tag = buttons[i];
+
+            // Колір
+            if (buttons[i] == "=") {
+                btn->BackColor = Color::FromArgb(0, 150, 255);
+            } else if ("+-*/".Contains(buttons[i])) {
+                btn->BackColor = Color::FromArgb(60, 60, 90);
+            } else {
+                btn->BackColor = Color::FromArgb(50, 50, 70);
+            }
+            btn->ForeColor = Color::White;
+            btn->FlatStyle = FlatStyle::Flat;
+            btn->Click += gcnew EventHandler(
+                this, &CalculatorForm::OnButtonClick);
+            this->Controls->Add(btn);
+        }
+    }
+
+    void OnButtonClick(Object^ sender, EventArgs^ e) {
+        Button^ btn = (Button^)sender;
+        String^ val = btn->Text;
+
+        if (Char::IsDigit(val[0])) {
+            if (newEntry) {
+                display->Text = val;
+                newEntry = false;
+            } else {
+                display->Text += val;
+            }
+        }
+        else if (val == ".") {
+            if (!display->Text->Contains(".")) {
+                display->Text += ".";
+            }
+        }
+        else if (val == "=") {
+            Calculate();
+        }
+        else {
+            currentOperation = val;
+            currentValue = Convert::ToDouble(display->Text);
+            newEntry = true;
+        }
+    }
+
+    void Calculate() {
+        double newVal = Convert::ToDouble(display->Text);
+        double result = 0;
+
+        if (currentOperation == "+") result = currentValue + newVal;
+        else if (currentOperation == "-") result = currentValue - newVal;
+        else if (currentOperation == "*") result = currentValue * newVal;
+        else if (currentOperation == "/") {
+            if (newVal != 0) result = currentValue / newVal;
+            else { display->Text = "Error"; return; }
+        }
+
+        display->Text = result.ToString();
+        newEntry = true;
+    }
+};</code></pre>
+
+<h2>45.2 Покрокова інструкція створення</h2>
+<ol>
+  <li>Створіть новий проєкт Windows Forms (C++/CLI)</li>
+  <li>Додайте TextBox для дисплею (ReadOnly)</li>
+  <li>Розмістіть кнопки 0-9 та оператори</li>
+  <li>Реалізуйте обробник натискання цифр</li>
+  <li>Реалізуйте арифметичні операції</li>
+  <li>Додайте обробку помилок (ділення на нуль)</li>
+  <li>Додайте оформлення (кольори, шрифти)</li>
+  <li>Додайте клавіатурну навігацію</li>
+</ol>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture44.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 45 з 55</div>
+      <a href="lecture46.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

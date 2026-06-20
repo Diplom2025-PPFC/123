@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WinForms Лекція 29: Події миші - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 29: Події миші</h1>
+      <p class="lecture-topic">Click, DoubleClick, MouseMove, MouseDown, MouseUp</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 29 з 55</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/wf29.png" alt="Події миші" class="lecture-image">
+
+<h2>29.1 Події миші</h2>
+<pre><code>// Підписка на події
+this->MouseMove += gcnew MouseEventHandler(this, &MyForm::OnMouseMove);
+this->MouseDown += gcnew MouseEventHandler(this, &MyForm::OnMouseDown);
+this->MouseUp += gcnew MouseEventHandler(this, &MyForm::OnMouseUp);
+this->MouseClick += gcnew MouseEventHandler(this, &MyForm::OnMouseClick);
+
+// Обробники
+void OnMouseMove(Object^ sender, MouseEventArgs^ e) {
+    lblCoords->Text = String::Format("X: {0}, Y: {1}", e->X, e->Y);
+
+    // Малювання при русі миші
+    if (isDrawing && e->Button == MouseButtons::Left) {
+        Graphics^ g = this->CreateGraphics();
+        g->DrawLine(drawPen, lastPoint, Point(e->X, e->Y));
+        lastPoint = Point(e->X, e->Y);
+    }
+}
+
+void OnMouseDown(Object^ sender, MouseEventArgs^ e) {
+    isDrawing = true;
+    lastPoint = Point(e->X, e->Y);
+
+    // Визначення кнопки
+    switch (e->Button) {
+        case MouseButtons::Left:
+            // Ліва кнопка
+            break;
+        case MouseButtons::Right:
+            // Права кнопка
+            break;
+        case MouseButtons::Middle:
+            // Середня кнопка
+            break;
+    }
+}
+
+void OnMouseUp(Object^ sender, MouseEventArgs^ e) {
+    isDrawing = false;
+}</code></pre>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture28.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 29 з 55</div>
+      <a href="lecture30.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="../lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>
