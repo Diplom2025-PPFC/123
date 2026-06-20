@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>C++ Mastery - Від початківця до експерта</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header class="site-header">
+    <a href="index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1 class="hero-title">C++ Mastery</h1>
+    <p class="hero-subtitle">Повний курс програмування мовою C++ — від базових концепцій до професійної розробки програм та ігор. Разом з курсом візуального програмування Windows Forms.</p>
+    <div class="hero-badges">
+      <span class="badge">60+ Лекцій C++</span>
+      <span class="badge">55+ Лекцій WinForms</span>
+      <span class="badge">115+ Тестів</span>
+      <span class="badge">115+ Завдань</span>
+    </div>
+  </section>
+
+  <!-- C++ Lectures Section -->
+  <div class="section-header">
+    <h2 class="section-title cyan">💻 Лекції з програмування C++</h2>
+    <p class="section-subtitle">Повний курс від змінних до патернів проєктування</p>
+  </div>
+  
+  <div class="cards-grid" id="cppCards"></div>
+
+  <!-- Windows Forms Section -->
+  <div class="section-header">
+    <h2 class="section-title green">🪟 Лекції Windows Forms</h2>
+    <p class="section-subtitle">Візуальне програмування GUI-додатків на C++</p>
+  </div>
+  
+  <div class="cards-grid" id="winformsCards"></div>
+
+  <!-- Info Section -->
+  <div class="section-header">
+    <h2 class="section-title purple">📚 Додаткові матеріали</h2>
+  </div>
+  
+  <div class="cards-grid">
+    <div class="card" onclick="location.href='tests/index.html'">
+      <div class="card-icon">📝</div>
+      <h3>Тести до лекцій</h3>
+      <p>Перевірте свої знання з кожної теми. Кожен тест містить 20 запитань різної складності.</p>
+      <div class="card-meta">
+        <span>📝 115+ тестів</span>
+        <span>❓ 20 питань кожен</span>
+      </div>
+    </div>
+    
+    <div class="card" onclick="location.href='tasks/index.html'">
+      <div class="card-icon">🎯</div>
+      <h3>Практичні завдання</h3>
+      <p>Завдання різної складності з рішеннями для закріплення матеріалу кожної лекції.</p>
+      <div class="card-meta">
+        <span>🎯 115+ завдань</span>
+        <span>⭐ 3 рівні складності</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lectures/lecture1.html">💻 Лекції C++</a>
+      <a href="winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="tests/index.html">📝 Тести</a>
+      <a href="tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="js/theme.js"></script>
+  <script src="js/menu.js"></script>
+  <script>
+    // Generate cards
+    const cppTopics = [
+      ['Вступ до C++ та історія мови', 'Налаштування середовища', 'Структура програми', 'Змінні та типи даних'],
+      ['Оператори введення/виведення', 'Арифметичні оператори', 'Оператори порівняння', 'Умовний оператор if-else'],
+      ['Оператор switch', 'Тернарний оператор', 'Цикл for', 'Цикл while та do-while'],
+      ['Вкладені цикли', 'break та continue', 'Функції', 'Параметри функцій'],
+      ['Перевантаження функцій', 'Рекурсія', 'Масиви: одновимірні', 'Масиви: багатовимірні'],
+      ['Рядки (string)', 'Вказівники: основи', 'Арифметика вказівників', 'Вказівники та масиви'],
+      ['Динамічна пам\'ять', 'Посилання', 'Структури (struct)', 'Union та enum'],
+      ['Вступ до ООП', 'Конструктори', 'Інкапсуляція', 'Геттери та сеттери'],
+      ['Статичні члени', 'Дружні функції', 'Наслідування', 'Типи наслідування'],
+      ['Поліморфізм', 'Абстрактні класи', 'Перевантаження операторів', 'Шаблони функцій'],
+      ['Шаблони класів', 'Винятки (exceptions)', 'STL: vector', 'STL: list та deque'],
+      ['STL: stack та queue', 'STL: set та map', 'STL: Алгоритми', 'Файли: читання та запис'],
+      ['Препроцесор', 'Простори імен', 'Лямбда-функції', 'Рухома семантика'],
+      ['Smart pointers', 'Багатопоточність: thread', 'Синхронізація', 'Мережеве програмування'],
+      ['Регулярні вирази', 'Час та дата', 'Випадкові числа', 'Патерни проєктування GoF']
+    ];
+
+    const winformsTopics = [
+      ['Вступ до Windows Forms', 'Перша форма', 'Кнопки та події Click', 'TextBox та RichTextBox'],
+      ['Label та LinkLabel', 'CheckBox', 'RadioButton', 'ListBox та ComboBox'],
+      ['NumericUpDown', 'Panel та GroupBox', 'TabControl', 'TreeView'],
+      ['ListView', 'DataGridView', 'MenuStrip', 'ContextMenuStrip'],
+      ['ToolStrip', 'StatusStrip', 'OpenFileDialog', 'ColorDialog'],
+      ['MessageBox', 'Timer', 'ProgressBar', 'TrackBar'],
+      ['Календар', 'Малювання: Graphics', 'Pen та Brush', 'Фігури'],
+      ['Події миші', 'Події клавіатури', 'Drag and Drop', 'MDI інтерфейс'],
+      ['Власні діалоги', 'Робота з файлами', 'Бази даних', 'DataSet'],
+      ['Data Binding', 'ReportViewer', 'PrintDocument', 'Chart діаграми'],
+      ['BackgroundWorker', 'Потоки', 'NotifyIcon', 'WebBrowser'],
+      ['Калькулятор', 'Текстовий редактор', 'Файловий менеджер', 'Медіа-плеєр'],
+      ['Гра "Хрестики-нулики"', 'Гра "Змійка"', 'Графічний редактор', 'Браузер'],
+      ['Чат-додаток', 'База даних студентів', 'Система бібліотеки', '']
+    ];
+
+    const colors = ['#00f0ff', '#ff00ff', '#9d00ff', '#00ff88'];
+    
+    function generateCards(topics, prefix, startNum, containerId) {
+      const container = document.getElementById(containerId);
+      let html = '';
+      let num = startNum;
+      topics.forEach((group, gIdx) => {
+        group.forEach((topic, tIdx) => {
+          if (!topic) return;
+          const color = colors[(gIdx * 4 + tIdx) % 4];
+          html += '<div class="card" onclick="location.href=\'' + prefix + 'lecture' + num + '.html\'">';
+          html += '<span class="card-number">' + num + '</span>';
+          html += '<div class="card-icon" style="border-color:' + color + ';background:linear-gradient(135deg,' + color + '33,' + color + '11)">' + num + '</div>';
+          html += '<h3>Лекція ' + num + '</h3>';
+          html += '<p>' + topic + '</p>';
+          html += '</div>';
+          num++;
+        });
+      });
+      container.innerHTML = html;
+    }
+
+    generateCards(cppTopics, 'lectures/', 1, 'cppCards');
+    generateCards(winformsTopics, 'winforms/', 1, 'winformsCards');
+  </script>
+</body>
+</html>
