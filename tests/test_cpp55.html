@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тест 55: Лекція 55 - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture55.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture55.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="index.html" class="nav-btn active">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="section-header">
+    <h2 class="section-title cyan">📝 Тест 55: Лекція 55 та історія мови</h2>
+    <p class="section-subtitle">20 питань на перевірку знань</p>
+  </div>
+
+  <div class="test-container" id="testContainer"></div>
+
+  <div class="lecture-nav" style="max-width:800px;margin:20px auto;">
+    <a href="index.html" class="nav-arrow prev">← До списку тестів</a>
+    <a href="../lectures/lecture55.html" class="nav-arrow">Лекція →</a>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+  <script src="../js/tests.js"></script>
+  <script>
+    const questions = [
+      {question:"Хто створив мову програмування C++?",answers:["Б'ярн Страуструп","Денніс Рітчі","Джеймс Гослінг","Андерс Хейлсберг"],correct:0},
+      {question:"У якому році була створена мова C++?",answers:["1979","1985","1991","1972"],correct:0},
+      {question:"З якої мови C++ розвинулася?",answers:["C","Pascal","Fortran","Assembler"],correct:0},
+      {question:"Що означає ++ у назві C++?",answers:["Інкремент, покращення C","Версія 2.0","Плюс-плюс — це просто назва","Додаткові можливості"],correct:0},
+      {question:"Який стандарт C++ запровадив auto та nullptr?",answers:["C++11","C++98","C++03","C++14"],correct:0},
+      {question:"У якій компанії була створена C++?",answers:["Bell Labs","Microsoft","IBM","Google"],correct:0},
+      {question:"Яка парадигма НЕ підтримується в C++?",answers:["Логічне програмування","Процедурне","Об'єктно-орієнтоване","Узагальнене"],correct:0},
+      {question:"Який компілятор є частиною GCC?",answers:["g++","cl","clang++","mvc"],correct:0},
+      {question:"Що таке STL?",answers:["Standard Template Library","Simple Type Library","System Template Library","Standard Type List"],correct:0},
+      {question:"Яка операційна система НЕ має компілятора C++?",answers:["Жодна — C++ доступний на всіх ОС","Windows","Linux","macOS"],correct:0},
+      {question:"Яка область застосування C++ НЕ є типовою?",answers:["Веб-розробка (фронтенд)","Розробка ігор","Операційні системи","Вбудовані системи"],correct:0},
+      {question:"Який стандарт запровадив концепти (concepts)?",answers:["C++20","C++17","C++14","C++11"],correct:0},
+      {question:"Що означає RAII?",answers:["Resource Acquisition Is Initialization","Random Access Input Iterator","Resource Allocation In Instance","Runtime Automatic Initialization"],correct:0},
+      {question:"Яка перевага C++ перед Python?",answers:["Вища продуктивність","Простіший синтаксис","Автоматичне керування пам'яттю","Відсутність необхідності компіляції"],correct:0},
+      {question:"Що таке компіляція?",answers:["Перетворення вихідного коду у машинний","Виконання програми","Налагодження помилок","Запуск unit-тестів"],correct:0},
+      {question:"Яка фаза компіляції виконується першою?",answers:["Препроцесування","Компіляція","Асемблювання","Лінковка"],correct:0},
+      {question:"Який формат файлів вихідного коду C++?",answers:[".cpp",".py",".java",".cs"],correct:0},
+      {question:"Що таке TIOBE Index?",answers:["Рейтинг популярності мов програмування","Індекс продуктивності","База даних компіляторів","Репозиторій бібліотек"],correct:0},
+      {question:"Який стандарт C++ є найновішим (2024)?",answers:["C++23","C++20","C++17","C++26"],correct:0},
+      {question:"Чому C++ називають 'мовою середнього рівня'?",answers:["Поєднує низькорівневі та високорівневі можливості","Вона складніша за Java","Працює тільки на серверах","Використовує тільки асемблер"],correct:0}
+    ];
+    TestEngine.init(questions);
+  </script>
+</body>
+</html>

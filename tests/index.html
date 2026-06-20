@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Тести - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="../lectures/lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="index.html" class="nav-btn active">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="section-header">
+    <h2 class="section-title cyan">📝 Тести до лекцій</h2>
+    <p class="section-subtitle">Перевірте свої знання — оберіть лекцію для тестування</p>
+  </div>
+
+  <div class="test-container">
+    <div class="cards-grid" id="testCards"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+  <script>
+    // Generate test cards for all C++ lectures
+    const cppTests = [
+      {num:1,title:"Вступ до C++ та історія мови"},
+      {num:2,title:"Налаштування середовища розробки"},
+      {num:3,title:"Структура програми на C++"},
+      {num:4,title:"Змінні, типи даних та константи"},
+      {num:5,title:"Оператори введення/виведення"},
+      {num:6,title:"Арифметичні оператори"},
+      {num:7,title:"Оператори порівняння та логічні"},
+      {num:8,title:"Умовний оператор if-else"},
+      {num:9,title:"Оператор множинного вибору switch"},
+      {num:10,title:"Тернарний оператор"},
+      {num:11,title:"Цикл for"},
+      {num:12,title:"Цикл while та do-while"},
+      {num:13,title:"Вкладені цикли"},
+      {num:14,title:"Оператори break та continue"},
+      {num:15,title:"Функції: оголошення та виклик"},
+      {num:16,title:"Параметри функцій та return"},
+      {num:17,title:"Перевантаження функцій"},
+      {num:18,title:"Рекурсивні функції"},
+      {num:19,title:"Масиви: одновимірні"},
+      {num:20,title:"Масиви: багатовимірні"},
+      {num:21,title:"Рядки (C-style та string)"},
+      {num:22,title:"Вказівники: основи"},
+      {num:23,title:"Арифметика вказівників"},
+      {num:24,title:"Вказівники та масиви"},
+      {num:25,title:"Динамічна пам'ять: new та delete"},
+      {num:26,title:"Посилання (references)"},
+      {num:27,title:"Структури (struct)"},
+      {num:28,title:"Об'єднання (union) та переліки (enum)"},
+      {num:29,title:"Вступ до ООП: класи та об'єкти"},
+      {num:30,title:"Конструктори та деструктори"},
+      {num:31,title:"Інкапсуляція: модифікатори доступу"},
+      {num:32,title:"Геттери та сеттери"},
+      {num:33,title:"Статичні члени класу"},
+      {num:34,title:"Дружні функції та класи"},
+      {num:35,title:"Наслідування: основи"},
+      {num:36,title:"Типи наслідування"},
+      {num:37,title:"Поліморфізм та віртуальні функції"},
+      {num:38,title:"Абстрактні класи"},
+      {num:39,title:"Перевантаження операторів"},
+      {num:40,title:"Шаблони функцій (templates)"},
+      {num:41,title:"Шаблони класів"},
+      {num:42,title:"Обробка винятків (exceptions)"},
+      {num:43,title:"STL: Вектори (vector)"},
+      {num:44,title:"STL: Списки (list) та деки (deque)"},
+      {num:45,title:"STL: Стеки (stack) та черги (queue)"},
+      {num:46,title:"STL: Множини (set) та мапи (map)"},
+      {num:47,title:"STL: Алгоритми"},
+      {num:48,title:"Файли: читання та запис"},
+      {num:49,title:"Препроцесор та директиви"},
+      {num:50,title:"Простори імен (namespaces)"},
+      {num:51,title:"Лямбда-функції"},
+      {num:52,title:"Рухома семантика та rvalue"},
+      {num:53,title:"Розумні вказівники (smart pointers)"},
+      {num:54,title:"Багатопоточність: thread"},
+      {num:55,title:"Синхронізація потоків"},
+      {num:56,title:"Мережеве програмування"},
+      {num:57,title:"Регулярні вирази"},
+      {num:58,title:"Час та дата в C++"},
+      {num:59,title:"Випадкові числа"},
+      {num:60,title:"Патерни проєктування GoF"}
+    ];
+
+    const wfTests = [
+      {num:1,title:"Вступ до Windows Forms"},
+      {num:2,title:"Створення першої форми"},
+      {num:3,title:"Кнопки та обробка подій Click"},
+      {num:4,title:"Текстові поля TextBox та RichTextBox"},
+      {num:5,title:"Мітки Label та LinkLabel"},
+      {num:6,title:"Прапорці CheckBox"},
+      {num:7,title:"Перемикачі RadioButton"},
+      {num:8,title:"Списки ListBox та ComboBox"},
+      {num:9,title:"Числовий вибір NumericUpDown"},
+      {num:10,title:"Панелі Panel та GroupBox"},
+      {num:11,title:"Вкладки TabControl"},
+      {num:12,title:"Дерево TreeView"},
+      {num:13,title:"Таблиця ListView"},
+      {num:14,title:"DataGridView для даних"},
+      {num:15,title:"Меню MenuStrip"}
+    ];
+
+    const colors = ['#00f0ff', '#ff00ff', '#9d00ff', '#00ff88'];
+    const container = document.getElementById('testCards');
+    let html = '';
+
+    html += '<div style="grid-column:1/-1;margin-bottom:20px;"><h3 style="color:var(--neon-cyan)">💻 Тести C++</h3></div>';
+    cppTests.forEach((t, idx) => {
+      const color = colors[idx % 4];
+      html += '<div class="card" onclick="location.href=\'test_cpp' + t.num + '.html\'">';
+      html += '<div class="card-icon" style="border-color:' + color + '">' + t.num + '</div>';
+      html += '<h3>Тест ' + t.num + '</h3>';
+      html += '<p>' + t.title + '</p>';
+      html += '<div class="card-meta"><span>❓ 20 питань</span></div>';
+      html += '</div>';
+    });
+
+    html += '<div style="grid-column:1/-1;margin:30px 0 20px;"><h3 style="color:var(--neon-green)">🪟 Тести Windows Forms</h3></div>';
+    wfTests.forEach((t, idx) => {
+      const color = colors[(idx + 2) % 4];
+      html += '<div class="card" onclick="location.href=\'test_wf' + t.num + '.html\'">';
+      html += '<div class="card-icon" style="border-color:' + color + '">' + t.num + '</div>';
+      html += '<h3>Тест ' + t.num + '</h3>';
+      html += '<p>' + t.title + '</p>';
+      html += '<div class="card-meta"><span>❓ 20 питань</span></div>';
+      html += '</div>';
+    });
+
+    container.innerHTML = html;
+  </script>
+</body>
+</html>
