@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 26: Посилання (references) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 26: Посилання (references)</h1>
+      <p class="lecture-topic">Оголошення посилань, відмінності від вказівників, const references</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 26 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture26.png" alt="Посилання" class="lecture-image">
+
+<h2>26.1 Що таке посилання?</h2>
+<p>Посилання — це псевдонім (альтернативне ім'я) для існуючої змінної. Посилання завжди ініціалізується при створенні і не може бути змінено.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int x = 10;
+    int& ref = x;  // ref — посилання на x
+
+    std::cout &lt;&lt; "x = " &lt;&lt; x &lt;&lt; std::endl;
+    std::cout &lt;&lt; "ref = " &lt;&lt; ref &lt;&lt; std::endl;
+
+    ref = 20;  // Зміна через посилання
+    std::cout &lt;&lt; "x = " &lt;&lt; x &lt;&lt; std::endl;  // 20
+
+    return 0;
+}</code></pre>
+
+<h2>26.2 Посилання vs Вказівники</h2>
+<table>
+  <tr><th>Критерій</th><th>Посилання</th><th>Вказівник</th></tr>
+  <tr><td>Ініціалізація</td><td>Обов'язкова</td><td>Може бути nullptr</td></tr>
+  <tr><td>Перепризначення</td><td>Ні</td><td>Так</td></tr>
+  <tr><td>Синтаксис</td><td>Прямий (як змінна)</td><td>Потребує *</td></tr>
+  <tr><td>Null значення</td><td>Неможливе</td><td>nullptr</td></tr>
+</table>
+
+<h2>26.3 Підсумки лекції</h2>
+<ul>
+  <li>Посилання — псевдонім для змінної</li>
+  <li>Повинні бути ініціалізовані при створенні</li>
+  <li>Не можуть бути null</li>
+  <li>Використовуються для передачі параметрів за посиланням</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture25.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 26 з 60</div>
+      <a href="lecture27.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

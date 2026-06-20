@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 5: Оператори введення/виведення - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 5: Оператори введення/виведення</h1>
+      <p class="lecture-topic">Робота з cin, cout, форматоване введення/виведення, маніпулятори</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 5 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture5.png" alt="Введення/виведення" class="lecture-image">
+<p class="lecture-image-caption">Рис. 5.1 — Потоки введення та виведення в C++</p>
+
+<h2>5.1 Потокова модель введення/виведення</h2>
+<p>C++ використовує потокову модель введення/виведення (stream I/O). Потік — це абстракція послідовності даних. Бібліотека &lt;iostream&gt; надає три стандартні потоки:</p>
+
+<table>
+  <tr><th>Потік</th><th>Тип</th><th>Призначення</th><th>Пристрій</th></tr>
+  <tr><td>std::cin</td><td>istream</td><td>Стандартне введення</td><td>Клавіатура</td></tr>
+  <tr><td>std::cout</td><td>ostream</td><td>Стандартне виведення</td><td>Екран</td></tr>
+  <tr><td>std::cerr</td><td>ostream</td><td>Стандартна помилка</td><td>Екран (без буферизації)</td></tr>
+  <tr><td>std::clog</td><td>ostream</td><td>Стандартне логування</td><td>Екран (з буферизацією)</td></tr>
+</table>
+
+<h2>5.2 Оператор виведення &lt;&lt;</h2>
+<p>Оператор &lt;&lt; (insertion operator) вставляє дані у вихідний потік:</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    int age = 25;
+    double pi = 3.14159;
+    char grade = 'A';
+    std::string name = "Ivan";
+    bool active = true;
+
+    std::cout &lt;&lt; "Ім'я: " &lt;&lt; name &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Вік: " &lt;&lt; age &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Середній бал: " &lt;&lt; grade &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Число PI: " &lt;&lt; pi &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Активний: " &lt;&lt; active &lt;&lt; std::endl;  // виведе 0 або 1
+
+    return 0;
+}</code></pre>
+
+<h2>5.3 Оператор введення &gt;&gt;</h2>
+<p>Оператор &gt;&gt; (extraction operator) зчитує дані з вхідного потоку:</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string name;
+    int age;
+    double height;
+
+    std::cout &lt;&lt; "Введіть ім'я: ";
+    std::cin &gt;&gt; name;        // зчитує до пробілу
+
+    std::cout &lt;&lt; "Введіть вік: ";
+    std::cin &gt;&gt; age;         // зчитує ціле число
+
+    std::cout &lt;&lt; "Введіть зріст (м): ";
+    std::cin &gt;&gt; height;      // зчитує дробове число
+
+    std::cout &lt;&lt; name &lt;&lt; ", " &lt;&lt; age &lt;&lt; " років, " 
+              &lt;&lt; height &lt;&lt; " м" &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>5.4 Маніпулятори форматування</h2>
+<p>Маніпулятори керують форматом виведення даних:</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;  // для маніпуляторів
+
+int main() {
+    double pi = 3.14159265359;
+    int num = 42;
+
+    // Ширина поля
+    std::cout &lt;&lt; "|" &lt;&lt; std::setw(10) &lt;&lt; num &lt;&lt; "|" &lt;&lt; std::endl;
+    // Виведе: |        42|
+
+    // Точність для дробових чисел
+    std::cout &lt;&lt; std::setprecision(4) &lt;&lt; pi &lt;&lt; std::endl;
+    // Виведе: 3.142
+
+    // Фіксована нотація
+    std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(2) &lt;&lt; pi &lt;&lt; std::endl;
+    // Виведе: 3.14
+
+    // Наукова нотація
+    std::cout &lt;&lt; std::scientific &lt;&lt; pi &lt;&lt; std::endl;
+    // Виведе: 3.14e+00
+
+    // Вирівнювання
+    std::cout &lt;&lt; std::left &lt;&lt; std::setw(10) &lt;&lt; "Left" &lt;&lt; "|" &lt;&lt; std::endl;
+    std::cout &lt;&lt; std::right &lt;&lt; std::setw(10) &lt;&lt; "Right" &lt;&lt; "|" &lt;&lt; std::endl;
+
+    // Заповнення символом
+    std::cout &lt;&lt; std::setfill('*') &lt;&lt; std::setw(10) &lt;&lt; num &lt;&lt; std::endl;
+    // Виведе: ********42
+
+    // Шістнадцятковий формат
+    std::cout &lt;&lt; std::hex &lt;&lt; num &lt;&lt; std::endl;       // 2a
+    std::cout &lt;&lt; std::uppercase &lt;&lt; num &lt;&lt; std::endl; // 2A
+    std::cout &lt;&lt; std::showbase &lt;&lt; num &lt;&lt; std::endl;  // 0x2A
+
+    // Повернення у десятковий формат
+    std::cout &lt;&lt; std::dec &lt;&lt; num &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>5.5 Зчитування рядків з пробілами</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string fullName;
+
+    // cin &gt;&gt; зчитує лише до пробілу!
+    std::cout &lt;&lt; "Введіть повне ім'я: ";
+    std::cin &gt;&gt; fullName;  // Якщо ввести "Ivan Petrov", зчитає лише "Ivan"
+
+    // Очищення буфера
+    std::cin.ignore(1000, '\n');
+
+    // getline зчитує весь рядок включно з пробілами
+    std::cout &lt;&lt; "Введіть повне ім'я ще раз: ";
+    std::getline(std::cin, fullName);  // Зчитає "Ivan Petrov"
+
+    std::cout &lt;&lt; "Привіт, " &lt;&lt; fullName &lt;&lt; "!" &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>5.6 Перевірка введення</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;limits&gt;
+
+int main() {
+    int number;
+
+    std::cout &lt;&lt; "Введіть ціле число: ";
+
+    // Перевірка чи введення успішне
+    if (!(std::cin &gt;&gt; number)) {
+        std::cout &lt;&lt; "Помилка! Це не ціле число." &lt;&lt; std::endl;
+
+        // Очищення стану помилки
+        std::cin.clear();
+
+        // Очищення буфера введення
+        std::cin.ignore(std::numeric_limits&lt;std::streamsize&gt;::max(), '\n');
+    } else {
+        std::cout &lt;&lt; "Ви ввели: " &lt;&lt; number &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>5.7 Підсумки лекції</h2>
+<ul>
+  <li>cin — введення, cout — виведення, cerr — помилки</li>
+  <li>&lt;&lt; та &gt;&gt; — потокові оператори вставки/вилучення</li>
+  <li>Маніпулятори: setw, setprecision, fixed, scientific, hex/dec</li>
+  <li>getline для зчитування рядків з пробілами</li>
+  <li>Перевірка стану потоку та обробка помилок введення</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture4.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 5 з 60</div>
+      <a href="lecture6.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

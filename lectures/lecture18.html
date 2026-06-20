@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 18: Рекурсивні функції - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 18: Рекурсивні функції</h1>
+      <p class="lecture-topic">Принцип рекурсії, базовий випадок, хвостова рекурсія</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 18 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture18.png" alt="Рекурсія" class="lecture-image">
+
+<h2>18.1 Що таке рекурсія?</h2>
+<p>Рекурсія — це техніка, коли функція викликає сама себе. Кожен рекурсивний виклик працює з меншою підзадачею, доки не досягне базового випадку.</p>
+
+<pre><code>// Структура рекурсивної функції:
+// тип функція(параметри) {
+//     if (базовий випадок) {
+//         return результат;
+//     }
+//     return функція(менша підзадача);
+// }
+
+// Обчислення факторіалу
+#include &lt;iostream&gt;
+
+long long factorial(int n) {
+    // Базовий випадок
+    if (n <= 1) {
+        return 1;
+    }
+    // Рекурсивний крок
+    return n * factorial(n - 1);
+}
+
+int main() {
+    std::cout &lt;&lt; "5! = " &lt;&lt; factorial(5) &lt;&lt; std::endl;  // 120
+    std::cout &lt;&lt; "10! = " &lt;&lt; factorial(10) &lt;&lt; std::endl; // 3628800
+    return 0;
+}</code></pre>
+
+<h2>18.2 Числа Фібоначчі</h2>
+<pre><code>#include &lt;iostream&gt;
+
+long long fibonacci(int n) {
+    if (n <= 1) {
+        return n;  // F(0) = 0, F(1) = 1
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+int main() {
+    for (int i = 0; i <= 15; i++) {
+        std::cout &lt;&lt; "F(" &lt;&lt; i &lt;&lt; ") = " &lt;&lt; fibonacci(i) &lt;&lt; std::endl;
+    }
+    return 0;
+}</code></pre>
+
+<h2>18.3 Підсумки лекції</h2>
+<ul>
+  <li>Рекурсія — функція викликає сама себе</li>
+  <li>Базовий випадок зупиняє рекурсію</li>
+  <li>Рекурсивний крок наближає до базового випадку</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture17.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 18 з 60</div>
+      <a href="lecture19.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

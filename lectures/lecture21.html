@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 21: Рядки (C-style та string) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 21: Рядки (C-style та string)</h1>
+      <p class="lecture-topic">char масиви, std::string, методи рядків, порівняння</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 21 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture21.png" alt="Рядки" class="lecture-image">
+
+<h2>21.1 C-style рядки</h2>
+<p>C-style рядок — це масив символів, що закінчується нульовим символом '\0'. Це успадкований спосіб роботи з рядками від мови C.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+
+int main() {
+    // Оголошення C-style рядка
+    char str1[] = "Hello";  // Компілятор додає '\0'
+    char str2[20] = "World";
+
+    // Довжина рядка (без '\0')
+    std::cout &lt;&lt; "Довжина: " &lt;&lt; strlen(str1) &lt;&lt; std::endl;
+
+    // Копіювання
+    char dest[20];
+    strcpy(dest, str1);
+
+    // Конкатенація
+    strcat(dest, " ");
+    strcat(dest, str2);
+    std::cout &lt;&lt; dest &lt;&lt; std::endl;  // Hello World
+
+    // Порівняння
+    if (strcmp(str1, str2) == 0) {
+        std::cout &lt;&lt; "Рядки рівні" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>21.2 Клас std::string</h2>
+<p>std::string — сучасний, безпечний та зручний спосіб роботи з рядками у C++.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    // Створення рядків
+    std::string s1 = "Hello";
+    std::string s2("World");
+    std::string s3 = s1;  // Копіювання
+
+    // Конкатенація
+    std::string greeting = s1 + " " + s2;
+    std::cout &lt;&lt; greeting &lt;&lt; std::endl;
+
+    // Довжина
+    std::cout &lt;&lt; "Довжина: " &lt;&lt; greeting.length() &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Довжина: " &lt;&lt; greeting.size() &lt;&lt; std::endl;
+
+    // Доступ до символів
+    std::cout &lt;&lt; "Перший символ: " &lt;&lt; greeting[0] &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Останній: " &lt;&lt; greeting.back() &lt;&lt; std::endl;
+
+    // Підрядок
+    std::string sub = greeting.substr(0, 5);
+    std::cout &lt;&lt; "Підрядок: " &lt;&lt; sub &lt;&lt; std::endl;
+
+    // Пошук
+    size_t pos = greeting.find("World");
+    if (pos != std::string::npos) {
+        std::cout &lt;&lt; "Знайдено на позиції: " &lt;&lt; pos &lt;&lt; std::endl;
+    }
+
+    // Вставка та видалення
+    greeting.insert(5, ", beautiful");
+    std::cout &lt;&lt; greeting &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>21.3 Підсумки лекції</h2>
+<ul>
+  <li>C-style рядки: char[] з '\0' наприкінці</li>
+  <li>std::string — сучасний спосіб роботи з рядками</li>
+  <li>Методи: length, substr, find, insert, erase</li>
+  <li>Оператор + для конкатенації</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture20.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 21 з 60</div>
+      <a href="lecture22.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

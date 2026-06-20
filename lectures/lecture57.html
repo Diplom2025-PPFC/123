@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 57: Регулярні вирази - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 57: Регулярні вирази</h1>
+      <p class="lecture-topic">std::regex, пошук, заміна, валідація</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 57 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture57.png" alt="Regex" class="lecture-image">
+
+<h2>57.1 Regex у C++</h2>
+<p>Регулярні вирази — потужний інструмент для роботи з текстом.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;regex&gt;
+
+int main() {
+    // Перевірка email
+    std::string email = "user@example.com";
+    std::regex emailPattern(R"([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})");
+
+    if (std::regex_match(email, emailPattern)) {
+        std::cout &lt;&lt; "Email валідний!" &lt;&lt; std::endl;
+    }
+
+    // Пошук у тексті
+    std::string text = "Мій телефон: +380-99-123-4567 та +380-67-987-6543";
+    std::regex phonePattern(R"(\+380-\d{2}-\d{3}-\d{4})");
+
+    std::sregex_iterator begin(text.begin(), text.end(), phonePattern);
+    std::sregex_iterator end;
+
+    std::cout &lt;&lt; "Знайдено номери:" &lt;&lt; std::endl;
+    for (auto it = begin; it != end; ++it) {
+        std::cout &lt;&lt; it->str() &lt;&lt; std::endl;
+    }
+
+    // Заміна
+    std::string result = std::regex_replace(text, phonePattern, "[НОМЕР]");
+    std::cout &lt;&lt; result &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>57.2 Підсумки лекції</h2>
+<ul>
+  <li>regex_match — повний match</li>
+  <li>regex_search — пошук підрядка</li>
+  <li>regex_replace — заміна</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture56.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 57 з 60</div>
+      <a href="lecture58.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 44: STL: Списки (list) та деки (deque) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 44: STL: Списки (list) та деки (deque)</h1>
+      <p class="lecture-topic">std::list, std::deque, двозв'язні списки, порівняння</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 44 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture44.png" alt="STL List та Deque" class="lecture-image">
+
+<h2>44.1 std::list</h2>
+<p>list — це двозв'язний список, що підтримує швидке вставлення та видалення на будь-якій позиції.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;list&gt;
+
+int main() {
+    std::list&lt;int&gt; lst = {10, 20, 30, 40, 50};
+
+    // Додавання
+    lst.push_back(60);   // В кінець
+    lst.push_front(5);   // На початок
+
+    // Вставка
+    auto it = lst.begin();
+    ++it; ++it;
+    lst.insert(it, 25);  // Вставити перед позицією
+
+    // Видалення
+    lst.remove(30);      // Видалити всі 30
+    lst.pop_front();     // Видалити перший
+    lst.pop_back();      // Видалити останній
+
+    // Ітерація
+    for (int x : lst) {
+        std::cout &lt;&lt; x &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>44.2 std::deque</h2>
+<p>deque (double-ended queue) — структура, що підтримує швидке додавання та видалення на обох кінцях.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;deque&gt;
+
+int main() {
+    std::deque&lt;int&gt; dq;
+
+    dq.push_back(20);
+    dq.push_front(10);
+    dq.push_back(30);
+
+    std::cout &lt;&lt; "Перший: " &lt;&lt; dq.front() &lt;&lt; std::endl;  // 10
+    std::cout &lt;&lt; "Останній: " &lt;&lt; dq.back() &lt;&lt; std::endl;   // 30
+    std::cout &lt;&lt; "Третій: " &lt;&lt; dq[2] &lt;&lt; std::endl;       // 30
+
+    return 0;
+}</code></pre>
+
+<h2>44.3 Підсумки лекції</h2>
+<ul>
+  <li>list — двозв'язний список, O(1) вставка</li>
+  <li>deque — черга з двох кінців</li>
+  <li>Вибір контейнера залежить від задачі</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture43.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 44 з 60</div>
+      <a href="lecture45.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

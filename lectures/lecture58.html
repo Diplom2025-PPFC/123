@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 58: Час та дата в C++ - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 58: Час та дата в C++</h1>
+      <p class="lecture-topic">chrono, system_clock, time_point, duration, форматування</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 58 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture58.png" alt="Час та дата" class="lecture-image">
+
+<h2>58.1 Бібліотека chrono</h2>
+<p>Бібліотека &lt;chrono&gt; надає інструменти для роботи з часом.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;chrono&gt;
+#include &lt;thread&gt;
+
+int main() {
+    using namespace std::chrono;
+
+    // Поточний час
+    auto now = system_clock::now();
+
+    // Часова точка
+    auto start = high_resolution_clock::now();
+
+    // Затримка
+    std::this_thread::sleep_for(milliseconds(100));
+
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast&lt;microseconds&gt;(end - start);
+    std::cout &lt;&lt; "Час: " &lt;&lt; duration.count() &lt;&lt; " мкс" &lt;&lt; std::endl;
+
+    // Дurations
+    seconds s(10);
+    minutes m(5);
+    hours h(2);
+
+    std::cout &lt;&lt; "5 хвилин = " &lt;&lt; duration_cast&lt;seconds&gt;(m).count() &lt;&lt; " секунд" &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>58.2 Підсумки лекції</h2>
+<ul>
+  <li>system_clock — системний час</li>
+  <li>steady_clock — монотонний час</li>
+  <li>duration — часові інтервали</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture57.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 58 з 60</div>
+      <a href="lecture59.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 6: Арифметичні оператори - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 6: Арифметичні оператори</h1>
+      <p class="lecture-topic">Математичні операції, оператори інкременту/декременту, пріоритет операцій</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 6 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture6.png" alt="Арифметичні оператори" class="lecture-image">
+<p class="lecture-image-caption">Рис. 6.1 — Арифметичні операції в C++</p>
+
+<h2>6.1 Базові арифметичні оператори</h2>
+<table>
+  <tr><th>Оператор</th><th>Операція</th><th>Приклад</th><th>Результат</th></tr>
+  <tr><td>+</td><td>Додавання</td><td>5 + 3</td><td>8</td></tr>
+  <tr><td>-</td><td>Віднімання</td><td>5 - 3</td><td>2</td></tr>
+  <tr><td>*</td><td>Множення</td><td>5 * 3</td><td>15</td></tr>
+  <tr><td>/</td><td>Ділення</td><td>5 / 3</td><td>1 (цілі числа!)</td></tr>
+  <tr><td>%</td><td>Остача від ділення</td><td>5 % 3</td><td>2</td></tr>
+</table>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 17, b = 5;
+
+    std::cout &lt;&lt; "a = " &lt;&lt; a &lt;&lt; ", b = " &lt;&lt; b &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a + b = " &lt;&lt; (a + b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a - b = " &lt;&lt; (a - b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a * b = " &lt;&lt; (a * b) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a / b = " &lt;&lt; (a / b) &lt;&lt; std::endl;  // ЦІЛЕ ЧИСЛО: 3
+    std::cout &lt;&lt; "a % b = " &lt;&lt; (a % b) &lt;&lt; std::endl;  // Остача: 2
+
+    // Для отримання дробового результату — перетворення типу
+    std::cout &lt;&lt; "(double)a / b = " &lt;&lt; (static_cast&lt;double&gt;(a) / b) &lt;&lt; std::endl;
+    // Результат: 3.4
+
+    return 0;
+}</code></pre>
+
+<div class="info-box warning">
+  <div class="info-box-title">⚠️ Важливо: цілочисельне ділення</div>
+  <p>Коли обидва операнди цілі, оператор / виконує цілочисельне ділення (відкидає дробову частину). Щоб отримати дробовий результат, хоча б один операнд має бути дробового типу.</p>
+</div>
+
+<h2>6.2 Оператори інкременту та декременту</h2>
+<table>
+  <tr><th>Оператор</th><th>Назва</th><th>Опис</th></tr>
+  <tr><td>++x</td><td>Префіксний інкремент</td><td>Спочатку збільшує, потім повертає значення</td></tr>
+  <tr><td>x++</td><td>Постфіксний інкремент</td><td>Спочатку повертає значення, потім збільшує</td></tr>
+  <tr><td>--x</td><td>Префіксний декремент</td><td>Спочатку зменшує, потім повертає значення</td></tr>
+  <tr><td>x--</td><td>Постфіксний декремент</td><td>Спочатку повертає значення, потім зменшує</td></tr>
+</table>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 5, b = 5;
+
+    // Префіксний інкремент
+    std::cout &lt;&lt; "++a = " &lt;&lt; ++a &lt;&lt; std::endl;  // 6 (a стало 6, вивелось 6)
+    std::cout &lt;&lt; "a = " &lt;&lt; a &lt;&lt; std::endl;      // 6
+
+    // Постфіксний інкремент
+    std::cout &lt;&lt; "b++ = " &lt;&lt; b++ &lt;&lt; std::endl;  // 5 (вивелось 5, потім b стало 6)
+    std::cout &lt;&lt; "b = " &lt;&lt; b &lt;&lt; std::endl;      // 6
+
+    return 0;
+}</code></pre>
+
+<h2>6.3 Скорочені оператори присвоєння</h2>
+<pre><code>int x = 10;
+
+x += 5;   // x = x + 5;    → 15
+x -= 3;   // x = x - 3;    → 12
+x *= 2;   // x = x * 2;    → 24
+x /= 4;   // x = x / 4;    → 6
+x %= 4;   // x = x % 4;    → 2</code></pre>
+
+<h2>6.4 Пріоритет операторів</h2>
+<table>
+  <tr><th>Пріоритет</th><th>Оператори</th><th>Асоціативність</th></tr>
+  <tr><td>1 (найвищий)</td><td>() [] -> . :: ++(постф) --(постф)</td><td>Ліва</td></tr>
+  <tr><td>2</td><td>++(преф) --(преф) + - ! ~ * & sizeof</td><td>Права</td></tr>
+  <tr><td>3</td><td>* / %</td><td>Ліва</td></tr>
+  <tr><td>4</td><td>+ -</td><td>Ліва</td></tr>
+  <tr><td>5</td><td>&lt;&lt; &gt;&gt;</td><td>Ліва</td></tr>
+  <tr><td>6</td><td>&lt; &lt;= &gt; &gt;=</td><td>Ліва</td></tr>
+  <tr><td>7</td><td>== !=</td><td>Ліва</td></tr>
+  <tr><td>8</td><td>&</td><td>Ліва</td></tr>
+  <tr><td>9</td><td>^</td><td>Ліва</td></tr>
+  <tr><td>10</td><td>|</td><td>Ліва</td></tr>
+  <tr><td>11</td><td>&&</td><td>Ліва</td></tr>
+  <tr><td>12</td><td>||</td><td>Ліва</td></tr>
+  <tr><td>13</td><td>?:</td><td>Права</td></tr>
+  <tr><td>14</td><td>= += -= *= /= %=</td><td>Права</td></tr>
+</table>
+
+<h2>6.5 Математичні функції</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+
+int main() {
+    double x = 16.0, y = 2.0;
+
+    std::cout &lt;&lt; "sqrt(16) = " &lt;&lt; std::sqrt(x) &lt;&lt; std::endl;    // 4
+    std::cout &lt;&lt; "pow(2, 8) = " &lt;&lt; std::pow(2.0, 8.0) &lt;&lt; std::endl; // 256
+    std::cout &lt;&lt; "abs(-10) = " &lt;&lt; std::abs(-10) &lt;&lt; std::endl;     // 10
+    std::cout &lt;&lt; "ceil(3.2) = " &lt;&lt; std::ceil(3.2) &lt;&lt; std::endl;   // 4
+    std::cout &lt;&lt; "floor(3.9) = " &lt;&lt; std::floor(3.9) &lt;&lt; std::endl; // 3
+    std::cout &lt;&lt; "round(3.5) = " &lt;&lt; std::round(3.5) &lt;&lt; std::endl; // 4
+    std::cout &lt;&lt; "sin(PI/2) = " &lt;&lt; std::sin(3.14159/2) &lt;&lt; std::endl; // ~1
+    std::cout &lt;&lt; "log(100) = " &lt;&lt; std::log(100.0) &lt;&lt; std::endl;    // натуральний
+    std::cout &lt;&lt; "log10(100) = " &lt;&lt; std::log10(100.0) &lt;&lt; std::endl; // 2
+
+    return 0;
+}</code></pre>
+
+<h2>6.6 Підсумки лекції</h2>
+<ul>
+  <li>Базові оператори: +, -, *, /, %</li>
+  <li>Цілочисельне ділення vs дробове</li>
+  <li>Інкремент/декремент: префіксний та постфіксний</li>
+  <li>Скорочені оператори присвоєння: +=, -=, *=, /=</li>
+  <li>Пріоритет операторів та використання дужок</li>
+  <li>Математичні функції з &lt;cmath&gt;</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture5.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 6 з 60</div>
+      <a href="lecture7.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

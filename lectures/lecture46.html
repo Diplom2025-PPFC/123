@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 46: STL: Множини (set) та мапи (map) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 46: STL: Множини (set) та мапи (map)</h1>
+      <p class="lecture-topic">std::set, std::map, std::unordered_set, std::unordered_map</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 46 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture46.png" alt="STL Set та Map" class="lecture-image">
+
+<h2>46.1 std::set</h2>
+<p>set — відсортована множина унікальних елементів, реалізована як червоно-чорне дерево.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;set&gt;
+
+int main() {
+    std::set&lt;int&gt; s;
+
+    s.insert(30);
+    s.insert(10);
+    s.insert(50);
+    s.insert(20);
+    s.insert(10);  // Дублікат — ігнорується
+
+    std::cout &lt;&lt; "Розмір: " &lt;&lt; s.size() &lt;&lt; std::endl;  // 4
+
+    // Автоматичне сортування
+    for (int x : s) {
+        std::cout &lt;&lt; x &lt;&lt; " ";  // 10 20 30 50
+    }
+    std::cout &lt;&lt; std::endl;
+
+    // Пошук
+    if (s.find(30) != s.end()) {
+        std::cout &lt;&lt; "30 знайдено!" &lt;&lt; std::endl;
+    }
+
+    // Видалення
+    s.erase(20);
+
+    return 0;
+}</code></pre>
+
+<h2>46.2 std::map</h2>
+<p>map — асоціативний масив (словник), що зберігає пари ключ-значення.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;map&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::map&lt;std::string, int&gt; scores;
+
+    scores["Ivan"] = 85;
+    scores["Maria"] = 92;
+    scores["Petro"] = 78;
+
+    // Доступ
+    std::cout &lt;&lt; "Бал Івана: " &lt;&lt; scores["Ivan"] &lt;&lt; std::endl;
+
+    // Перевірка наявності
+    if (scores.count("Oleg") == 0) {
+        std::cout &lt;&lt; "Олега немає в базі." &lt;&lt; std::endl;
+    }
+
+    // Ітерація (відсортовано за ключем)
+    for (const auto& pair : scores) {
+        std::cout &lt;&lt; pair.first &lt;&lt; ": " &lt;&lt; pair.second &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>46.3 Підсумки лекції</h2>
+<ul>
+  <li>set — унікальні елементи, відсортовані</li>
+  <li>map — пари ключ-значення</li>
+  <li>unordered_ версії для хеш-таблиць</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture45.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 46 з 60</div>
+      <a href="lecture47.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

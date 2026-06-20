@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 22: Вказівники: основи - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 22: Вказівники: основи</h1>
+      <p class="lecture-topic">Оголошення вказівників, оператори & та *, nullptr</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 22 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture22.png" alt="Вказівники" class="lecture-image">
+
+<h2>22.1 Що таке вказівник?</h2>
+<p>Вказівник — це змінна, що зберігає адресу пам'яті іншої змінної. Вказівники — одна з найпотужніших і водночас найскладніших концепцій C++.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int x = 42;
+    int* ptr = &x;  // ptr зберігає адресу x
+
+    std::cout &lt;&lt; "Значення x: " &lt;&lt; x &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Адреса x: " &lt;&lt; &x &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Вказівник ptr: " &lt;&lt; ptr &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Значення за адресою: " &lt;&lt; *ptr &lt;&lt; std::endl;
+
+    // Зміна значення через вказівник
+    *ptr = 100;
+    std::cout &lt;&lt; "Нове x: " &lt;&lt; x &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>22.2 Оператори роботи з вказівниками</h2>
+<table>
+  <tr><th>Оператор</th><th>Назва</th><th>Опис</th></tr>
+  <tr><td>&</td><td>Адреса</td><td>Повертає адресу змінної</td></tr>
+  <tr><td>*</td><td>Розіменування</td><td>Доступ до значення за адресою</td></tr>
+  <tr><td>-></td><td>Стрілка</td><td>Доступ до членів через вказівник</td></tr>
+</table>
+
+<h2>22.3 Підсумки лекції</h2>
+<ul>
+  <li>Вказівник зберігає адресу пам'яті</li>
+  <li>& — отримання адреси, * — розіменування</li>
+  <li>nullptr — безпечний нульовий вказівник (C++11)</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture21.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 22 з 60</div>
+      <a href="lecture23.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

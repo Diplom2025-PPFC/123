@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 56: Мережеве програмування - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 56: Мережеве програмування</h1>
+      <p class="lecture-topic">Сокети, Winsock, TCP/IP клієнт-сервер</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 56 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture56.png" alt="Мережеве програмування" class="lecture-image">
+
+<h2>56.1 Основи мережевого програмування</h2>
+<p>Мережеве програмування дозволяє обмін даними між комп'ютерами через мережу.</p>
+
+<pre><code>// Простий TCP-сервер (Windows)
+#include &lt;iostream&gt;
+#include &lt;winsock2.h&gt;
+#pragma comment(lib, "ws2_32.lib")
+
+int main() {
+    WSADATA wsaData;
+    WSAStartup(MAKEWORD(2, 2), &wsaData);
+
+    // Створення сокета
+    SOCKET serverSocket = socket(AF_INET, SOCK_STREAM, 0);
+
+    // Прив'язка до порту
+    sockaddr_in serverAddr;
+    serverAddr.sin_family = AF_INET;
+    serverAddr.sin_port = htons(8080);
+    serverAddr.sin_addr.s_addr = INADDR_ANY;
+
+    bind(serverSocket, (sockaddr*)&serverAddr, sizeof(serverAddr));
+    listen(serverSocket, 5);
+
+    std::cout &lt;&lt; "Сервер слухає порт 8080..." &lt;&lt; std::endl;
+
+    // Прийом з'єднання
+    SOCKET clientSocket = accept(serverSocket, nullptr, nullptr);
+
+    // Відправка даних
+    const char* message = "Привіт, клієнте!";
+    send(clientSocket, message, strlen(message), 0);
+
+    closesocket(clientSocket);
+    closesocket(serverSocket);
+    WSACleanup();
+
+    return 0;
+}</code></pre>
+
+<h2>56.2 Підсумки лекції</h2>
+<ul>
+  <li>Сокети — кінцеві точки мережевого зв'язку</li>
+  <li>TCP — надійна передача</li>
+  <li>UDP — швидка, але ненадійна</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture55.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 56 з 60</div>
+      <a href="lecture57.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

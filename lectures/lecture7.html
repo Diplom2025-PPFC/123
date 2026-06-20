@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 7: Оператори порівняння та логічні - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 7: Оператори порівняння та логічні</h1>
+      <p class="lecture-topic">Порівняння значень, логічні операції, таблиці істинності</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 7 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture7.png" alt="Оператори порівняння" class="lecture-image">
+<p class="lecture-image-caption">Рис. 7.1 — Логічні оператори та таблиці істинності</p>
+
+<h2>7.1 Оператори порівняння (реляційні)</h2>
+<p>Оператори порівняння використовуються для порівняння двох значень. Результатом є булеве значення true або false.</p>
+
+<table>
+  <tr><th>Оператор</th><th>Опис</th><th>Приклад</th><th>Результат</th></tr>
+  <tr><td>==</td><td>Дорівнює</td><td>5 == 5</td><td>true</td></tr>
+  <tr><td>!=</td><td>Не дорівнює</td><td>5 != 3</td><td>true</td></tr>
+  <tr><td>&lt;</td><td>Менше</td><td>5 &lt; 3</td><td>false</td></tr>
+  <tr><td>&gt;</td><td>Більше</td><td>5 &gt; 3</td><td>true</td></tr>
+  <tr><td>&lt;=</td><td>Менше або дорівнює</td><td>5 &lt;= 5</td><td>true</td></tr>
+  <tr><td>&gt;=</td><td>Більше або дорівнює</td><td>5 &gt;= 6</td><td>false</td></tr>
+</table>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 5, b = 10;
+
+    std::cout &lt;&lt; "a == b: " &lt;&lt; (a == b) &lt;&lt; std::endl;  // 0 (false)
+    std::cout &lt;&lt; "a != b: " &lt;&lt; (a != b) &lt;&lt; std::endl;  // 1 (true)
+    std::cout &lt;&lt; "a &lt; b: " &lt;&lt; (a &lt; b) &lt;&lt; std::endl;    // 1 (true)
+    std::cout &lt;&lt; "a &gt; b: " &lt;&lt; (a &gt; b) &lt;&lt; std::endl;    // 0 (false)
+    std::cout &lt;&lt; "a &lt;= b: " &lt;&lt; (a &lt;= b) &lt;&lt; std::endl;  // 1 (true)
+    std::cout &lt;&lt; "a &gt;= b: " &lt;&lt; (a &gt;= b) &lt;&lt; std::endl;  // 0 (false)
+
+    return 0;
+}</code></pre>
+
+<div class="info-box danger">
+  <div class="info-box-title">❌ Типова помилка!</div>
+  <p>Ніколи не плутайте <span class="inline-code">==</span> (порівняння) з <span class="inline-code">=</span> (присвоєння)!</p>
+  <pre><code>if (x = 5)  // ПОМИЛКА: присвоєння, а не порівняння!
+if (x == 5) // ПРАВИЛЬНО: порівняння</code></pre>
+</div>
+
+<h2>7.2 Логічні оператори</h2>
+<table>
+  <tr><th>Оператор</th><th>Назва</th><th>Опис</th></tr>
+  <tr><td>&&</td><td>Логічне І (AND)</td><td>true, якщо ОБИДВА операнди true</td></tr>
+  <tr><td>||</td><td>Логічне АБО (OR)</td><td>true, якщо ХОЧА Б ОДИН операнд true</td></tr>
+  <tr><td>!</td><td>Логічне НЕ (NOT)</td><td>Інвертує значення</td></tr>
+</table>
+
+<h3>Таблиця істинності</h3>
+<table>
+  <tr><th>A</th><th>B</th><th>A && B</th><th>A || B</th><th>!A</th></tr>
+  <tr><td>true</td><td>true</td><td>true</td><td>true</td><td>false</td></tr>
+  <tr><td>true</td><td>false</td><td>false</td><td>true</td><td>false</td></tr>
+  <tr><td>false</td><td>true</td><td>false</td><td>true</td><td>true</td></tr>
+  <tr><td>false</td><td>false</td><td>false</td><td>false</td><td>true</td></tr>
+</table>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    bool a = true, b = false;
+
+    std::cout &lt;&lt; "a && b: " &lt;&lt; (a && b) &lt;&lt; std::endl;  // false
+    std::cout &lt;&lt; "a || b: " &lt;&lt; (a || b) &lt;&lt; std::endl;  // true
+    std::cout &lt;&lt; "!a: " &lt;&lt; (!a) &lt;&lt; std::endl;          // false
+    std::cout &lt;&lt; "!b: " &lt;&lt; (!b) &lt;&lt; std::endl;          // true
+
+    // Практичний приклад: перевірка діапазону
+    int age = 25;
+    bool isAdult = (age >= 18 && age <= 65);
+    std::cout &lt;&lt; "Працездатний вік: " &lt;&lt; isAdult &lt;&lt; std::endl;
+
+    // Складні умови
+    int score = 85;
+    bool isPassing = (score >= 60 && score < 90);
+    bool isExcellent = (score >= 90 || score == 100);
+
+    return 0;
+}</code></pre>
+
+<h2>7.3 Коротке замикання (Short-circuit evaluation)</h2>
+<p>C++ використовує коротке замикання для логічних операторів:</p>
+<ul>
+  <li><strong>&&</strong>: якщо лівий операнд false, правий не обчислюється</li>
+  <li><strong>||</strong>: якщо лівий операнд true, правий не обчислюється</li>
+</ul>
+
+<pre><code>int x = 0;
+
+// Коротке замикання — x++ НЕ виконається, бо перший операнд false
+if (x != 0 && 10 / x > 5) {
+    // Цей код безпечний від ділення на нуль!
+}
+
+// Без короткого замикання це призвело б до аварії!
+// if (x != 0 & 10 / x > 5)  // ПОМИЛКА: ділення на нуль!</code></pre>
+
+<h2>7.4 Побітові оператори</h2>
+<table>
+  <tr><th>Оператор</th><th>Операція</th><th>Приклад</th></tr>
+  <tr><td>&</td><td>Побітове І</td><td>5 & 3 = 1 (0101 & 0011 = 0001)</td></tr>
+  <tr><td>|</td><td>Побітове АБО</td><td>5 | 3 = 7 (0101 | 0011 = 0111)</td></tr>
+  <tr><td>^</td><td>Побітове XOR</td><td>5 ^ 3 = 6 (0101 ^ 0011 = 0110)</td></tr>
+  <tr><td>~</td><td>Побітове НЕ</td><td>~5 = -6</td></tr>
+  <tr><td>&lt;&lt;</td><td>Зсув вліво</td><td>5 &lt;&lt; 1 = 10 (0101 -> 1010)</td></tr>
+  <tr><td>&gt;&gt;</td><td>Зсув вправо</td><td>5 &gt;&gt; 1 = 2 (0101 -> 0010)</td></tr>
+</table>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+
+int main() {
+    unsigned char flags = 0b00001101; // 13
+
+    // Перевірка біта (маскування)
+    bool bit2 = (flags & 0b00000100) != 0;  // false
+    bool bit0 = (flags & 0b00000001) != 0;  // true
+
+    // Встановлення біта
+    flags = flags | 0b00000010;  // Встановлюємо біт 1
+
+    // Скидання біта
+    flags = flags & ~0b00001000;  // Скидаємо біт 3
+
+    // Інвертування біта (XOR)
+    flags = flags ^ 0b00000001;  // Інвертуємо біт 0
+
+    // Зсуви
+    std::cout &lt;&lt; "5 &lt;&lt; 2 = " &lt;&lt; (5 &lt;&lt; 2) &lt;&lt; std::endl;  // 20 (еквівалентно 5 * 4)
+    std::cout &lt;&lt; "20 &gt;&gt; 2 = " &lt;&lt; (20 &gt;&gt; 2) &lt;&lt; std::endl; // 5 (еквівалентно 20 / 4)
+
+    return 0;
+}</code></pre>
+
+<h2>7.5 Підсумки лекції</h2>
+<ul>
+  <li>Оператори порівняння: ==, !=, &lt;, &gt;, &lt;=, &gt;=</li>
+  <li>Логічні оператори: && (AND), || (OR), ! (NOT)</li>
+  <li>Коротке замикання для оптимізації та безпеки</li>
+  <li>Побітові оператори для роботи з бітами</li>
+  <li>Маскування, встановлення, скидання бітів</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture6.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 7 з 60</div>
+      <a href="lecture8.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

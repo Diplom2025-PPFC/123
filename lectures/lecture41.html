@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 41: Шаблони класів - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 41: Шаблони класів</h1>
+      <p class="lecture-topic">template class, параметри шаблону, спеціалізація</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 41 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture41.png" alt="Шаблони класів" class="lecture-image">
+
+<h2>41.1 Шаблон класу</h2>
+<p>Шаблон класу дозволяє створювати узагальнені класи, що працюють з будь-якими типами даних.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+template &lt;typename T&gt;
+class Stack {
+private:
+    T* data;
+    int capacity;
+    int top;
+
+public:
+    Stack(int cap = 100) : capacity(cap), top(-1) {
+        data = new T[capacity];
+    }
+
+    ~Stack() {
+        delete[] data;
+    }
+
+    void push(T value) {
+        if (top < capacity - 1) {
+            data[++top] = value;
+        }
+    }
+
+    T pop() {
+        if (top >= 0) {
+            return data[top--];
+        }
+        return T(); // Значення за замовчуванням
+    }
+
+    bool isEmpty() const {
+        return top == -1;
+    }
+};
+
+int main() {
+    Stack&lt;int&gt; intStack;
+    intStack.push(10);
+    intStack.push(20);
+    std::cout &lt;&lt; intStack.pop() &lt;&lt; std::endl;  // 20
+    std::cout &lt;&lt; intStack.pop() &lt;&lt; std::endl;  // 10
+
+    Stack&lt;std::string&gt; stringStack;
+    stringStack.push("Hello");
+    stringStack.push("World");
+    std::cout &lt;&lt; stringStack.pop() &lt;&lt; std::endl;  // World
+
+    return 0;
+}</code></pre>
+
+<h2>41.2 Підсумки лекції</h2>
+<ul>
+  <li>template class — узагальнений клас</li>
+  <li>Параметри типу для будь-яких типів</li>
+  <li>Явне вказівка типу при створенні</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture40.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 41 з 60</div>
+      <a href="lecture42.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

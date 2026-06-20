@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 42: Обробка винятків (exceptions) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 42: Обробка винятків (exceptions)</h1>
+      <p class="lecture-topic">try, catch, throw, ієрархія винятків, noexcept</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 42 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture42.png" alt="Винятки" class="lecture-image">
+
+<h2>42.1 Обробка винятків</h2>
+<p>Винятки — це механізм обробки помилок, що перериває нормальний потік виконання програми і передає керування обробнику помилок.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;stdexcept&gt;
+#include &lt;string&gt;
+
+double divide(double a, double b) {
+    if (b == 0) {
+        throw std::runtime_error("Ділення на нуль!");
+    }
+    return a / b;
+}
+
+int main() {
+    try {
+        double result = divide(10, 0);
+        std::cout &lt;&lt; "Результат: " &lt;&lt; result &lt;&lt; std::endl;
+    } 
+    catch (const std::runtime_error& e) {
+        std::cout &lt;&lt; "Помилка: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+    catch (const std::exception& e) {
+        std::cout &lt;&lt; "Загальна помилка: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+    catch (...) {
+        std::cout &lt;&lt; "Невідома помилка!" &lt;&lt; std::endl;
+    }
+
+    std::cout &lt;&lt; "Програма продовжує роботу." &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+
+<h2>42.2 Стандартні винятки</h2>
+<table>
+  <tr><th>Виняток</th><th>Опис</th></tr>
+  <tr><td>std::exception</td><td>Базовий клас винятків</td></tr>
+  <tr><td>std::runtime_error</td><td>Помилка часу виконання</td></tr>
+  <tr><td>std::logic_error</td><td>Логічна помилка</td></tr>
+  <tr><td>std::out_of_range</td><td>Вихід за межі</td></tr>
+  <tr><td>std::bad_alloc</td><td>Помилка виділення пам'яті</td></tr>
+</table>
+
+<h2>42.3 Підсумки лекції</h2>
+<ul>
+  <li>throw — генерування винятку</li>
+  <li>try-catch — обробка винятків</li>
+  <li>Власні класи винятків</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture41.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 42 з 60</div>
+      <a href="lecture43.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

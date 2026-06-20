@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 9: Оператор множинного вибору switch - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 9: Оператор множинного вибору switch</h1>
+      <p class="lecture-topic">switch-case, break, default, області застосування</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 9 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture9.png" alt="Оператор switch" class="lecture-image">
+<p class="lecture-image-caption">Рис. 9.1 — Оператор множинного вибору switch</p>
+
+<h2>9.1 Синтаксис switch</h2>
+<p>Оператор switch дозволяє вибрати один із багатьох блоків коду для виконання на основі значення виразу. Він працює з цілими типами, enum та char.</p>
+
+<pre><code>// Синтаксис:
+switch (вираз) {
+    case значення1:
+        // код для значення1
+        break;
+    case значення2:
+        // код для значення2
+        break;
+    default:
+        // код за замовчуванням
+}
+
+// Приклад:
+#include &lt;iostream&gt;
+
+int main() {
+    int day;
+    std::cout &lt;&lt; "Введіть номер дня тижня (1-7): ";
+    std::cin &gt;&gt; day;
+
+    switch (day) {
+        case 1:
+            std::cout &lt;&lt; "Понеділок" &lt;&lt; std::endl;
+            break;
+        case 2:
+            std::cout &lt;&lt; "Вівторок" &lt;&lt; std::endl;
+            break;
+        case 3:
+            std::cout &lt;&lt; "Середа" &lt;&lt; std::endl;
+            break;
+        case 4:
+            std::cout &lt;&lt; "Четвер" &lt;&lt; std::endl;
+            break;
+        case 5:
+            std::cout &lt;&lt; "П'ятниця" &lt;&lt; std::endl;
+            break;
+        case 6:
+            std::cout &lt;&lt; "Субота" &lt;&lt; std::endl;
+            break;
+        case 7:
+            std::cout &lt;&lt; "Неділя" &lt;&lt; std::endl;
+            break;
+        default:
+            std::cout &lt;&lt; "Невірний номер дня!" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>9.2 Групування case</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    char grade;
+    std::cout &lt;&lt; "Введіть оцінку (A, B, C, D, F): ";
+    std::cin &gt;&gt; grade;
+
+    switch (grade) {
+        case 'A':
+        case 'a':
+            std::cout &lt;&lt; "Відмінно!" &lt;&lt; std::endl;
+            break;
+        case 'B':
+        case 'b':
+            std::cout &lt;&lt; "Добре!" &lt;&lt; std::endl;
+            break;
+        case 'C':
+        case 'c':
+            std::cout &lt;&lt; "Задовільно" &lt;&lt; std::endl;
+            break;
+        case 'D':
+        case 'd':
+            std::cout &lt;&lt; "Потрібно покращити" &lt;&lt; std::endl;
+            break;
+        case 'F':
+        case 'f':
+            std::cout &lt;&lt; "Не здано" &lt;&lt; std::endl;
+            break;
+        default:
+            std::cout &lt;&lt; "Невірна оцінка!" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>9.3 switch vs if-else if</h2>
+<table>
+  <tr><th>Критерій</th><th>switch</th><th>if-else if</th></tr>
+  <tr><td>Типи даних</td><td>Тільки цілі, char, enum</td><td>Будь-які типи</td></tr>
+  <tr><td>Умови</td><td>Тільки рівність</td><td>Будь-які умови</td></tr>
+  <tr><td>Читабельність</td><td>Краще для багатьох варіантів</td><td>Універсальніше</td></tr>
+  <tr><td>Продуктивність</td><td>Може використовувати jump-таблицю</td><td>Послідовна перевірка</td></tr>
+</table>
+
+<h2>9.4 switch з enum (C++11)</h2>
+<pre><code>#include &lt;iostream&gt;
+
+enum class Color { RED, GREEN, BLUE, YELLOW };
+
+int main() {
+    Color c = Color::GREEN;
+
+    switch (c) {
+        case Color::RED:
+            std::cout &lt;&lt; "Червоний" &lt;&lt; std::endl;
+            break;
+        case Color::GREEN:
+            std::cout &lt;&lt; "Зелений" &lt;&lt; std::endl;
+            break;
+        case Color::BLUE:
+            std::cout &lt;&lt; "Синій" &lt;&lt; std::endl;
+            break;
+        case Color::YELLOW:
+            std::cout &lt;&lt; "Жовтий" &lt;&lt; std::endl;
+            break;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>9.5 Відсутність break (fall-through)</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int month;
+    std::cout &lt;&lt; "Введіть номер місяця: ";
+    std::cin &gt;&gt; month;
+
+    switch (month) {
+        case 12:
+        case 1:
+        case 2:
+            std::cout &lt;&lt; "Зима" &lt;&lt; std::endl;
+            break;
+        case 3:
+        case 4:
+        case 5:
+            std::cout &lt;&lt; "Весна" &lt;&lt; std::endl;
+            break;
+        case 6:
+        case 7:
+        case 8:
+            std::cout &lt;&lt; "Літо" &lt;&lt; std::endl;
+            break;
+        case 9:
+        case 10:
+        case 11:
+            std::cout &lt;&lt; "Осінь" &lt;&lt; std::endl;
+            break;
+        default:
+            std::cout &lt;&lt; "Невірний місяць!" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>9.6 Підсумки лекції</h2>
+<ul>
+  <li>switch — вибір серед багатьох фіксованих варіантів</li>
+  <li>case — мітка для конкретного значення</li>
+  <li>break — вихід з switch (без нього — fall-through)</li>
+  <li>default — виконується, якщо жоден case не підходить</li>
+  <li>Групування case для спільної обробки</li>
+  <li>Робота з enum class</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture8.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 9 з 60</div>
+      <a href="lecture10.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

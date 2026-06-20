@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 35: Наслідування: основи - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 35: Наслідування: основи</h1>
+      <p class="lecture-topic">Базовий клас, похідний клас, extends, доступ до базових членів</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 35 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture35.png" alt="Наслідування" class="lecture-image">
+
+<h2>35.1 Концепція наслідування</h2>
+<p>Наслідування дозволяє створювати нові класи на основі існуючих, успадковуючи їхні властивості та методи.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Базовий клас
+class Animal {
+protected:
+    std::string name;
+    int age;
+
+public:
+    Animal(std::string n, int a) : name(n), age(a) {}
+
+    void eat() {
+        std::cout &lt;&lt; name &lt;&lt; " їсть." &lt;&lt; std::endl;
+    }
+
+    void sleep() {
+        std::cout &lt;&lt; name &lt;&lt; " спить." &lt;&lt; std::endl;
+    }
+
+    void introduce() {
+        std::cout &lt;&lt; "Я " &lt;&lt; name &lt;&lt; ", мені " &lt;&lt; age &lt;&lt; " років." &lt;&lt; std::endl;
+    }
+};
+
+// Похідний клас
+class Dog : public Animal {
+private:
+    std::string breed;
+
+public:
+    Dog(std::string n, int a, std::string b) 
+        : Animal(n, a), breed(b) {}
+
+    void bark() {
+        std::cout &lt;&lt; name &lt;&lt; " гавкає: Гав-гав!" &lt;&lt; std::endl;
+    }
+
+    void fetch() {
+        std::cout &lt;&lt; name &lt;&lt; " приносить м'яч." &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    Dog dog("Барон", 3, "Вівчарка");
+
+    dog.introduce();  // Успадкований метод
+    dog.eat();        // Успадкований метод
+    dog.bark();       // Власний метод
+    dog.fetch();      // Власний метод
+
+    return 0;
+}</code></pre>
+
+<h2>35.2 Підсумки лекції</h2>
+<ul>
+  <li>Наслідування — "is-a" відношення</li>
+  <li>Похідний клас успадковує члени базового</li>
+  <li>protected — доступ у похідних класах</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture34.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 35 з 60</div>
+      <a href="lecture36.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

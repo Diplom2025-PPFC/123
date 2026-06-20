@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 50: Простори імен (namespaces) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 50: Простори імен (namespaces)</h1>
+      <p class="lecture-topic">namespace, using, безіменні простори, вкладені простори</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 50 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture50.png" alt="Namespaces" class="lecture-image">
+
+<h2>50.1 Простори імен</h2>
+<p>Простір імен — це область, що групує ідентифікатори для запобігання конфліктам імен.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+// Власний простір імен
+namespace Math {
+    const double PI = 3.14159;
+
+    double square(double x) {
+        return x * x;
+    }
+
+    double circleArea(double r) {
+        return PI * square(r);
+    }
+
+    namespace Advanced {
+        double power(double base, int exp) {
+            double result = 1;
+            for (int i = 0; i < exp; i++) {
+                result *= base;
+            }
+            return result;
+        }
+    }
+}
+
+namespace Utils {
+    void printHello() {
+        std::cout &lt;&lt; "Привіт з Utils!" &lt;&lt; std::endl;
+    }
+}
+
+int main() {
+    // Повні імена
+    std::cout &lt;&lt; "PI = " &lt;&lt; Math::PI &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Площа кола: " &lt;&lt; Math::circleArea(5) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "2^10 = " &lt;&lt; Math::Advanced::power(2, 10) &lt;&lt; std::endl;
+
+    // using declaration
+    using Math::square;
+    std::cout &lt;&lt; "4^2 = " &lt;&lt; square(4) &lt;&lt; std::endl;
+
+    // using directive
+    using namespace Utils;
+    printHello();
+
+    // Безіменний простір (видимий тільки у файлі)
+    // namespace { ... }
+
+    return 0;
+}</code></pre>
+
+<h2>50.2 Підсумки лекції</h2>
+<ul>
+  <li>namespace — групування ідентифікаторів</li>
+  <li>Вкладені простори імен</li>
+  <li>using — для зручного доступу</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture49.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 50 з 60</div>
+      <a href="lecture51.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

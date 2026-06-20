@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 4: Змінні, типи даних та константи - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 4: Змінні, типи даних та константи</h1>
+      <p class="lecture-topic">Огляд всіх базових типів даних, оголошення змінних, константи, літерали</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 4 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture4.png" alt="Типи даних" class="lecture-image">
+<p class="lecture-image-caption">Рис. 4.1 — Типи даних у C++</p>
+
+<h2>4.1 Що таке змінна?</h2>
+<p>Змінна — це іменована область пам'яті, що зберігає дані певного типу. Кожна змінна в C++ має:</p>
+<ul>
+  <li><strong>Ім'я</strong> — унікальний ідентифікатор</li>
+  <li><strong>Тип</strong> — визначає розмір та формат даних</li>
+  <li><strong>Значення</strong> — фактичні дані</li>
+  <li><strong>Адреса</strong> — місце в пам'яті</li>
+</ul>
+
+<pre><code>// Синтаксис оголошення:
+// тип ім'я = значення;
+
+int age = 25;           // ціле число
+double pi = 3.14159;    // число з плаваючою крапкою
+char letter = 'A';      // один символ
+bool flag = true;       // булеве значення
+std::string text = "Hello"; // рядок символів</code></pre>
+
+<h2>4.2 Правила іменування змінних</h2>
+<ul>
+  <li>Можуть містити літери (a-z, A-Z), цифри (0-9) та підкреслення (_)</li>
+  <li>Мають починатися з літери або підкреслення</li>
+  <li>Чутливі до регістру (Age та age — різні змінні)</li>
+  <li>Не можуть бути ключовими словами C++</li>
+  <li>Рекомендується використовувати змістовні імена</li>
+</ul>
+
+<pre><code>int studentAge;      // ✓ Правильно
+int _privateVar;     // ✓ Правильно (допустимо, але уникайте)
+int age2;            // ✓ Правильно
+int 2ndValue;        // ✗ Помилка: починається з цифри
+int my age;          // ✗ Помилка: пробіл не дозволено
+int class;           // ✗ Помилка: ключове слово
+int $money;          // ✗ Помилка: $ не дозволено</code></pre>
+
+<h2>4.3 Цілі числові типи</h2>
+<table>
+  <tr><th>Тип</th><th>Розмір</th><th>Діапазон</th><th>Приклад</th></tr>
+  <tr><td>short</td><td>2 байти</td><td>-32,768 до 32,767</td><td>short s = 1000;</td></tr>
+  <tr><td>int</td><td>4 байти</td><td>-2,147,483,648 до 2,147,483,647</td><td>int i = 50000;</td></tr>
+  <tr><td>long</td><td>4-8 байт</td><td>Залежить від платформи</td><td>long l = 1000000L;</td></tr>
+  <tr><td>long long</td><td>8 байт</td><td>±9 × 10^18</td><td>long long ll = 9e18;</td></tr>
+  <tr><td>unsigned int</td><td>4 байти</td><td>0 до 4,294,967,295</td><td>unsigned int ui = 4000000;</td></tr>
+</table>
+
+<h3>Суфікси для цілих чисел</h3>
+<pre><code>int a = 42;         // int за замовчуванням
+long b = 42L;       // суфікс L — long
+long long c = 42LL; // суфікс LL — long long
+unsigned d = 42U;   // суфікс U — unsigned
+unsigned long e = 42UL; // unsigned long</code></pre>
+
+<h2>4.4 Типи з плаваючою крапкою</h2>
+<table>
+  <tr><th>Тип</th><th>Розмір</th><th>Точність</th><th>Діапазон</th></tr>
+  <tr><td>float</td><td>4 байти</td><td>6-7 цифр</td><td>±3.4 × 10^38</td></tr>
+  <tr><td>double</td><td>8 байтів</td><td>15-16 цифр</td><td>±1.7 × 10^308</td></tr>
+  <tr><td>long double</td><td>8-16 байт</td><td>18+ цифр</td><td>Залежить від платформи</td></tr>
+</table>
+
+<pre><code>float pi_f = 3.14159f;       // суфікс f — float
+double pi_d = 3.14159265359; // double за замовчуванням
+long double pi_ld = 3.14159L; // суфікс L — long double
+
+// Наукова нотація
+double avogadro = 6.022e23;  // 6.022 × 10^23
+double small = 1.6e-19;      // 1.6 × 10^-19</code></pre>
+
+<h2>4.5 Символьний тип char</h2>
+<pre><code>char letter = 'A';      // ASCII: 65
+char digit = '7';       // ASCII: 55
+char symbol = '$';      // ASCII: 36
+char newline = '\n';    // символ нового рядка
+char tab = '\t';        // символ табуляції
+
+// Спеціальні символи (escape sequences)
+// \n — новий рядок
+// \t — горизонтальна табуляція
+// \\ — зворотна коса риска
+// \' — одинарні лапки
+// \" — подвійні лапки
+// \0 — нульовий символ
+// \r — повернення каретки</code></pre>
+
+<h2>4.6 Булевий тип bool</h2>
+<pre><code>bool isReady = true;
+bool isEmpty = false;
+
+// bool конвертується в int: true = 1, false = 0
+int flag = true;  // flag = 1
+
+// Будь-яке ненульове значення — true, 0 — false
+bool b1 = 100;    // true
+bool b2 = 0;      // false
+bool b3 = -5;     // true</code></pre>
+
+<h2>4.7 Константи</h2>
+<p>Константи — це змінні, значення яких не можна змінити після ініціалізації.</p>
+
+<pre><code>// const — константа, визначена під час компіляції
+const int MAX_SIZE = 100;
+const double PI = 3.14159;
+const char NEWLINE = '\n';
+
+// constexpr — константний вираз (C++11)
+constexpr int SQUARE(int x) { return x * x; }
+constexpr int AREA = SQUARE(5); // AREA = 25
+
+// #define — макрос препроцесора (устарілий спосіб)
+#define MAX_VALUE 100
+#define PI_VALUE 3.14159
+
+// enum — перерахування
+enum Color { RED, GREEN, BLUE };
+const Color DEFAULT_COLOR = BLUE;
+
+// enum class (C++11, типобезпечний)
+enum class Status { OK, ERROR, WARNING };
+Status s = Status::OK;</code></pre>
+
+<h2>4.8 Літерали (Constants Values)</h2>
+<pre><code>// Цілі літерали
+int dec = 42;       // десяткове
+int oct = 052;      // вісімкове (починається з 0)
+int hex = 0x2A;     // шістнадцяткове (починається з 0x)
+int bin = 0b101010; // двійкове (C++14, починається з 0b)
+
+// Символьні літерали
+char c1 = 'A';
+wchar_t c2 = L'A';    // широкий символ
+char16_t c3 = u'A';   // UTF-16 (C++11)
+char32_t c4 = U'A';   // UTF-32 (C++11)
+
+// Рядкові літерали
+const char* s1 = "Hello";
+const wchar_t* s2 = L"Hello";
+const char* s3 = u8"Hello";  // UTF-8 (C++11)
+const char* s4 = R"(Raw "string" with \ backslash)"; // Сирий рядок</code></pre>
+
+<h2>4.9 Визначення власних типів</h2>
+<pre><code>// typedef — псевдонім типу
+typedef unsigned int uint;
+typedef long double ldouble;
+uint age = 25;  // те ж саме, що unsigned int
+
+// using — сучасний спосіб (C++11)
+using uint = unsigned int;
+using ldouble = long double;
+using StringList = std::vector&lt;std::string&gt;;
+
+// auto — автоматичне визначення типу (C++11)
+auto x = 10;        // int
+auto y = 3.14;      // double
+auto z = "Hello";   // const char*
+auto v = std::vector&lt;int&gt;{1, 2, 3};</code></pre>
+
+<h2>4.10 Підсумки лекції</h2>
+<ul>
+  <li>Змінна — іменована область пам'яті з певним типом</li>
+  <li>Цілі типи: short, int, long, long long (зі знаком та без)</li>
+  <li>Дробові типи: float, double, long double</li>
+  <li>Символьний тип: char та його варіанти</li>
+  <li>Булевий тип: bool (true/false)</li>
+  <li>Константи: const, constexpr, enum, enum class</li>
+  <li>auto для автоматичного визначення типу</li>
+  <li>using/typedef для псевдонімів типів</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture3.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 4 з 60</div>
+      <a href="lecture5.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

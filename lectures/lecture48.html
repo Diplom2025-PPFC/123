@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 48: Файли: читання та запис - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 48: Файли: читання та запис</h1>
+      <p class="lecture-topic">fstream, ofstream, ifstream, текстові та бінарні файли</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 48 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture48.png" alt="Файли" class="lecture-image">
+
+<h2>48.1 Робота з файлами</h2>
+<p>C++ надає класи для роботи з файлами через бібліотеку &lt;fstream&gt;.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;fstream&gt;
+#include &lt;string&gt;
+
+int main() {
+    // Запис у файл
+    std::ofstream outFile("data.txt");
+    if (outFile.is_open()) {
+        outFile &lt;&lt; "Привіт, файл!" &lt;&lt; std::endl;
+        outFile &lt;&lt; "Рядок 2" &lt;&lt; std::endl;
+        outFile.close();
+    }
+
+    // Читання з файлу
+    std::ifstream inFile("data.txt");
+    if (inFile.is_open()) {
+        std::string line;
+        while (std::getline(inFile, line)) {
+            std::cout &lt;&lt; line &lt;&lt; std::endl;
+        }
+        inFile.close();
+    }
+
+    // Додавання в файл
+    std::ofstream appendFile("data.txt", std::ios::app);
+    appendFile &lt;&lt; "Додано в кінець." &lt;&lt; std::endl;
+    appendFile.close();
+
+    return 0;
+}</code></pre>
+
+<h2>48.2 Підсумки лекції</h2>
+<ul>
+  <li>ofstream — запис, ifstream — читання</li>
+  <li>fstream — читання та запис</li>
+  <li>ios::app — додавання в кінець</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture47.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 48 з 60</div>
+      <a href="lecture49.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

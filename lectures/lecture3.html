@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 3: Структура програми на C++ - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 3: Структура програми на C++</h1>
+      <p class="lecture-topic">Компоненти програми, функція main, простори імен, коментарі</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 3 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture3.png" alt="Структура програми" class="lecture-image">
+<p class="lecture-image-caption">Рис. 3.1 — Структура програми на C++ та її компоненти</p>
+
+<h2>3.1 Основні компоненти програми C++</h2>
+<p>Кожна програма на C++ складається з кількох ключових компонентів. Розуміння їх взаємодії — основа успішного програмування:</p>
+
+<ul>
+  <li><strong>Директиви препроцесора</strong> — команди, що починаються з #, виконуються до компіляції</li>
+  <li><strong>Заголовкові файли</strong> — бібліотечні та власні (.h, .hpp)</li>
+  <li><strong>Функція main()</strong> — точка входу в програму</li>
+  <li><strong>Оператори та вирази</strong> — інструкції, що виконують дії</li>
+  <li><strong>Коментарі</strong> — пояснення для програмістів, ігноруються компілятором</li>
+  <li><strong>Простори імен</strong> — організація коду (std, власні)</li>
+</ul>
+
+<h2>3.2 Директиви препроцесора #include</h2>
+<p>Директива <span class="inline-code">#include</span> вставляє вміст іншого файлу у поточний файл. Є два формати:</p>
+
+<pre><code>// Формат 1: Системні заголовки (шукаються у системних директоріях)
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;cmath&gt;
+
+// Формат 2: Власні заголовки (шукаються у поточній директорії)
+#include "myheader.h"
+#include "utils/functions.hpp"</code></pre>
+
+<table>
+  <tr><th>Заголовок</th><th>Призначення</th></tr>
+  <tr><td>&lt;iostream&gt;</td><td>Введення/виведення (cin, cout, cerr)</td></tr>
+  <tr><td>&lt;fstream&gt;</td><td>Робота з файлами</td></tr>
+  <tr><td>&lt;string&gt;</td><td>Клас std::string</td></tr>
+  <tr><td>&lt;vector&gt;</td><td>Динамічний масив</td></tr>
+  <tr><td>&lt;map&gt;, &lt;set&gt;</td><td>Асоціативні контейнери</td></tr>
+  <tr><td>&lt;cmath&gt;</td><td>Математичні функції</td></tr>
+  <tr><td>&lt;algorithm&gt;</td><td>Алгоритми STL</td></tr>
+  <tr><td>&lt;ctime&gt;, &lt;chrono&gt;</td><td>Робота з часом</td></tr>
+</table>
+
+<h2>3.3 Функція main() — точка входу</h2>
+<p>Функція <span class="inline-code">main()</span> — єдина обов'язкова функція в програмі C++. З неї починається виконання.</p>
+
+<pre><code>// Варіант 1: Проста форма
+int main() {
+    // код програми
+    return 0;
+}
+
+// Варіант 2: З аргументами командного рядка
+int main(int argc, char* argv[]) {
+    // argc — кількість аргументів
+    // argv — масив рядків-аргументів
+    std::cout &lt;&lt; "Програма: " &lt;&lt; argv[0] &lt;&lt; std::endl;
+    return 0;
+}
+
+// Варіант 3: З аргументами (сучасний C++)
+int main(int argc, char** argv) {
+    for (int i = 0; i &lt; argc; i++) {
+        std::cout &lt;&lt; "Аргумент " &lt;&lt; i &lt;&lt; ": " &lt;&lt; argv[i] &lt;&lt; std::endl;
+    }
+    return 0;
+}</code></pre>
+
+<p>Значення, що повертається з main():</p>
+<ul>
+  <li><strong>0</strong> — успішне завершення (EXIT_SUCCESS)</li>
+  <li><strong>1</strong> — загальна помилка (EXIT_FAILURE)</li>
+  <li>Інші значення — специфічні коди помилок для вашої програми</li>
+</ul>
+
+<h2>3.4 Простір імен (namespace)</h2>
+<p>Простір імен — це контейнер для ідентифікаторів (змінних, функцій, класів), що запобігає конфліктам імен.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+// Використання повного імені
+std::cout &lt;&lt; "Hello" &lt;&lt; std::endl;
+
+// Директива using (можна використовувати без std::)
+using namespace std;
+cout &lt;&lt; "Hello" &lt;&lt; endl;
+
+// Використання окремих елементів
+using std::cout;
+using std::endl;
+cout &lt;&lt; "Hello" &lt;&lt; endl;</code></pre>
+
+<div class="info-box warning">
+  <div class="info-box-title">⚠️ Увага!</div>
+  <p>У великих проєктах та заголовкових файлах <strong>ніколи</strong> не використовуйте <span class="inline-code">using namespace std;</span> у глобальній області видимості. Це може призвести до конфліктів імен. Використовуйте повні імена або вибіркові using.</p>
+</div>
+
+<h2>3.5 Коментарі</h2>
+<p>Коментарі пояснюють код для людей. Компілятор повністю їх ігнорує.</p>
+
+<pre><code>// Це однорядковий коментар
+
+/* Це багаторядковий
+   коментар. Він може
+   займати кілька рядків */
+
+/*
+ * Це стиль документації (Javadoc/Doxygen)
+ * @param x — вхідне число
+ * @return результат обчислення
+ */
+int calculate(int x) {
+    return x * 2;  // однорядковий коментар після коду
+}</code></pre>
+
+<h2>3.6 Базові оператори C++</h2>
+
+<h3>Оголошення змінних</h3>
+<pre><code>int age = 25;           // ціле число
+double price = 19.99;   // число з плаваючою точкою
+char grade = 'A';       // символ
+bool isActive = true;   // булеве значення
+std::string name = "Ivan"; // рядок</code></pre>
+
+<h3>Введення/виведення</h3>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+int main() {
+    std::string name;
+    int age;
+
+    // Виведення
+    std::cout &lt;&lt; "Введіть ваше ім'я: ";
+
+    // Введення
+    std::cin &gt;&gt; name;
+
+    std::cout &lt;&lt; "Введіть ваш вік: ";
+    std::cin &gt;&gt; age;
+
+    // Виведення результату
+    std::cout &lt;&lt; "Привіт, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Вам " &lt;&lt; age &lt;&lt; " років." &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>3.7 Повна структура прикладу програми</h2>
+
+<pre><code>/*
+ * Програма: Калькулятор площі прямокутника
+ * Автор: C++ Mastery
+ * Опис: Обчислює площу прямокутника за заданими сторонами
+ */
+
+// === ДИРЕКТИВИ ПРЕПРОЦЕСОРА ===
+#include &lt;iostream&gt;
+
+// === ОГОЛОШЕННЯ ПРОТОТИПІВ ===
+double calculateArea(double length, double width);
+void printResult(double area);
+
+// === ГОЛОВНА ФУНКЦІЯ ===
+int main() {
+    double length, width;
+
+    std::cout &lt;&lt; "=== Калькулятор площі ===" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Введіть довжину: ";
+    std::cin &gt;&gt; length;
+    std::cout &lt;&lt; "Введіть ширину: ";
+    std::cin &gt;&gt; width;
+
+    double area = calculateArea(length, width);
+    printResult(area);
+
+    return 0;
+}
+
+// === ВИЗНАЧЕННЯ ФУНКЦІЙ ===
+double calculateArea(double length, double width) {
+    return length * width;
+}
+
+void printResult(double area) {
+    std::cout &lt;&lt; "Площа прямокутника: " &lt;&lt; area &lt;&lt; std::endl;
+}</code></pre>
+
+<h2>3.8 Стилі кодування (Code Style)</h2>
+<p>Дотримання єдиного стилю кодування важливе для читабельності:</p>
+
+<table>
+  <tr><th>Правило</th><th>Рекомендація</th></tr>
+  <tr><td>Відступи</td><td>4 пробіли (без табуляцій)</td></tr>
+  <tr><td>Фігурні дужки</td><td>Відкриваюча на тому ж рядку (K&R стиль)</td></tr>
+  <tr><td>Імена змінних</td><td>lowerCamelCase: studentName, totalCount</td></tr>
+  <tr><td>Імена функцій</td><td>lowerCamelCase: calculateSum(), printResult()</td></tr>
+  <tr><td>Імена класів</td><td>UpperCamelCase: StudentManager, DataProcessor</td></tr>
+  <tr><td>Константи</td><td>UPPER_CASE: MAX_SIZE, PI_VALUE</td></tr>
+  <tr><td>Довжина рядка</td><td>Максимум 80-120 символів</td></tr>
+</table>
+
+<h2>3.9 Підсумки лекції</h2>
+<ul>
+  <li>Кожна програма C++ має функцію main() — точку входу</li>
+  <li>#include підключає бібліотеки та заголовкові файли</li>
+  <li>Простір імен std містить стандартні класи та функції</li>
+  <li>Коментарі пояснюють код: // та /* */</li>
+  <li>cin/cout для введення/виведення даних</li>
+  <li>Чітка структура: директиви, прототипи, main(), функції</li>
+  <li>Важливо дотримуватися єдиного стилю кодування</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture2.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 3 з 60</div>
+      <a href="lecture4.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

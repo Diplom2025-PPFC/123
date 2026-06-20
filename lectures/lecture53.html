@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 53: Розумні вказівники (smart pointers) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 53: Розумні вказівники (smart pointers)</h1>
+      <p class="lecture-topic">unique_ptr, shared_ptr, weak_ptr, автоматичне керування пам'яттю</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 53 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture53.png" alt="Smart pointers" class="lecture-image">
+
+<h2>53.1 Типи розумних вказівників</h2>
+<p>Розумні вказівники автоматично керують пам'яттю, запобігаючи витокам.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+class Resource {
+public:
+    Resource() { std::cout &lt;&lt; "Resource створено" &lt;&lt; std::endl; }
+    ~Resource() { std::cout &lt;&lt; "Resource знищено" &lt;&lt; std::endl; }
+    void use() { std::cout &lt;&lt; "Використання ресурсу" &lt;&lt; std::endl; }
+};
+
+int main() {
+    // unique_ptr — унікальне володіння
+    {
+        std::unique_ptr&lt;Resource&gt; res = std::make_unique&lt;Resource&gt;();
+        res->use();
+    } // Автоматичне звільнення
+
+    // shared_ptr — спільне володіння
+    {
+        std::shared_ptr&lt;Resource&gt; res1 = std::make_shared&lt;Resource&gt;();
+        {
+            std::shared_ptr&lt;Resource&gt; res2 = res1; // Копіювання
+            std::cout &lt;&lt; "Лічильник: " &lt;&lt; res1.use_count() &lt;&lt; std::endl; // 2
+        } // Лічильник зменшується
+        std::cout &lt;&lt; "Лічильник: " &lt;&lt; res1.use_count() &lt;&lt; std::endl; // 1
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>53.2 Підсумки лекції</h2>
+<ul>
+  <li>unique_ptr — унікальне володіння</li>
+  <li>shared_ptr — спільне володіння з лічильником</li>
+  <li>weak_ptr — слабке посилання</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture52.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 53 з 60</div>
+      <a href="lecture54.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

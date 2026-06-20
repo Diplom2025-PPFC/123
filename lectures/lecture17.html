@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 17: Перевантаження функцій - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 17: Перевантаження функцій</h1>
+      <p class="lecture-topic">Правила перевантаження, неоднозначності, best match</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 17 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture17.png" alt="Перевантаження" class="lecture-image">
+
+<h2>17.1 Принципи перевантаження</h2>
+<p>Перевантаження функцій — це можливість мати кілька функцій з однаковим іменем, але різними списками параметрів. C++ визначає потрібну функцію на етапі компіляції.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+// Три версії функції max
+int max(int a, int b) {
+    return (a > b) ? a : b;
+}
+
+double max(double a, double b) {
+    return (a > b) ? a : b;
+}
+
+double max(double a, double b, double c) {
+    return max(max(a, b), c);
+}
+
+int main() {
+    std::cout &lt;&lt; max(5, 3) &lt;&lt; std::endl;           // int версія
+    std::cout &lt;&lt; max(2.5, 3.7) &lt;&lt; std::endl;       // double версія
+    std::cout &lt;&lt; max(1.0, 5.0, 3.0) &lt;&lt; std::endl;  // Три параметри
+    return 0;
+}</code></pre>
+
+<h2>17.2 Критерії відмінності перевантажених функцій</h2>
+<table>
+  <tr><th>Критерій</th><th>Може перевантажувати?</th></tr>
+  <tr><td>Кількість параметрів</td><td>✓ Так</td></tr>
+  <tr><td>Типи параметрів</td><td>✓ Так</td></tr>
+  <tr><td>Порядок параметрів</td><td>✓ Так</td></tr>
+  <tr><td>Тип повернення</td><td>✗ Ні</td></tr>
+  <tr><td>Ім'я параметрів</td><td>✗ Ні</td></tr>
+</table>
+
+<h2>17.3 Неоднозначність (Ambiguity)</h2>
+<pre><code>// Неоднозначний виклик!
+void func(int x);
+void func(long x);
+
+// func(5); // ПОМИЛКА: 5 може бути і int, і long!
+
+// Розв'язання — явне приведення
+func(static_cast&lt;int&gt;(5));
+func(static_cast&lt;long&gt;(5));</code></pre>
+
+<h2>17.4 Підсумки лекції</h2>
+<ul>
+  <li>Перевантаження — одне ім'я, різні параметри</li>
+  <li>Компілятор вибирає найкращий match</li>
+  <li>Неоднозначності потребують явного приведення</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture16.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 17 з 60</div>
+      <a href="lecture18.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

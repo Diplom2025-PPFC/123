@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 30: Конструктори та деструктори - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 30: Конструктори та деструктори</h1>
+      <p class="lecture-topic">Конструктори, ініціалізація, деструктор, RAII</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 30 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture30.png" alt="Конструктори" class="lecture-image">
+
+<h2>30.1 Конструктор</h2>
+<p>Конструктор — це спеціальний метод, що викликається автоматично при створенні об'єкта. Він має те саме ім'я, що й клас, і не має типу повернення.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Student {
+private:
+    std::string name;
+    int age;
+    double gpa;
+
+public:
+    // Конструктор за замовчуванням
+    Student() {
+        name = "Unknown";
+        age = 0;
+        gpa = 0.0;
+        std::cout &lt;&lt; "Викликано конструктор за замовчуванням" &lt;&lt; std::endl;
+    }
+
+    // Параметризований конструктор
+    Student(std::string n, int a, double g) {
+        name = n;
+        age = a;
+        gpa = g;
+        std::cout &lt;&lt; "Викликано параметризований конструктор" &lt;&lt; std::endl;
+    }
+
+    // Спискова ініціалізація (кращий спосіб)
+    Student(std::string n, int a, double g) : name(n), age(a), gpa(g) {
+        std::cout &lt;&lt; "Конструктор зі списковою ініціалізацією" &lt;&lt; std::endl;
+    }
+
+    // Деструктор
+    ~Student() {
+        std::cout &lt;&lt; "Деструктор для " &lt;&lt; name &lt;&lt; std::endl;
+    }
+
+    void display() const {
+        std::cout &lt;&lt; name &lt;&lt; ", " &lt;&lt; age &lt;&lt; " років, GPA: " &lt;&lt; gpa &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    Student s1;                          // Конструктор за замовчуванням
+    Student s2("Ivan", 20, 4.5);        // Параметризований
+    Student s3 = Student("Maria", 19, 4.8); // Явний виклик
+
+    s1.display();
+    s2.display();
+    s3.display();
+
+    // Деструктори викликаються автоматично
+    return 0;
+}</code></pre>
+
+<h2>30.2 Підсумки лекції</h2>
+<ul>
+  <li>Конструктор викликається при створенні об'єкта</li>
+  <li>Деструктор викликається при знищенні</li>
+  <li>Спискова ініціалізація ефективніша</li>
+  <li>RAII — автоматичне керування ресурсами</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture29.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 30 з 60</div>
+      <a href="lecture31.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

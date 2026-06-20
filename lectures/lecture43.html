@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 43: STL: Вектори (vector) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 43: STL: Вектори (vector)</h1>
+      <p class="lecture-topic">std::vector, методи, ітератори, ефективність</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 43 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture43.png" alt="STL Vector" class="lecture-image">
+
+<h2>43.1 Клас std::vector</h2>
+<p>vector — це динамічний масив, що автоматично змінює розмір при додаванні елементів.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main() {
+    // Створення
+    std::vector&lt;int&gt; v1;              // Порожній
+    std::vector&lt;int&gt; v2(5);           // 5 елементів (0)
+    std::vector&lt;int&gt; v3(5, 10);       // 5 елементів (10)
+    std::vector&lt;int&gt; v4 = {1,2,3,4,5}; // Ініціалізація списком
+
+    // Додавання
+    v1.push_back(10);
+    v1.push_back(20);
+    v1.push_back(30);
+
+    // Доступ
+    std::cout &lt;&lt; v1[0] &lt;&lt; std::endl;      // 10 (без перевірки)
+    std::cout &lt;&lt; v1.at(1) &lt;&lt; std::endl;   // 20 (з перевіркою)
+    std::cout &lt;&lt; v1.front() &lt;&lt; std::endl; // 10
+    std::cout &lt;&lt; v1.back() &lt;&lt; std::endl;  // 30
+
+    // Ітерація
+    std::cout &lt;&lt; "Елементи: ";
+    for (int x : v1) {
+        std::cout &lt;&lt; x &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    // Розмір
+    std::cout &lt;&lt; "Розмір: " &lt;&lt; v1.size() &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Місткість: " &lt;&lt; v1.capacity() &lt;&lt; std::endl;
+
+    // Видалення
+    v1.pop_back();  // Видалити останній
+    v1.clear();     // Очистити все
+
+    return 0;
+}</code></pre>
+
+<h2>43.2 Підсумки лекції</h2>
+<ul>
+  <li>vector — динамічний масив</li>
+  <li>push_back/pop_back для додавання/видалення</li>
+  <li>Автоматичне керування пам'яттю</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture42.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 43 з 60</div>
+      <a href="lecture44.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

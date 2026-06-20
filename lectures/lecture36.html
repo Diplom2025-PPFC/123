@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 36: Типи наслідування - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 36: Типи наслідування</h1>
+      <p class="lecture-topic">public, protected, private наслідування, множинне наслідування</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 36 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture36.png" alt="Типи наслідування" class="lecture-image">
+
+<h2>36.1 Три типи наслідування</h2>
+<table>
+  <tr><th>Тип</th><th>public в базовому</th><th>protected в базовому</th></tr>
+  <tr><td>public</td><td>public</td><td>protected</td></tr>
+  <tr><td>protected</td><td>protected</td><td>protected</td></tr>
+  <tr><td>private</td><td>private</td><td>private</td></tr>
+</table>
+
+<pre><code>class Base {
+public: int x;
+protected: int y;
+private: int z;
+};
+
+class PublicDerived : public Base {
+    // x — public, y — protected, z — недоступно
+};
+
+class ProtectedDerived : protected Base {
+    // x — protected, y — protected, z — недоступно
+};
+
+class PrivateDerived : private Base {
+    // x — private, y — private, z — недоступно
+};</code></pre>
+
+<h2>36.2 Підсумки лекції</h2>
+<ul>
+  <li>public inheritance — найпоширеніший</li>
+  <li>protected — рідко використовується</li>
+  <li>private — реалізація через наслідування</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture35.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 36 з 60</div>
+      <a href="lecture37.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

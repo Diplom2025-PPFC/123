@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 38: Абстрактні класи - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 38: Абстрактні класи</h1>
+      <p class="lecture-topic">Чисто віртуальні функції, абстрактні класи, інтерфейси</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 38 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture38.png" alt="Абстрактні класи" class="lecture-image">
+
+<h2>38.1 Чисто віртуальні функції</h2>
+<p>Чисто віртуальна функція — це віртуальна функція без реалізації в базовому класі. Клас, що містить хоча б одну таку функцію, стає абстрактним.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+// Абстрактний клас (інтерфейс)
+class IShape {
+public:
+    virtual double getArea() const = 0;      // Чисто віртуальна
+    virtual double getPerimeter() const = 0; // Чисто віртуальна
+    virtual void draw() const = 0;           // Чисто віртуальна
+
+    virtual ~IShape() {}  // Віртуальний деструктор
+};
+
+class Circle : public IShape {
+private:
+    double radius;
+
+public:
+    Circle(double r) : radius(r) {}
+
+    double getArea() const override {
+        return 3.14159 * radius * radius;
+    }
+
+    double getPerimeter() const override {
+        return 2 * 3.14159 * radius;
+    }
+
+    void draw() const override {
+        std::cout &lt;&lt; "[Коло, r=" &lt;&lt; radius &lt;&lt; "]" &lt;&lt; std::endl;
+    }
+};
+
+class Square : public IShape {
+private:
+    double side;
+
+public:
+    Square(double s) : side(s) {}
+
+    double getArea() const override {
+        return side * side;
+    }
+
+    double getPerimeter() const override {
+        return 4 * side;
+    }
+
+    void draw() const override {
+        std::cout &lt;&lt; "[Квадрат, a=" &lt;&lt; side &lt;&lt; "]" &lt;&lt; std::endl;
+    }
+};
+
+int main() {
+    // IShape shape; // ПОМИЛКА! Не можна створити абстрактний клас
+
+    IShape* shapes[] = { new Circle(5), new Square(4) };
+
+    for (auto s : shapes) {
+        s->draw();
+        std::cout &lt;&lt; "Площа: " &lt;&lt; s->getArea() 
+                  &lt;&lt; ", Периметр: " &lt;&lt; s->getPerimeter() &lt;&lt; std::endl;
+    }
+
+    for (auto s : shapes) delete s;
+    return 0;
+}</code></pre>
+
+<h2>38.2 Підсумки лекції</h2>
+<ul>
+  <li>= 0 — чисто віртуальна функція</li>
+  <li>Абстрактний клас не можна інстанціювати</li>
+  <li>Інтерфейс — клас з тільки чисто віртуальними функціями</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture37.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 38 з 60</div>
+      <a href="lecture39.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

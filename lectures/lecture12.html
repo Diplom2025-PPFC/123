@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 12: Цикл while та do-while - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 12: Цикл while та do-while</h1>
+      <p class="lecture-topic">Цикли з передумовою та післяумовою, нескінченні цикли</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 12 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture12.png" alt="Цикл while" class="lecture-image">
+
+<h2>12.1 Цикл while</h2>
+<p>Цикл while виконує тіло циклу ПОКИ умова істинна. Умова перевіряється ПЕРЕД кожною ітерацією.</p>
+
+<pre><code>// Синтаксис:
+while (умова) {
+    // тіло циклу
+}
+
+// Приклад:
+#include &lt;iostream&gt;
+int main() {
+    int i = 0;
+    while (i < 10) {
+        std::cout &lt;&lt; i &lt;&lt; " ";
+        i++;
+    }
+    // Виведе: 0 1 2 3 4 5 6 7 8 9
+    return 0;
+}</code></pre>
+
+<h2>12.2 Цикл do-while</h2>
+<p>Цикл do-while гарантує виконання тіла хоча б один раз. Умова перевіряється ПІСЛЯ ітерації.</p>
+
+<pre><code>// Синтаксис:
+do {
+    // тіло циклу
+} while (умова);
+
+// Приклад:
+#include &lt;iostream&gt;
+int main() {
+    int choice;
+    do {
+        std::cout &lt;&lt; "1. Продовжити" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "0. Вихід" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "Ваш вибір: ";
+        std::cin &gt;&gt; choice;
+    } while (choice != 0);
+    return 0;
+}</code></pre>
+
+<h2>12.3 Відмінності while та do-while</h2>
+<table>
+  <tr><th>Критерій</th><th>while</th><th>do-while</th></tr>
+  <tr><td>Перевірка умови</td><td>Перед ітерацією</td><td>Після ітерації</td></tr>
+  <tr><td>Мінімум ітерацій</td><td>0</td><td>1</td></tr>
+  <tr><td>Використання</td><td>Загальне</td><td>Меню, введення даних</td></tr>
+</table>
+
+<h2>12.4 Практичні приклади</h2>
+<pre><code>// Гра "Вгадай число"
+#include &lt;iostream&gt;
+#include &lt;cstdlib&gt;
+#include &lt;ctime&gt;
+
+int main() {
+    srand(time(0));
+    int secret = rand() % 100 + 1;
+    int guess, attempts = 0;
+
+    std::cout &lt;&lt; "Вгадайте число від 1 до 100!" &lt;&lt; std::endl;
+
+    do {
+        std::cout &lt;&lt; "Ваш варіант: ";
+        std::cin &gt;&gt; guess;
+        attempts++;
+
+        if (guess > secret) {
+            std::cout &lt;&lt; "Занадто багато!" &lt;&lt; std::endl;
+        } else if (guess < secret) {
+            std::cout &lt;&lt; "Занадто мало!" &lt;&lt; std::endl;
+        }
+    } while (guess != secret);
+
+    std::cout &lt;&lt; "Вітаємо! Ви вгадали за " &lt;&lt; attempts &lt;&lt; " спроб!" &lt;&lt; std::endl;
+    return 0;
+}
+
+// Обчислення НСД (найбільшого спільного дільника)
+#include &lt;iostream&gt;
+int main() {
+    int a, b;
+    std::cout &lt;&lt; "Введіть два числа: ";
+    std::cin &gt;&gt; a &gt;&gt; b;
+
+    while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+
+    std::cout &lt;&lt; "НСД = " &lt;&lt; a &lt;&lt; std::endl;
+    return 0;
+}
+
+// Перетворення десяткового числа в двійкове
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+int main() {
+    int n;
+    std::string binary = "";
+    std::cout &lt;&lt; "Введіть число: ";
+    std::cin &gt;&gt; n;
+
+    while (n > 0) {
+        binary = std::to_string(n % 2) + binary;
+        n /= 2;
+    }
+
+    std::cout &lt;&lt; "Двійкове: " &lt;&lt; binary &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+
+<h2>12.5 Підсумки лекції</h2>
+<ul>
+  <li>while — цикл з передумовою (0+ ітерацій)</li>
+  <li>do-while — цикл з післяумовою (1+ ітерацій)</li>
+  <li>while для загальних випадків</li>
+  <li>do-while для меню та введення даних</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture11.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 12 з 60</div>
+      <a href="lecture13.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

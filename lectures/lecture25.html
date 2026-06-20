@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 25: Динамічна пам'ять: new та delete - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 25: Динамічна пам'ять: new та delete</h1>
+      <p class="lecture-topic">Виділення та звільнення пам'яті, масиви в купі, витоки пам'яті</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 25 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture25.png" alt="Динамічна пам'ять" class="lecture-image">
+
+<h2>25.1 Оператори new та delete</h2>
+<p>Оператор new виділяє пам'ять у купі (heap) і повертає вказівник на неї. delete звільняє цю пам'ять.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    // Виділення одного елемента
+    int* ptr = new int;       // Виділення
+    *ptr = 42;
+    std::cout &lt;&lt; *ptr &lt;&lt; std::endl;
+    delete ptr;               // Звільнення
+
+    // Виділення з ініціалізацією
+    int* p2 = new int(100);
+    std::cout &lt;&lt; *p2 &lt;&lt; std::endl;
+    delete p2;
+
+    // Виділення масиву
+    int size = 5;
+    int* arr = new int[size];  // Динамічний масив
+    for (int i = 0; i < size; i++) {
+        arr[i] = i * 10;
+    }
+    delete[] arr;              // Звільнення масиву (delete[]!)
+
+    return 0;
+}</code></pre>
+
+<h2>25.2 Підсумки лекції</h2>
+<ul>
+  <li>new — виділення пам'яті в купі</li>
+  <li>delete — звільнення пам'яті</li>
+  <li>new[] / delete[] — для масивів</li>
+  <li>Завжди звільняйте виділену пам'ять!</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture24.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 25 з 60</div>
+      <a href="lecture26.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

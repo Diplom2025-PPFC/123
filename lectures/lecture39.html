@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 39: Перевантаження операторів - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 39: Перевантаження операторів</h1>
+      <p class="lecture-topic">Оператори як методи класу, friend оператори, правила</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 39 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture39.png" alt="Перевантаження операторів" class="lecture-image">
+
+<h2>39.1 Перевантаження операторів</h2>
+<p>C++ дозволяє визначати поведінку операторів для користувацьких типів.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+class Complex {
+private:
+    double real;
+    double imag;
+
+public:
+    Complex(double r = 0, double i = 0) : real(r), imag(i) {}
+
+    // Оператор + як метод класу
+    Complex operator+(const Complex& other) const {
+        return Complex(real + other.real, imag + other.imag);
+    }
+
+    // Оператор - як метод класу
+    Complex operator-(const Complex& other) const {
+        return Complex(real - other.real, imag - other.imag);
+    }
+
+    // Оператор * як метод класу
+    Complex operator*(const Complex& other) const {
+        return Complex(
+            real * other.real - imag * other.imag,
+            real * other.imag + imag * other.real
+        );
+    }
+
+    // Оператор ==
+    bool operator==(const Complex& other) const {
+        return (real == other.real && imag == other.imag);
+    }
+
+    // Оператор виведення (friend)
+    friend std::ostream& operator&lt;&lt;(std::ostream& os, const Complex& c) {
+        os &lt;&lt; c.real;
+        if (c.imag >= 0) os &lt;&lt; "+";
+        os &lt;&lt; c.imag &lt;&lt; "i";
+        return os;
+    }
+
+    // Оператор введення (friend)
+    friend std::istream& operator&gt;&gt;(std::istream& is, Complex& c) {
+        std::cout &lt;&lt; "Дійсна частина: ";
+        is &gt;&gt; c.real;
+        std::cout &lt;&lt; "Уявна частина: ";
+        is &gt;&gt; c.imag;
+        return is;
+    }
+};
+
+int main() {
+    Complex a(3, 4);
+    Complex b(1, 2);
+
+    Complex c = a + b;
+    Complex d = a - b;
+    Complex e = a * b;
+
+    std::cout &lt;&lt; "a = " &lt;&lt; a &lt;&lt; std::endl;
+    std::cout &lt;&lt; "b = " &lt;&lt; b &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a + b = " &lt;&lt; c &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a - b = " &lt;&lt; d &lt;&lt; std::endl;
+    std::cout &lt;&lt; "a * b = " &lt;&lt; e &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>39.2 Підсумки лекції</h2>
+<ul>
+  <li>Оператори можна перевантажувати для класів</li>
+  <li>Деякі оператори не можна перевантажувати</li>
+  <li>friend для операторів введення/виведення</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture38.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 39 з 60</div>
+      <a href="lecture40.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

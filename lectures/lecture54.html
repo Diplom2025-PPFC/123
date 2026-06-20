@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 54: Багатопоточність: thread - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 54: Багатопоточність: thread</h1>
+      <p class="lecture-topic">std::thread, створення потоків, join, detach</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 54 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture54.png" alt="Багатопоточність" class="lecture-image">
+
+<h2>54.1 Створення потоків</h2>
+<p>C++11 надає стандартну бібліотеку для багатопоточного програмування.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;thread&gt;
+#include &lt;vector&gt;
+
+void sayHello() {
+    std::cout &lt;&lt; "Привіт з потоку!" &lt;&lt; std::endl;
+}
+
+void printNumbers(int start, int end) {
+    for (int i = start; i &lt;= end; i++) {
+        std::cout &lt;&lt; i &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+}
+
+int main() {
+    // Потік з функцією
+    std::thread t1(sayHello);
+    t1.join();  // Чекаємо завершення
+
+    // Потік з параметрами
+    std::thread t2(printNumbers, 1, 10);
+    t2.join();
+
+    // Потік з лямбда
+    int result = 0;
+    std::thread t3([&result]() {
+        for (int i = 1; i &lt;= 100; i++) {
+            result += i;
+        }
+    });
+    t3.join();
+    std::cout &lt;&lt; "Сума 1..100 = " &lt;&lt; result &lt;&lt; std::endl;
+
+    // Кілька потоків
+    std::vector&lt;std::thread&gt; threads;
+    for (int i = 0; i &lt; 5; i++) {
+        threads.emplace_back([i]() {
+            std::cout &lt;&lt; "Потік " &lt;&lt; i &lt;&lt; " працює" &lt;&lt; std::endl;
+        });
+    }
+    for (auto& t : threads) {
+        t.join();
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>54.2 Підсумки лекції</h2>
+<ul>
+  <li>std::thread — створення потоку</li>
+  <li>join() — чекати завершення</li>
+  <li>detach() — від'єднати потік</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture53.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 54 з 60</div>
+      <a href="lecture55.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 8: Умовний оператор if-else - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 8: Умовний оператор if-else</h1>
+      <p class="lecture-topic">Розгалуження програми, вкладені умови, ланцюжки if-else if</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 8 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture8.png" alt="Умовний оператор" class="lecture-image">
+<p class="lecture-image-caption">Рис. 8.1 — Умовне розгалуження if-else</p>
+
+<h2>8.1 Оператор if</h2>
+<p>Оператор if дозволяє виконувати код тільки за певної умови. Це найбазовіший спосіб розгалуження програми.</p>
+
+<pre><code>// Синтаксис:
+if (умова) {
+    // код, що виконується, якщо умова істинна (true)
+}
+
+// Приклад:
+#include &lt;iostream&gt;
+
+int main() {
+    int age;
+    std::cout &lt;&lt; "Введіть ваш вік: ";
+    std::cin &gt;&gt; age;
+
+    if (age >= 18) {
+        std::cout &lt;&lt; "Ви повнолітній." &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>8.2 Оператор if-else</h2>
+<pre><code>// Синтаксис:
+if (умова) {
+    // код, якщо умова true
+} else {
+    // код, якщо умова false
+}
+
+// Приклад:
+#include &lt;iostream&gt;
+
+int main() {
+    int number;
+    std::cout &lt;&lt; "Введіть число: ";
+    std::cin &gt;&gt; number;
+
+    if (number % 2 == 0) {
+        std::cout &lt;&lt; number &lt;&lt; " — парне число." &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; number &lt;&lt; " — непарне число." &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>8.3 Ланцюжок if-else if</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int score;
+    std::cout &lt;&lt; "Введіть бал (0-100): ";
+    std::cin &gt;&gt; score;
+
+    if (score >= 90) {
+        std::cout &lt;&lt; "Оцінка: Відмінно (A)" &lt;&lt; std::endl;
+    } else if (score >= 80) {
+        std::cout &lt;&lt; "Оцінка: Добре (B)" &lt;&lt; std::endl;
+    } else if (score >= 70) {
+        std::cout &lt;&lt; "Оцінка: Задовільно (C)" &lt;&lt; std::endl;
+    } else if (score >= 60) {
+        std::cout &lt;&lt; "Оцінка: Достатньо (D)" &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "Оцінка: Незадовільно (F)" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>8.4 Вкладені if</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int age;
+    bool hasLicense;
+
+    std::cout &lt;&lt; "Введіть вік: ";
+    std::cin &gt;&gt; age;
+    std::cout &lt;&lt; "Чи маєте права? (1/0): ";
+    std::cin &gt;&gt; hasLicense;
+
+    if (age >= 18) {
+        if (hasLicense) {
+            std::cout &lt;&lt; "Можете керувати автомобілем." &lt;&lt; std::endl;
+        } else {
+            std::cout &lt;&lt; "Потрібно отримати права." &lt;&lt; std::endl;
+        }
+    } else {
+        std::cout &lt;&lt; "Ви занадто молоді для водіння." &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>8.5 if з ініціалізацією (C++17)</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;map&gt;
+
+int main() {
+    std::map&lt;std::string, int&gt; scores = {{"Ivan", 85}, {"Maria", 92}};
+
+    // Змінна it існує тільки в блоці if
+    if (auto it = scores.find("Ivan"); it != scores.end()) {
+        std::cout &lt;&lt; "Бал Івана: " &lt;&lt; it-&gt;second &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; "Студент не знайдений." &lt;&lt; std::endl;
+    }
+    // it тут НЕДОСТУПНО!
+
+    return 0;
+}</code></pre>
+
+<h2>8.6 Практичні приклади</h2>
+<pre><code>// Перевірка року на високосність
+#include &lt;iostream&gt;
+
+int main() {
+    int year;
+    std::cout &lt;&lt; "Введіть рік: ";
+    std::cin &gt;&gt; year;
+
+    if ((year % 4 == 0 && year % 100 != 0) || (year % 400 == 0)) {
+        std::cout &lt;&lt; year &lt;&lt; " — високосний рік." &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; year &lt;&lt; " — не високосний рік." &lt;&lt; std::endl;
+    }
+
+    return 0;
+}
+
+// Калькулятор простих операцій
+#include &lt;iostream&gt;
+
+int main() {
+    double a, b;
+    char op;
+
+    std::cout &lt;&lt; "Введіть перше число: ";
+    std::cin &gt;&gt; a;
+    std::cout &lt;&lt; "Введіть операцію (+, -, *, /): ";
+    std::cin &gt;&gt; op;
+    std::cout &lt;&lt; "Введіть друге число: ";
+    std::cin &gt;&gt; b;
+
+    if (op == '+') {
+        std::cout &lt;&lt; "Результат: " &lt;&lt; (a + b) &lt;&lt; std::endl;
+    } else if (op == '-') {
+        std::cout &lt;&lt; "Результат: " &lt;&lt; (a - b) &lt;&lt; std::endl;
+    } else if (op == '*') {
+        std::cout &lt;&lt; "Результат: " &lt;&lt; (a * b) &lt;&lt; std::endl;
+    } else if (op == '/') {
+        if (b != 0) {
+            std::cout &lt;&lt; "Результат: " &lt;&lt; (a / b) &lt;&lt; std::endl;
+        } else {
+            std::cout &lt;&lt; "Помилка: ділення на нуль!" &lt;&lt; std::endl;
+        }
+    } else {
+        std::cout &lt;&lt; "Невідома операція!" &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>8.7 Підсумки лекції</h2>
+<ul>
+  <li>if — виконує код за умови</li>
+  <li>if-else — вибір між двома варіантами</li>
+  <li>if-else if-else — вибір серед багатьох варіантів</li>
+  <li>Вкладені if для складних умов</li>
+  <li>if з ініціалізацією (C++17) для обмеження області видимості</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture7.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 8 з 60</div>
+      <a href="lecture9.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

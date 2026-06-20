@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 27: Структури (struct) - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 27: Структури (struct)</h1>
+      <p class="lecture-topic">Оголошення структур, доступ до членів, вкладені структури, typedef</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 27 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture27.png" alt="Структури" class="lecture-image">
+
+<h2>27.1 Визначення структури</h2>
+<p>Структура (struct) — це користувацький тип даних, що групує пов'язані змінні різних типів під одним іменем.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+struct Student {
+    std::string name;
+    int age;
+    double gpa;
+};
+
+int main() {
+    // Створення об'єкта
+    Student s1;
+    s1.name = "Ivan Petrov";
+    s1.age = 20;
+    s1.gpa = 4.5;
+
+    // Ініціалізація списком (C++11)
+    Student s2 = {"Maria Ivanova", 19, 4.8};
+    Student s3 = {.name = "Petro Sidorov", .age = 21, .gpa = 4.2};  // Designated (C++20)
+
+    std::cout &lt;&lt; "Студент: " &lt;&lt; s1.name &lt;&lt; ", " &lt;&lt; s1.age &lt;&lt; " років, GPA: " &lt;&lt; s1.gpa &lt;&lt; std::endl;
+
+    // Масив структур
+    Student group[3] = {
+        {"Anna", 20, 4.0},
+        {"Boris", 21, 3.8},
+        {"Olga", 19, 4.9}
+    };
+
+    double avgGpa = 0;
+    for (const auto& s : group) {
+        avgGpa += s.gpa;
+    }
+    std::cout &lt;&lt; "Середній GPA: " &lt;&lt; (avgGpa / 3) &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>27.2 Підсумки лекції</h2>
+<ul>
+  <li>struct групує змінні різних типів</li>
+  <li>Доступ через крапку: obj.member</li>
+  <li>Ініціалізація списком (C++11)</li>
+  <li>Масиви структур для зберігання колекцій</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture26.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 27 з 60</div>
+      <a href="lecture28.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

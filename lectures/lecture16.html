@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 16: Параметри функцій та return - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 16: Параметри функцій та return</h1>
+      <p class="lecture-topic">Значення за замовчуванням, перевантаження, inline функції</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 16 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture16.png" alt="Параметри функцій" class="lecture-image">
+
+<h2>16.1 Параметри за замовчуванням</h2>
+<p>Параметри за замовчуванням дозволяють викликати функцію без вказівки всіх аргументів. Параметри зі значеннями за замовчуванням мають бути останніми у списку.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+// Параметри за замовчуванням
+void greet(std::string name = "Світе", int times = 1) {
+    for (int i = 0; i < times; i++) {
+        std::cout &lt;&lt; "Привіт, " &lt;&lt; name &lt;&lt; "!" &lt;&lt; std::endl;
+    }
+}
+
+// Математична функція
+double power(double base, int exponent = 2) {
+    double result = 1;
+    for (int i = 0; i < exponent; i++) {
+        result *= base;
+    }
+    return result;
+}
+
+int main() {
+    greet();                  // Привіт, Світе!
+    greet("Ivan");            // Привіт, Ivan!
+    greet("Ivan", 3);         // Привіт, Ivan! (3 рази)
+
+    std::cout &lt;&lt; power(3) &lt;&lt; std::endl;       // 9 (3^2)
+    std::cout &lt;&lt; power(2, 5) &lt;&lt; std::endl;    // 32 (2^5)
+
+    return 0;
+}</code></pre>
+
+<h2>16.2 Перевантаження функцій (Function Overloading)</h2>
+<p>Перевантаження дозволяє мати кілька функцій з однаковим іменем, але різними параметрами. Компілятор вибирає потрібну версію на основе аргументів.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+// Перевантаження функції print
+void print(int x) {
+    std::cout &lt;&lt; "Ціле число: " &lt;&lt; x &lt;&lt; std::endl;
+}
+
+void print(double x) {
+    std::cout &lt;&lt; "Дробове число: " &lt;&lt; x &lt;&lt; std::endl;
+}
+
+void print(const char* s) {
+    std::cout &lt;&lt; "Рядок: " &lt;&lt; s &lt;&lt; std::endl;
+}
+
+void print(int x, int y) {
+    std::cout &lt;&lt; "Два числа: " &lt;&lt; x &lt;&lt; ", " &lt;&lt; y &lt;&lt; std::endl;
+}
+
+int main() {
+    print(42);           // Ціле число
+    print(3.14);         // Дробове число
+    print("Hello");      // Рядок
+    print(10, 20);       // Два числа
+    return 0;
+}</code></pre>
+
+<h2>16.3 Inline функції</h2>
+<p>Inline функція пропонує компілятору вставити тіло функції безпосередньо у місце виклику, замість звичайного виклику. Це зменшує накладні витрати на виклик функції.</p>
+
+<pre><code>// Inline функція
+inline int square(int x) {
+    return x * x;
+}
+
+// Еквівалентно:
+// int result = square(5);
+// Компілятор може замінити на:
+// int result = 5 * 5;
+
+#include &lt;iostream&gt;
+int main() {
+    std::cout &lt;&lt; square(5) &lt;&lt; std::endl;   // 25
+    std::cout &lt;&lt; square(10) &lt;&lt; std::endl;  // 100
+    return 0;
+}</code></pre>
+
+<h2>16.4 Підсумки лекції</h2>
+<ul>
+  <li>Параметри за замовчуванням спрощують виклики</li>
+  <li>Перевантаження — одне ім'я, різні параметри</li>
+  <li>Inline функції — оптимізація для малих функцій</li>
+  <li>Return повертає результат функції</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture15.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 16 з 60</div>
+      <a href="lecture17.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

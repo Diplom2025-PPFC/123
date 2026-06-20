@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 13: Вкладені цикли - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 13: Вкладені цикли</h1>
+      <p class="lecture-topic">Малювання фігур, робота з матрицями, оптимізація алгоритмів</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 13 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture13.png" alt="Вкладені цикли" class="lecture-image">
+
+<h2>13.1 Концепція вкладених циклів</h2>
+<p>Вкладений цикл — це цикл всередині іншого циклу. Зовнішній цикл контролює рядки/ітерації верхнього рівня, внутрішній — стовпці/деталі кожної ітерації.</p>
+
+<pre><code>// Синтаксис вкладених циклів:
+for (int i = 0; i < rows; i++) {      // зовнішній цикл
+    for (int j = 0; j < cols; j++) {  // внутрішній цикл
+        // дії
+    }
+}
+
+// Приклад: матриця чисел
+#include &lt;iostream&gt;
+int main() {
+    for (int i = 1; i <= 3; i++) {
+        for (int j = 1; j <= 3; j++) {
+            std::cout &lt;&lt; i * j &lt;&lt; "\t";
+        }
+        std::cout &lt;&lt; std::endl;
+    }
+    // Виведе:
+    // 1  2  3
+    // 2  4  6
+    // 3  6  9
+    return 0;
+}</code></pre>
+
+<h2>13.2 Малювання фігур</h2>
+<pre><code>// Квадрат з зірочок
+#include &lt;iostream&gt;
+int main() {
+    int size = 5;
+    for (int i = 0; i < size; i++) {
+        for (int j = 0; j < size; j++) {
+            std::cout &lt;&lt; "* ";
+        }
+        std::cout &lt;&lt; std::endl;
+    }
+    // * * * * *
+    // * * * * *
+    // * * * * *
+    // * * * * *
+    // * * * * *
+    return 0;
+}
+
+// Прямокутний трикутник
+#include &lt;iostream&gt;
+int main() {
+    int height = 5;
+    for (int i = 1; i <= height; i++) {
+        for (int j = 1; j <= i; j++) {
+            std::cout &lt;&lt; "* ";
+        }
+        std::cout &lt;&lt; std::endl;
+    }
+    // *
+    // * *
+    // * * *
+    // * * * *
+    // * * * * *
+    return 0;
+}
+
+// Піраміда
+#include &lt;iostream&gt;
+int main() {
+    int height = 5;
+    for (int i = 1; i <= height; i++) {
+        // Пробіли
+        for (int j = 1; j <= height - i; j++) {
+            std::cout &lt;&lt; " ";
+        }
+        // Зірочки
+        for (int k = 1; k <= 2 * i - 1; k++) {
+            std::cout &lt;&lt; "*";
+        }
+        std::cout &lt;&lt; std::endl;
+    }
+    //     *
+    //    ***
+    //   *****
+    //  *******
+    // *********
+    return 0;
+}
+
+// Ромб
+#include &lt;iostream&gt;
+int main() {
+    int n = 5;
+    // Верхня частина
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n - i; j++) std::cout &lt;&lt; " ";
+        for (int k = 1; k <= 2 * i - 1; k++) std::cout &lt;&lt; "*";
+        std::cout &lt;&lt; std::endl;
+    }
+    // Нижня частина
+    for (int i = n - 1; i >= 1; i--) {
+        for (int j = 1; j <= n - i; j++) std::cout &lt;&lt; " ";
+        for (int k = 1; k <= 2 * i - 1; k++) std::cout &lt;&lt; "*";
+        std::cout &lt;&lt; std::endl;
+    }
+    return 0;
+}</code></pre>
+
+<h2>13.3 Таблиця множення</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;iomanip&gt;
+
+int main() {
+    std::cout &lt;&lt; "    Таблиця множення" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "    ";
+    for (int i = 1; i <= 10; i++) {
+        std::cout &lt;&lt; std::setw(4) &lt;&lt; i;
+    }
+    std::cout &lt;&lt; std::endl &lt;&lt; "    ";
+    for (int i = 1; i <= 40; i++) std::cout &lt;&lt; "-";
+    std::cout &lt;&lt; std::endl;
+
+    for (int i = 1; i <= 10; i++) {
+        std::cout &lt;&lt; std::setw(2) &lt;&lt; i &lt;&lt; " |";
+        for (int j = 1; j <= 10; j++) {
+            std::cout &lt;&lt; std::setw(4) &lt;&lt; (i * j);
+        }
+        std::cout &lt;&lt; std::endl;
+    }
+    return 0;
+}</code></pre>
+
+<h2>13.4 Підсумки лекції</h2>
+<ul>
+  <li>Вкладені цикли — цикл всередині циклу</li>
+  <li>Зовнішній цикл керує рядками, внутрішній — стовпцями</li>
+  <li>Використання для малювання фігур та матриць</li>
+  <li>Комбінація while та for можлива</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture12.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 13 з 60</div>
+      <a href="lecture14.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

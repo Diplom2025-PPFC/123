@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 14: Оператори break та continue - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 14: Оператори break та continue</h1>
+      <p class="lecture-topic">Керування циклами, мітки, практичні приклади</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 14 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture14.png" alt="break та continue" class="lecture-image">
+
+<h2>14.1 Оператор break</h2>
+<p>Оператор <strong>break</strong> негайно перериває виконання циклу або switch і передає керування на наступний оператор після циклу.</p>
+
+<pre><code>// Знаходження першого дільника
+#include &lt;iostream&gt;
+int main() {
+    int n = 91;
+    for (int i = 2; i <= n / 2; i++) {
+        if (n % i == 0) {
+            std::cout &lt;&lt; "Перший дільник: " &lt;&lt; i &lt;&lt; std::endl;
+            break; // Виходимо з циклу
+        }
+    }
+    return 0;
+}
+
+// Вихід з меню
+#include &lt;iostream&gt;
+int main() {
+    while (true) {
+        std::cout &lt;&lt; "1. Грати" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "2. Налаштування" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "0. Вихід" &lt;&lt; std::endl;
+
+        int choice;
+        std::cin &gt;&gt; choice;
+
+        if (choice == 0) {
+            std::cout &lt;&lt; "До побачення!" &lt;&lt; std::endl;
+            break; // Вихід з безкінечного циклу
+        }
+
+        std::cout &lt;&lt; "Ви обрали: " &lt;&lt; choice &lt;&lt; std::endl;
+    }
+    return 0;
+}</code></pre>
+
+<h2>14.2 Оператор continue</h2>
+<p>Оператор <strong>continue</strong> пропускає поточну ітерацію циклу і переходить до наступної.</p>
+
+<pre><code>// Виведення лише парних чисел
+#include &lt;iostream&gt;
+int main() {
+    for (int i = 1; i <= 20; i++) {
+        if (i % 2 != 0) {
+            continue; // Пропускаємо непарні числа
+        }
+        std::cout &lt;&lt; i &lt;&lt; " ";
+    }
+    // Виведе: 2 4 6 8 10 12 14 16 18 20
+    return 0;
+}
+
+// Сума позитивних чисел (ігноруємо негативні)
+#include &lt;iostream&gt;
+int main() {
+    int numbers[] = {5, -3, 8, -1, 10, -7, 15};
+    int sum = 0;
+
+    for (int n : numbers) {
+        if (n < 0) {
+            continue; // Ігноруємо негативні числа
+        }
+        sum += n;
+    }
+
+    std::cout &lt;&lt; "Сума позитивних: " &lt;&lt; sum &lt;&lt; std::endl; // 38
+    return 0;
+}</code></pre>
+
+<h2>14.3 break у вкладених циклах</h2>
+<p>break перериває тільки НАЙБЛИЖЧИЙ цикл. Для виходу з вкладених циклів використовують прапорець або goto.</p>
+
+<pre><code>// Використання прапорця
+#include &lt;iostream&gt;
+int main() {
+    bool found = false;
+    for (int i = 0; i < 10 && !found; i++) {
+        for (int j = 0; j < 10; j++) {
+            if (i * j == 42) {
+                std::cout &lt;&lt; "Знайдено: " &lt;&lt; i &lt;&lt; " * " &lt;&lt; j &lt;&lt; " = 42" &lt;&lt; std::endl;
+                found = true;
+                break; // Вихід з внутрішнього циклу
+            }
+        }
+    }
+    return 0;
+}</code></pre>
+
+<h2>14.4 Порівняння break та continue</h2>
+<table>
+  <tr><th>Оператор</th><th>Дія</th><th>Застосування</th></tr>
+  <tr><td>break</td><td>Повний вихід з циклу</td><td>Знайшли потрібне, помилка</td></tr>
+  <tr><td>continue</td><td>Пропуск поточної ітерації</td><td>Фільтрація, пропуск умов</td></tr>
+</table>
+
+<h2>14.5 Підсумки лекції</h2>
+<ul>
+  <li>break — повний вихід з циклу</li>
+  <li>continue — пропуск поточної ітерації</li>
+  <li>break працює лише з найближчим циклом</li>
+  <li>Для вкладених циклів використовуйте прапорці</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture13.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 14 з 60</div>
+      <a href="lecture15.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

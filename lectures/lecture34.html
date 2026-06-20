@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 34: Дружні функції та класи - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 34: Дружні функції та класи</h1>
+      <p class="lecture-topic">friend функції, friend класи, оператори дружби</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 34 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture34.png" alt="Дружні функції" class="lecture-image">
+
+<h2>34.1 Дружні функції</h2>
+<p>Дружня функція — це функція, що не є членом класу, але має доступ до його приватних та захищених членів.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+class Box {
+private:
+    double width;
+    double height;
+    double depth;
+
+public:
+    Box(double w, double h, double d) : width(w), height(h), depth(d) {}
+
+    // Дружня функція
+    friend double getVolume(const Box& box);
+
+    // Дружня функція для порівняння
+    friend bool isLarger(const Box& a, const Box& b);
+};
+
+double getVolume(const Box& box) {
+    // Доступ до приватних членів!
+    return box.width * box.height * box.depth;
+}
+
+bool isLarger(const Box& a, const Box& b) {
+    return getVolume(a) > getVolume(b);
+}
+
+int main() {
+    Box box1(2, 3, 4);
+    Box box2(1, 2, 3);
+
+    std::cout &lt;&lt; "Об'єм 1: " &lt;&lt; getVolume(box1) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Об'єм 2: " &lt;&lt; getVolume(box2) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Box1 більший: " &lt;&lt; isLarger(box1, box2) &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>34.2 Підсумки лекції</h2>
+<ul>
+  <li>friend — доступ до приватних членів</li>
+  <li>Не є членами класу</li>
+  <li>Використовуються для операторів</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture33.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 34 з 60</div>
+      <a href="lecture35.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

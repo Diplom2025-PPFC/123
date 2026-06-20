@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 29: Вступ до ООП: класи та об'єкти - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 29: Вступ до ООП: класи та об'єкти</h1>
+      <p class="lecture-topic">Класи, об'єкти, члени класу, модифікатори доступу</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 29 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture29.png" alt="ООП" class="lecture-image">
+
+<h2>29.1 Основні концепції ООП</h2>
+<p>Об'єктно-орієнтоване програмування (ООП) — це парадигма, що організовує код у вигляді об'єктів, які містять дані та методи для роботи з цими даними.</p>
+
+<p>Чотири основні принципи ООП:</p>
+<ul>
+  <li><strong>Інкапсуляція</strong> — приховування внутрішньої реалізації</li>
+  <li><strong>Успадкування</strong> — створення нових класів на основі існуючих</li>
+  <li><strong>Поліморфізм</strong> — можливість об'єктів мати багато форм</li>
+  <li><strong>Абстракція</strong> — виділення суттєвих характеристик</li>
+</ul>
+
+<h2>29.2 Визначення класу</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Rectangle {
+// Приватні члени (доступні тільки всередині класу)
+private:
+    double width;
+    double height;
+
+// Публічні члени (доступні ззовні)
+public:
+    // Сеттери
+    void setWidth(double w) {
+        if (w > 0) width = w;
+    }
+
+    void setHeight(double h) {
+        if (h > 0) height = h;
+    }
+
+    // Геттери
+    double getWidth() const { return width; }
+    double getHeight() const { return height; }
+
+    // Методи
+    double getArea() const {
+        return width * height;
+    }
+
+    double getPerimeter() const {
+        return 2 * (width + height);
+    }
+};
+
+int main() {
+    // Створення об'єкта
+    Rectangle rect;
+    rect.setWidth(5.0);
+    rect.setHeight(3.0);
+
+    std::cout &lt;&lt; "Площа: " &lt;&lt; rect.getArea() &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Периметр: " &lt;&lt; rect.getPerimeter() &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>29.3 Підсумки лекції</h2>
+<ul>
+  <li>Клас — шаблон для створення об'єктів</li>
+  <li>Об'єкт — екземпляр класу</li>
+  <li>private, public, protected — модифікатори доступу</li>
+  <li>Геттери/сеттери для контролю доступу</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture28.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 29 з 60</div>
+      <a href="lecture30.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

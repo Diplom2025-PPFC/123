@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 33: Статичні члени класу - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 33: Статичні члени класу</h1>
+      <p class="lecture-topic">static поля та методи, лічильники об'єктів, singleton</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 33 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture33.png" alt="Статичні члени" class="lecture-image">
+
+<h2>33.1 Статичні члени класу</h2>
+<p>Статичні члени належать класу, а не конкретному об'єкту. Вони спільні для всіх екземплярів класу.</p>
+
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+class Student {
+private:
+    std::string name;
+    static int count;      // Спільне для всіх студентів
+    static double totalGpa;
+
+public:
+    Student(std::string n, double gpa) : name(n) {
+        count++;
+        totalGpa += gpa;
+    }
+
+    ~Student() {
+        count--;
+    }
+
+    static int getCount() {      // Статичний метод
+        return count;
+    }
+
+    static double getAverageGpa() {
+        return count > 0 ? totalGpa / count : 0;
+    }
+};
+
+// Ініціалізація статичних членів
+int Student::count = 0;
+double Student::totalGpa = 0.0;
+
+int main() {
+    Student s1("Ivan", 4.5);
+    Student s2("Maria", 4.8);
+    Student s3("Petro", 4.2);
+
+    std::cout &lt;&lt; "Кількість студентів: " &lt;&lt; Student::getCount() &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Середній GPA: " &lt;&lt; Student::getAverageGpa() &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>33.2 Підсумки лекції</h2>
+<ul>
+  <li>static поля — спільні для всіх об'єктів</li>
+  <li>static методи — викликаються без об'єкта</li>
+  <li>Ініціалізація поза класом</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture32.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 33 з 60</div>
+      <a href="lecture34.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

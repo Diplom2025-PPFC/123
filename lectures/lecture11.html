@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 11: Цикл for - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 11: Цикл for</h1>
+      <p class="lecture-topic">Синтаксис for, вкладені цикли, приклади обчислень</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 11 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture11.png" alt="Цикл for" class="lecture-image">
+
+<h2>11.1 Синтаксис циклу for</h2>
+<p>Цикл for використовується, коли кількість ітерацій відома заздалегідь. Складається з чотирьох частин: ініціалізація, умова, інкремент, тіло.</p>
+
+<pre><code>// Синтаксис:
+for (ініціалізація; умова; інкремент) {
+    // тіло циклу
+}
+
+// Приклад:
+for (int i = 0; i < 10; i++) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+}
+// Виведе: 0 1 2 3 4 5 6 7 8 9</code></pre>
+
+<h2>11.2 Як працює цикл for</h2>
+<ol>
+  <li><strong>Ініціалізація</strong> — виконується один раз на початку (int i = 0)</li>
+  <li><strong>Перевірка умови</strong> — якщо true, виконується тіло циклу</li>
+  <li><strong>Виконання тіла</strong> — код у фігурних дужках</li>
+  <li><strong>Інкремент</strong> — оновлення лічильника (i++)</li>
+  <li>Повторення з кроку 2</li>
+</ol>
+
+<h2>11.3 Різні варіанти циклу for</h2>
+<pre><code>// Зворотний порядок
+for (int i = 10; i > 0; i--) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+}
+// Виведе: 10 9 8 7 6 5 4 3 2 1
+
+// Крок більше 1
+for (int i = 0; i <= 20; i += 2) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+}
+// Виведе: 0 2 4 6 8 10 12 14 16 18 20
+
+// Без ініціалізації
+int i = 0;
+for (; i < 5; i++) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+}
+
+// Без інкременту
+for (int i = 0; i < 5; ) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+    i++;
+}
+
+// Без всіх частин (безкінечний цикл)
+for (;;) {
+    // безкінечний цикл
+    break; // вихід
+}</code></pre>
+
+<h2>11.4 Практичні приклади</h2>
+<pre><code>// Таблиця множення
+#include &lt;iostream&gt;
+int main() {
+    int n = 7;
+    std::cout &lt;&lt; "Таблиця множення на " &lt;&lt; n &lt;&lt; ":" &lt;&lt; std::endl;
+    for (int i = 1; i <= 10; i++) {
+        std::cout &lt;&lt; n &lt;&lt; " x " &lt;&lt; i &lt;&lt; " = " &lt;&lt; (n * i) &lt;&lt; std::endl;
+    }
+    return 0;
+}
+
+// Сума чисел від 1 до N
+#include &lt;iostream&gt;
+int main() {
+    int n, sum = 0;
+    std::cout &lt;&lt; "Введіть N: ";
+    std::cin &gt;&gt; n;
+    for (int i = 1; i <= n; i++) {
+        sum += i;
+    }
+    std::cout &lt;&lt; "Сума: " &lt;&lt; sum &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Перевірка: " &lt;&lt; (n * (n + 1) / 2) &lt;&lt; std::endl;
+    return 0;
+}
+
+// Обчислення факторіалу
+#include &lt;iostream&gt;
+int main() {
+    int n;
+    long long factorial = 1;
+    std::cout &lt;&lt; "Введіть число: ";
+    std::cin &gt;&gt; n;
+    for (int i = 1; i <= n; i++) {
+        factorial *= i;
+    }
+    std::cout &lt;&lt; n &lt;&lt; "! = " &lt;&lt; factorial &lt;&lt; std::endl;
+    return 0;
+}
+
+// Перевірка на просте число
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+int main() {
+    int n;
+    bool isPrime = true;
+    std::cout &lt;&lt; "Введіть число: ";
+    std::cin &gt;&gt; n;
+    for (int i = 2; i <= sqrt(n); i++) {
+        if (n % i == 0) {
+            isPrime = false;
+            break;
+        }
+    }
+    if (isPrime && n > 1) {
+        std::cout &lt;&lt; n &lt;&lt; " — просте число." &lt;&lt; std::endl;
+    } else {
+        std::cout &lt;&lt; n &lt;&lt; " — не просте число." &lt;&lt; std::endl;
+    }
+    return 0;
+}</code></pre>
+
+<h2>11.5 Range-based for (C++11)</h2>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+
+int main() {
+    // Масиви
+    int arr[] = {10, 20, 30, 40, 50};
+    for (int x : arr) {
+        std::cout &lt;&lt; x &lt;&lt; " ";
+    }
+    std::cout &lt;&lt; std::endl;
+
+    // З використанням auto
+    std::vector&lt;std::string&gt; names = {"Ivan", "Maria", "Petro"};
+    for (auto name : names) {
+        std::cout &lt;&lt; name &lt;&lt; std::endl;
+    }
+
+    // З посиланням для модифікації
+    for (auto& name : names) {
+        name = "Mr./Ms. " + name;
+    }
+
+    // З const reference (без копіювання)
+    for (const auto& name : names) {
+        std::cout &lt;&lt; name &lt;&lt; std::endl;
+    }
+
+    return 0;
+}</code></pre>
+
+<h2>11.6 Підсумки лекції</h2>
+<ul>
+  <li>for — цикл з відомою кількістю ітерацій</li>
+  <li>for (init; condition; increment) { body }</li>
+  <li>Вкладені цикли для роботи з багатовимірними структурами</li>
+  <li>Range-based for для ітерації по колекціях (C++11)</li>
+  <li>auto спрощує оголошення типів</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture10.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 11 з 60</div>
+      <a href="lecture12.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 2: Налаштування середовища розробки - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 2: Налаштування середовища розробки</h1>
+      <p class="lecture-topic">Встановлення компіляторів, IDE, створення першої програми</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 2 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture2.png" alt="Налаштування середовища" class="lecture-image">
+<p class="lecture-image-caption">Рис. 2.1 — Сучасне робоче місце розробника C++</p>
+
+<h2>2.1 Компілятори C++</h2>
+<p>Для початку роботи з C++ необхідно встановити компілятор. Існує кілька популярних варіантів:</p>
+
+<h3>GCC (GNU Compiler Collection)</h3>
+<p>Найпопулярніший компілятор з відкритим вихідним кодом. Підтримує всі сучасні стандарти C++ (C++11/14/17/20/23). Доступний для Linux, macOS та Windows (через MinGW або MSYS2).</p>
+
+<pre><code>// Перевірка версії GCC
+g++ --version
+
+// Компіляція з вказівкою стандарту
+g++ -std=c++17 program.cpp -o program</code></pre>
+
+<h3>Clang</h3>
+<p>Компілятор на базі LLVM, відомий своїми чіткими та зрозумілими повідомленнями про помилки. Основний компілятор для macOS (частина Xcode). Дуже швидка компіляція та висока якість оптимізації.</p>
+
+<h3>Microsoft Visual C++ (MSVC)</h3>
+<p>Вбудований компілятор у Visual Studio. Найкращий вибір для розробки під Windows. Підтримує всі сучасні стандарти C++. Інтегрується з Windows SDK для створення Windows Forms додатків.</p>
+
+<h3>MinGW-w64</h3>
+<p>Мінімалістичний GNU для Windows — порт GCC для Windows. Легкий у встановленні, не потребує важкої інфраструктури як MSYS2. Рекомендується для початківців.</p>
+
+<table>
+  <tr><th>Компілятор</th><th>ОС</th><th>Переваги</th><th>Недоліки</th></tr>
+  <tr><td>GCC</td><td>Linux, macOS, Win</td><td>Відкритий код, стандарти</td><td>Повільніша компіляція</td></tr>
+  <tr><td>Clang</td><td>Всі</td><td>Швидкий, зрозумілі помилки</td><td>Менше оптимізацій</td></tr>
+  <tr><td>MSVC</td><td>Windows</td><td>Найкращий для Win, IDE</td><td>Тільки Windows</td></tr>
+  <tr><td>MinGW</td><td>Windows</td><td>Легкий, GCC для Win</td><td>Обмежена відладка</td></tr>
+</table>
+
+<h2>2.2 Встановлення на Windows</h2>
+
+<h3>Спосіб 1: Visual Studio (рекомендується)</h3>
+<ol>
+  <li>Завантажте Visual Studio Community з <a href="https://visualstudio.microsoft.com/">visualstudio.microsoft.com</a></li>
+  <li>Під час встановлення оберіть "Розробка класичних додатків на C++"</li>
+  <li>Додатково оберіть "Windows Forms" для розділу Windows Forms</li>
+  <li>Дочекайтеся завершення встановлення (зазвичай 10-30 ГБ)</li>
+</ol>
+
+<pre><code>// Перевірка встановлення у командному рядку Developer Command Prompt
+cl
+// Має вивести версію Microsoft C++ компілятора</code></pre>
+
+<h3>Спосіб 2: MSYS2 + MinGW-w64</h3>
+<ol>
+  <li>Завантажте MSYS2 з <a href="https://www.msys2.org/">msys2.org</a></li>
+  <li>Встановіть та відкрийте MSYS2 terminal</li>
+  <li>Виконайте: <span class="inline-code">pacman -S mingw-w64-x86_64-gcc</span></li>
+  <li>Додайте <span class="inline-code">C:\msys64\mingw64in</span> у PATH</li>
+</ol>
+
+<pre><code># У MSYS2 терміналі
+pacman -S mingw-w64-x86_64-gcc mingw-w64-x86_64-gdb
+
+# Перевірка
+g++ --version
+gdb --version</code></pre>
+
+<h3>Спосіб 3: Code::Blocks (простий варіант)</h3>
+<p>Code::Blocks — легке IDE з вбудованим MinGW. Ідеально для навчання:</p>
+<ol>
+  <li>Завантажте версію "codeblocks-XX.XXmingw-setup.exe"</li>
+  <li>Встановіть — компілятор вже включено</li>
+  <li>Створіть новий проект: File → New → Project → Console Application</li>
+</ol>
+
+<h2>2.3 Встановлення на Linux (Ubuntu/Debian)</h2>
+<pre><code># Оновлення пакетів
+sudo apt update
+
+# Встановлення компілятора та інструментів
+sudo apt install build-essential gdb
+
+# Додаткові бібліотеки для розробки
+sudo apt install cmake git valgrind
+
+# Перевірка
+g++ --version
+gdb --version</code></pre>
+
+<h2>2.4 Встановлення на macOS</h2>
+<pre><code># Встановлення Homebrew (якщо не встановлено)
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Встановлення Xcode Command Line Tools
+xcode-select --install
+
+# Або через Homebrew
+brew install gcc gdb
+
+# Перевірка
+g++ --version
+clang++ --version</code></pre>
+
+<h2>2.5 IDE (Інтегровані середовища розробки)</h2>
+
+<h3>Visual Studio (Windows)</h3>
+<p>Найпотужніше IDE для C++. Містить IntelliSense (автодоповнення), вбудований дебагер, профайлер, дизайнер форм для Windows Forms.</p>
+
+<h3>Visual Studio Code (кросплатформне)</h3>
+<p>Легкий редактор з розширеннями. Для C++ потрібно встановити:</p>
+<ul>
+  <li>Розширення "C/C++" від Microsoft</li>
+  <li>Розширення "C/C++ Extension Pack"</li>
+  <li>Налаштувати tasks.json та launch.json</li>
+</ul>
+
+<pre><code>// .vscode/tasks.json — завдання збірки
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Build C++",
+      "type": "shell",
+      "command": "g++",
+      "args": ["-g", "-std=c++17", "${file}", "-o", "${fileDirname}/${fileBasenameNoExtension}"],
+      "group": { "kind": "build", "isDefault": true }
+    }
+  ]
+}</code></pre>
+
+<h3>CLion (JetBrains)</h3>
+<p>Професійне IDE на базі CMake. Розумне автодоповнення, рефакторинг, вбудований термінал. Платне, але доступне безкоштовно для студентів.</p>
+
+<h3>Qt Creator</h3>
+<p>Спеціалізоване IDE для розробки з Qt framework. Чудовий дизайнер GUI, підтримка CMake та qmake.</p>
+
+<h2>2.6 Перша програма — крок за кроком</h2>
+<p>Після встановлення компілятора створіть файл <span class="inline-code">hello.cpp</span>:</p>
+
+<pre><code>// hello.cpp — наша перша програма
+#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "Hello, C++ World!" &lt;&lt; std::endl;
+    return 0;
+}</code></pre>
+
+<h3>Компіляція та запуск</h3>
+
+<table>
+  <tr><th>ОС</th><th>Компіляція</th><th>Запуск</th></tr>
+  <tr><td>Windows (MinGW)</td><td><span class="inline-code">g++ hello.cpp -o hello.exe</span></td><td><span class="inline-code">hello.exe</span></td></tr>
+  <tr><td>Windows (MSVC)</td><td><span class="inline-code">cl hello.cpp</span></td><td><span class="inline-code">hello.exe</span></td></tr>
+  <tr><td>Linux/macOS</td><td><span class="inline-code">g++ hello.cpp -o hello</span></td><td><span class="inline-code">./hello</span></td></tr>
+</table>
+
+<h2>2.7 Важливі прапорці компілятора</h2>
+
+<pre><code># Вказівка стандарту C++
+g++ -std=c++17 program.cpp -o program
+g++ -std=c++20 program.cpp -o program
+
+# Включення всіх попереджень (рекомендується)
+g++ -Wall -Wextra program.cpp -o program
+
+# Відладкова інформація
+g++ -g program.cpp -o program
+
+# Оптимізація
+# -O0 — без оптимізації (за замовчуванням)
+# -O1 — базова оптимізація
+# -O2 — хороша оптимізація (рекомендується для release)
+# -O3 — максимальна оптимізація
+g++ -O2 program.cpp -o program
+
+# Комбінація (типова для розробки)
+g++ -std=c++17 -Wall -Wextra -g program.cpp -o program</code></pre>
+
+<h2>2.8 Відлагодження програм</h2>
+<p>Відлагоджувач (debugger) — незамінний інструмент для пошуку помилок:</p>
+
+<h3>Використання GDB</h3>
+<pre><code># Компіляція з відладковою інформацією
+g++ -g program.cpp -o program
+
+# Запуск у відлагоджувачі
+gdb ./program
+
+# Основні команди GDB:
+# (gdb) break main    — встановити точку зупинки у main
+# (gdb) run           — запустити програму
+# (gdb) next          — виконати наступний рядок
+# (gdb) step          — зайти у функцію
+# (gdb) print x       — вивести значення змінної x
+# (gdb) continue      — продовжити виконання
+# (gdb) quit          — вийти з GDB</code></pre>
+
+<h3>Відлагодження у Visual Studio</h3>
+<ol>
+  <li>Встановіть точку зупинки (F9 або клік ліворуч від рядка)</li>
+  <li>Запустіть відлагодження (F5)</li>
+  <li>Використовуйте F10 (Step Over), F11 (Step Into)</li>
+  <li>Дивіться значення змінних у вікні Autos/Locals</li>
+  <li>Використовуйте Immediate Window для обчислення виразів</li>
+</ol>
+
+<div class="info-box tip">
+  <div class="info-box-title">💡 Порада професіонала</div>
+  <p>Звикайте компілювати з прапорцями <span class="inline-code">-Wall -Wextra -Wpedantic</span> з самого початку. Ці попередження допоможуть вам писати чистіший код та уникнути багатьох типових помилок.</p>
+</div>
+
+<h2>2.9 Структура типового проєкту C++</h2>
+
+<pre><code>my_project/
+├── src/              # Вихідні файли (.cpp)
+│   ├── main.cpp
+│   └── utils.cpp
+├── include/          # Заголовкові файли (.h, .hpp)
+│   └── utils.hpp
+├── build/            # Директорія збірки
+├── CMakeLists.txt    # Файл збірки CMake
+└── README.md
+
+// Для простих програм достатньо:
+my_program/
+├── main.cpp
+└── (скомпільований виконуваний файл)</code></pre>
+
+<h2>2.10 Підсумки лекції</h2>
+<p>У цій лекції ми розглянули:</p>
+<ul>
+  <li>Основні компілятори C++: GCC, Clang, MSVC, MinGW</li>
+  <li>Встановлення середовища на Windows, Linux та macOS</li>
+  <li>IDE для розробки: Visual Studio, VS Code, CLion, Qt Creator</li>
+  <li>Створення та компіляцію першої програми</li>
+  <li>Важливі прапорці компілятора (-std, -Wall, -O2, -g)</li>
+  <li>Відлагодження за допомогою GDB та IDE</li>
+  <li>Структуру типового проєкту</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture1.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 2 з 60</div>
+      <a href="lecture3.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

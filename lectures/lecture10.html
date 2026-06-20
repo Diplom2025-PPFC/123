@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 10: Тернарний оператор - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 10: Тернарний оператор</h1>
+      <p class="lecture-topic">Коротка форма if-else, вкладені тернарні оператори, області застосування</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 10 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture10.png" alt="Тернарний оператор" class="lecture-image">
+<p class="lecture-image-caption">Рис. 10.1 — Тернарний оператор ?:</p>
+
+<h2>10.1 Синтаксис тернарного оператора</h2>
+<p>Тернарний оператор ?: — це скорочена форма if-else, що повертає значення. Це єдиний оператор у C++, який приймає три операнди.</p>
+
+<pre><code>// Синтаксис:
+// умова ? вираз_if_true : вираз_if_false
+
+// Звичайний if-else:
+int max;
+if (a > b) {
+    max = a;
+} else {
+    max = b;
+}
+
+// Тернарний оператор:
+int max = (a > b) ? a : b;</code></pre>
+
+<h2>10.2 Базові приклади</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 10, b = 20;
+
+    // Знаходження максимуму
+    int max = (a > b) ? a : b;
+    std::cout &lt;&lt; "Максимум: " &lt;&lt; max &lt;&lt; std::endl;
+
+    // Знаходження мінімуму
+    int min = (a < b) ? a : b;
+    std::cout &lt;&lt; "Мінімум: " &lt;&lt; min &lt;&lt; std::endl;
+
+    // Перевірка на парність
+    int number = 15;
+    std::string result = (number % 2 == 0) ? "парне" : "непарне";
+    std::cout &lt;&lt; number &lt;&lt; " — " &lt;&lt; result &lt;&lt; std::endl;
+
+    // Абсолютне значення
+    int x = -10;
+    int abs = (x < 0) ? -x : x;
+    std::cout &lt;&lt; "|" &lt;&lt; x &lt;&lt; "| = " &lt;&lt; abs &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<h2>10.3 Вкладені тернарні оператори</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 10, b = 20, c = 15;
+
+    // Знаходження максимуму з трьох чисел
+    int max = (a > b) ? ((a > c) ? a : c) : ((b > c) ? b : c);
+    std::cout &lt;&lt; "Максимум: " &lt;&lt; max &lt;&lt; std::endl;
+
+    // Оцінка за балами
+    int score = 75;
+    char grade = (score >= 90) ? 'A' :
+                 (score >= 80) ? 'B' :
+                 (score >= 70) ? 'C' :
+                 (score >= 60) ? 'D' : 'F';
+    std::cout &lt;&lt; "Оцінка: " &lt;&lt; grade &lt;&lt; std::endl;
+
+    return 0;
+}</code></pre>
+
+<div class="info-box warning">
+  <div class="info-box-title">⚠️ Обмеження</div>
+  <p>Вкладені тернарні оператори знижують читабельність. Якщо є більше 2 рівнів вкладеності — краще використовувати if-else if або switch.</p>
+</div>
+
+<h2>10.4 Тернарний оператор у виразах</h2>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 10, b = 20;
+
+    // У виведенні
+    std::cout &lt;&lt; "Більше число: " &lt;&lt; ((a > b) ? a : b) &lt;&lt; std::endl;
+
+    // У присвоєнні
+    int x = 5;
+    x += (x > 0) ? 10 : -10;  // x = 15
+
+    // Як аргумент функції
+    auto printSign = [](int n) {
+        std::cout &lt;&lt; n &lt;&lt; " — " &lt;&lt; ((n > 0) ? "додатне" : (n < 0) ? "від'ємне" : "нуль") &lt;&lt; std::endl;
+    };
+
+    printSign(10);
+    printSign(-5);
+    printSign(0);
+
+    return 0;
+}</code></pre>
+
+<h2>10.5 Підсумки лекції</h2>
+<ul>
+  <li>Тернарний оператор ?: — скорочена форма if-else</li>
+  <li>Повертає значення, тому можна використовувати у виразах</li>
+  <li>Допустимі вкладені тернарні оператори (з обережністю)</li>
+  <li>Не зловживайте — читабельність важливіша за короткість</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture9.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 10 з 60</div>
+      <a href="lecture11.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>

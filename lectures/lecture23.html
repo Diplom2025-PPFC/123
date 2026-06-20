@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лекція 23: Арифметика вказівників - C++ Mastery</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="../index.html" class="logo">
+      <div class="logo-icon">C++</div>
+      <span class="logo-text">Mastery</span>
+    </a>
+    <nav class="main-nav">
+      <a href="lecture1.html" class="nav-btn">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html" class="nav-btn">🪟 Windows Forms</a>
+      <a href="../tests/index.html" class="nav-btn">📝 Тести</a>
+      <a href="../tasks/index.html" class="nav-btn">🎯 Завдання</a>
+      <button class="nav-btn menu-toggle" onclick="toggleMenu()">☰ Меню</button>
+      <button class="nav-btn theme-toggle" title="Змінити тему">☀️</button>
+    </nav>
+  </header>
+
+  <div class="lecture-container">
+    <div class="lecture-header">
+      <h1 class="lecture-title">Лекція 23: Арифметика вказівників</h1>
+      <p class="lecture-topic">Інкремент, декремент, віднімання, порівняння вказівників</p>
+      <div class="lecture-meta">
+        <span>⏱️ Тривалість: 3 години</span>
+        <span>📖 Лекція 23 з 60</span>
+      </div>
+    </div>
+
+    <div class="lecture-content">
+
+<img src="../images/lecture23.png" alt="Арифметика вказівників" class="lecture-image">
+
+<h2>23.1 Арифметичні операції з вказівниками</h2>
+<p>Арифметика вказівників дозволяє переміщуватися по масиву за допомогою інкременту/декременту вказівника.</p>
+
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int arr[] = {10, 20, 30, 40, 50};
+    int* ptr = arr;  // Вказівник на перший елемент
+
+    // Інкремент вказівника
+    std::cout &lt;&lt; *ptr &lt;&lt; std::endl;    // 10
+    ptr++;
+    std::cout &lt;&lt; *ptr &lt;&lt; std::endl;    // 20
+    ptr++;
+    std::cout &lt;&lt; *ptr &lt;&lt; std::endl;    // 30
+
+    // Додавання до вказівника
+    int* p2 = arr + 3;  // Вказівник на arr[3]
+    std::cout &lt;&lt; *p2 &lt;&lt; std::endl;    // 40
+
+    // Віднімання вказівників
+    int diff = p2 - arr;  // Кількість елементів між ними
+    std::cout &lt;&lt; "Відстань: " &lt;&lt; diff &lt;&lt; std::endl;  // 3
+
+    return 0;
+}</code></pre>
+
+<h2>23.2 Підсумки лекції</h2>
+<ul>
+  <li>ptr++ — перехід до наступного елемента</li>
+  <li>ptr + n — зсув на n елементів</li>
+  <li>ptr2 - ptr1 — кількість елементів між ними</li>
+</ul>
+
+    </div>
+
+    <div class="lecture-nav">
+      <a href="lecture22.html" class="nav-arrow prev">← Попередня лекція</a>
+      <div class="lecture-progress">Лекція 23 з 60</div>
+      <a href="lecture24.html" class="nav-arrow">Наступна лекція →</a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-text">C++ Mastery — Від початківця до експерта</p>
+    <div class="footer-links">
+      <a href="lecture1.html">💻 Лекції C++</a>
+      <a href="../winforms/lecture1.html">🪟 Windows Forms</a>
+      <a href="../tests/index.html">📝 Тести</a>
+      <a href="../tasks/index.html">🎯 Завдання</a>
+    </div>
+  </footer>
+
+  <script src="../js/theme.js"></script>
+  <script src="../js/menu.js"></script>
+</body>
+</html>
